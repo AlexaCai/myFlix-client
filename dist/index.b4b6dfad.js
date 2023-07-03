@@ -27179,7 +27179,7 @@ var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    //***''useState()'' function (imported from React) is called with an empty array ''useState([])'' at first. This assigns/initialized the current state value (empty array) to the ''movies'' variable (the ''movies'' variable being the first element in ''const [movies, setMovies] = useState([]);''). The current state value is what is initially given to useState() - here being an empty array. A method that updates the ''movies'' variable is assigned also to ''setMovies''.
+    //***'Wihtin the ''useState([])'' array are the objects of the ''movies'' variable (the ''movies'' variable being the first element in ''const [movies, setMovies] = useState([]);''). 
     const [movies, setMovies] = (0, _react.useState)([
         {
             id: 1,
@@ -27220,9 +27220,9 @@ const MainView = ()=>{
     ]);
     //***Way to identify whether there was a user click on a MovieCard or not. The ''useState(null);'' tells the app that no movie cards were clicked. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details.
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
-    //***To determine whether to render a specific part of the UI (MovieView) in the MainView component, a new state (selectedMovie) as a flag is added.
-    if (selectedMovie) return(//***When a movie is clicked on MovieView movie={selectedMovie} is activated and the movie details are shown from movie-view.jsx.
-    //***The code onBackClick={() => setSelectedMovie(null)} adds the ''onBackClick'' logic (from movie-view.jsx) in main-view.jsx (current file) that sets selectedBook back to its initial state value (null) when the button ''back'' is clicked. This make the movie-view window with more details closes and go back to the main view with the movie cards.
+    //***To determine whether to render a specific part of the UI (MovieView), a new state (selectedMovie) as a flag is added.
+    if (selectedMovie) return(//***When a movie is clicked on, ''MovieView movie={selectedMovie}'' is activated and the movie details are shown from movie-view.jsx.
+    //***The code ''onBackClick={() => setSelectedMovie(null)}'' adds the ''onBackClick'' logic (from movie-view.jsx) in main-view.jsx (current file) that sets selectedBook back to its initial state value (null) when the button ''back'' is clicked. This make the movie-view window with more details closes and bring the interface back to the main view with the movie cards.
     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
@@ -27242,11 +27242,11 @@ const MainView = ()=>{
     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: movies.map((movie)=>{
             //***''return <MovieCard ... />'' uses right here the ''MovieCard'' child component imported upper in this file.
-            //***The ''movie'' object from each iteration of the map() function (so each object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}). This kind of attribute is special (it’s how to pass data to a child component - in React, this type of attribute is referred to as props). However, its still required to extract that data WITHIN the MovieCard component in movie-card.jsx (via accessing the props argument) so these data can used there. Both operations (in this file and in movie-card.jsx) are required to make it works.
+            //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}). This kind of attribute is special (it’s how data are passed to a child component - in React, this type of attribute is referred to as props). However, it is still required to extract that data WITHIN the MovieCard component in movie-card.jsx (via accessing the props argument) so these data can used there. Both operations (in this file and in movie-card.jsx) are required to make it works.
             return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                 movie: movie,
                 //***Listening for click events in React can be done by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
-                //***Here a function as a prop called ''onMovieClick'' has been passed. It has a function with one parameter that represents the movie to be set to selectedMovie state. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx, using object destructuring.
+                //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx, using object destructuring.
                 onMovieClick: (newSelectedMovie)=>{
                     setSelectedMovie(newSelectedMovie);
                 }
@@ -27279,7 +27279,7 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$67b2.prelude(module);
 
 try {
-//***''export'' exposes the ''MovieCard'' component making it available for use by other components, modules, and files - possible to import in other files.
+//***''export'' keyword exposes the ''MovieCard'' component making it available for use by other components, modules, and files - possible to import in other files.
 //***''const MovieCard'' (and the following codes) creates the MovieCard component. The function assigned to MovieCard returns the visual representation of the component (the function renders what is displayed on the screen). Inside this function is JSX.
 //***The ''onMovieClick'' inside ({ movie, onMovieClick }) is a prop from main-view.jsx being extracted here using object destructuring.
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -27288,7 +27288,7 @@ parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 const MovieCard = ({ movie, onMovieClick })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        //***A callback function is passed to onClick, then the logic (onMovieClick(movie);) that's needed to execute once a click event is registered is added.
+        //***A callback function is passed to onClick, then the logic (onMovieClick(movie);) that needed to execute once a click event is registered is added.
         onClick: ()=>{
             onMovieClick(movie);
         },
@@ -27483,9 +27483,9 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$e9f6.prelude(module);
 
 try {
-//***''export'' exposes the ''MovieView'' component making it available for use by other components, modules, and files - possible to import in other files.
-//***''const MovieView'' (and the following codes) creates the MovieView component. The function assigned to MovieView returns the visual representation of the component (the function renders what is displayed on the screen). Each information displayed here are taken from/linked to the main-view.jsx. For exemple, to display the title of a movie, the code <span>{movie.title}</span> is used, and this code refers to each movie object (and then their title more precisely) inside the ''movies'' array present in the main-view.jsx.
-//***''onBackClick'' in ({ movie, onBackClick }) is exported here to be used in main-view.jsx, and to add there the logic to go back after clicking on a movie for more details (return to main-view and movie-cards). The code below ''<button onClick={onBackClick}>Back</button>'' calls the function prop ''onBackClick'' when the button click occurs.
+//***''export'' keyword exposes the ''MovieView'' component making it available for use by other components, modules, and files - possible to import in other files.
+//***''const MovieView'' (and the following codes) creates the MovieView component. The function assigned to MovieView returns the visual representation of the component (the function renders what is displayed on the screen). Each information displayed in this file are taken from/linked to the main-view.jsx. For exemple, to display the title of a movie, the code <span>{movie.title}</span> is used, and this code refers to each movie object (and their title more precisely) inside the ''movies'' array present in the main-view.jsx.
+//***''onBackClick'' in ({ movie, onBackClick }) is exported here to be used in main-view.jsx, and to add there the logic allowing to go back after clicking on a movie for more details (return to main-view and movie-cards). The code below ''<button onClick={onBackClick}>Back</button>'' calls the function prop ''onBackClick'' when the button click occurs.
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MovieView", ()=>MovieView);
@@ -27619,7 +27619,7 @@ const MovieView = ({ movie, onBackClick })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: "Director's bio: "
+                        children: "Director bio: "
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 31,
@@ -27641,7 +27641,7 @@ const MovieView = ({ movie, onBackClick })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: "Director's birth: "
+                        children: "Director birth: "
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 35,
@@ -27663,7 +27663,7 @@ const MovieView = ({ movie, onBackClick })=>{
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: "Director's death: "
+                        children: "Director death: "
                     }, void 0, false, {
                         fileName: "src/components/movie-view/movie-view.jsx",
                         lineNumber: 39,
