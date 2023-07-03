@@ -1,20 +1,20 @@
 import { createRoot } from 'react-dom/client';
 
-// Import statement to indicate that I need to bundle `./index.scss`
+//***Import the MainView component. Note: MainView must be enclosed in curly braces because it was exported using the ''named export'' method in the main-view.jsx file.
+import { MainView } from './components/main-view/main-view';
+
+//***Import to indicate that ./index.scss needs to be bundle.
 import "./index.scss";
 
-// Main component (will eventually use all the others)
+//***''const MyFlixApplication'' is the main component (will eventually use all the others).
 const MyFlixApplication = () => {
-  return (
-    <div className="my-flix">
-      <div>Good morning</div>
-    </div>
-  );
+//***''return <MainView />'' uses the component MainView imported upper in this file.
+ return <MainView />;
 };
 
-// Finds the root of my app
+//***Finds the root of the app.
 const container = document.querySelector("#root");
 const root = createRoot(container);
 
-// Tells React to render my app in the root DOM element
+//***Tells React to render the app in the root DOM element.
 root.render(<MyFlixApplication />);
