@@ -23,7 +23,7 @@ export const MainView = () => {
             directorBirth: "1946-12-18",
             directorDeath: "NA",
             image:
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lxM6kqilAdpdhqUl2biYp5frUxE.jpg",
+                "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/lxM6kqilAdpdhqUl2biYp5frUxE.jpg",
         },
         {
             id: 2,
@@ -36,7 +36,7 @@ export const MainView = () => {
             directorBirth: "1937-11-30",
             directorDeath: "NA",
             image:
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
+                "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
         },
         {
             id: 3,
@@ -49,7 +49,7 @@ export const MainView = () => {
             directorBirth: "1939-04-07",
             directorDeath: "NA",
             image:
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+                "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
         }
     ]);
 
