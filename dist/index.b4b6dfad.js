@@ -27166,7 +27166,7 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$f7a6.prelude(module);
 
 try {
-//***''useState'' is a special function provided by React, allowing to create and initialize a new state for a component.
+//***''useState'' is a React built-in function that allows to add state to a functional component.
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MainView", ()=>MainView);
@@ -27180,46 +27180,32 @@ var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
     //***'Wihtin the ''useState([])'' array are the objects of the ''movies'' variable (the ''movies'' variable being the first element in ''const [movies, setMovies] = useState([]);''). 
-    const [movies, setMovies] = (0, _react.useState)([
-        {
-            id: 1,
-            title: "Jaws",
-            description: "Jaws stars Roy Scheider as police chief Martin Brody, who, with the help of a marine biologist (Richard Dreyfuss) and a professional shark hunter (Robert Shaw), hunts a man-eating great white shark that attacks beachgoers at a summer resort town.",
-            genre: "Thriller",
-            genreDescription: "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience.",
-            director: "Steven Spielberg",
-            directorBio: "Steven Spielberg is an American filmmaker and a major figure of the New Hollywood era.",
-            directorBirth: "1946-12-18",
-            directorDeath: "NA",
-            image: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lxM6kqilAdpdhqUl2biYp5frUxE.jpg"
-        },
-        {
-            id: 2,
-            title: "Gladiator",
-            description: "Gladiator is a 2000 epic historical drama film.",
-            genre: "Drama",
-            genreDescription: "Drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.",
-            director: "Ridley Scott",
-            directorBio: "Ridley Scott is an English film director and producer.",
-            directorBirth: "1937-11-30",
-            directorDeath: "NA",
-            image: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg"
-        },
-        {
-            id: 3,
-            title: "The godfather",
-            description: "This movie is about the Corleone family under patriarch Vito Corleone from 1945 to 1955. It focuses on the transformation of his youngest son, Michael Corleone, from reluctant family outsider to ruthless mafia boss.",
-            genre: "Crime",
-            genreDescription: "Crime films, in the broadest sense, is a film genre inspired by and analogous to the crime fiction literary genre.",
-            director: "Francis Ford Coppola",
-            directorBio: "Francis Ford Coppola is an American film director, producer, and screenwriter. He is considered one of the major figures of the New Hollywood filmmaking movement of the 1960s and 1970s.",
-            directorBirth: "1939-04-07",
-            directorDeath: "NA",
-            image: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"
-        }
-    ]);
+    const [movies, setMovies] = (0, _react.useState)([]);
     //***Way to identify whether there was a user click on a MovieCard or not. The ''useState(null);'' tells the app that no movie cards were clicked. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details.
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    //***Used to fetch the list of movies from the ''movie_api'' (instead of keeping a hardcoded list of movies in the MainView component). 
+    (0, _react.useEffect)(()=>{
+        //***Fetch() used to make a GET request to the URL (this API endpoint retrieves JSON data containing information about movies).
+        fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies")//***.then() is chained to the fetch() call and handles the response received from the fetch() by calling response.json() to parse the response body as JSON data.
+        .then((response)=>response.json())//***.then() is chained to the previous one. It receives the parsed JSON data as (data). The data is processed here to extract relevant information from each movie.
+        .then((data)=>{
+            console.log(data);
+            const moviesFromApi = data.map((movie)=>{
+                return {
+                    id: movie._id,
+                    image: movie.ImagePath,
+                    title: movie.Title,
+                    description: movie.Description,
+                    genre: movie.Genre.Name,
+                    genreDescription: movie.Genre.Description,
+                    director: movie.Director.Name,
+                    directorBio: movie.Director.Bio,
+                    directorBirth: movie.Director.Birth
+                };
+            });
+            setMovies(moviesFromApi);
+        });
+    }, []);
     //***To determine whether to render a specific part of the UI (MovieView), a new state (selectedMovie) as a flag is added.
     if (selectedMovie) return(//***When a movie is clicked on, ''MovieView movie={selectedMovie}'' is activated and the movie details are shown from movie-view.jsx.
     //***The code ''onBackClick={() => setSelectedMovie(null)}'' adds the ''onBackClick'' logic (from movie-view.jsx) in main-view.jsx (current file) that sets selectedBook back to its initial state value (null) when the button ''back'' is clicked. This make the movie-view window with more details closes and bring the interface back to the main view with the movie cards.
@@ -27228,14 +27214,14 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 64,
+        lineNumber: 54,
         columnNumber: 13
     }, undefined));
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list of movies is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 69,
+        lineNumber: 59,
         columnNumber: 16
     }, undefined);
     return(//***The .map() method in the code below maps each element in the movies array to a piece of UI. So, after its execution, there will be one <MovieCard /> for each movie. 
@@ -27250,19 +27236,19 @@ const MainView = ()=>{
                 onMovieClick: (newSelectedMovie)=>{
                     setSelectedMovie(newSelectedMovie);
                 }
-            }, movie.id, false, {
+            }, movie._id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 78,
+                lineNumber: 68,
                 columnNumber: 24
             }, undefined);
         })
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 74,
+        lineNumber: 64,
         columnNumber: 9
     }, undefined));
 };
-_s(MainView, "cUDzUdqz+10G1mVEnBixvwe+GlY=");
+_s(MainView, "PO+XgOji7E32nFJj3H5UPLPJ7w4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27272,7 +27258,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","../movie-view/movie-view":"ggaUx"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27660,34 +27646,12 @@ const MovieView = ({ movie, onBackClick })=>{
                 lineNumber: 34,
                 columnNumber: 7
             }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: "Director death: "
-                    }, void 0, false, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 39,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                        children: movie.directorDeath
-                    }, void 0, false, {
-                        fileName: "src/components/movie-view/movie-view.jsx",
-                        lineNumber: 40,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 38,
-                columnNumber: 7
-            }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                 onClick: onBackClick,
                 children: "Back"
             }, void 0, false, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 42,
+                lineNumber: 38,
                 columnNumber: 7
             }, undefined)
         ]
