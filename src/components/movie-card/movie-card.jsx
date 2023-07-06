@@ -21,7 +21,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
 MovieCard.propTypes = {
   //***The props object must include a movie object (shape({...}) means that it’s an object).
   movie: PropTypes.shape({
-    //***Movie prop (object) must contain a title (because of the .isRequiered at the end of the field). When a field is present but doesnt have ''isRequiered'' at the end, it MAY be passed in the prop (or not).
+    //***Movie prop (object) must contain a title and an image (because of the .isRequiered at the end of each field). When a field is present but doesnt have ''isRequiered'' at the end, it MAY be passed in the prop (or not).
     image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   }).isRequired,
