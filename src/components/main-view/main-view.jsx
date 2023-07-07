@@ -1,5 +1,8 @@
-//***''useState'' is a special function provided by React, allowing to create and initialize a new state for a component.
+//***''useState'' is a React built-in function that allows to add state to a functional component.
 import { useState } from "react";
+
+//***''useEffect'' is a React built-in function that allows to perform side effects in functional components (such as fetching data).
+import { useEffect } from "react";
 
 //***Import the ''MovieCard'' child component into the current file/component ''MainView'' so that it can use it here.
 import { MovieCard } from "../movie-card/movie-card";
@@ -11,50 +14,37 @@ import { MovieView } from "../movie-view/movie-view";
 //***''const MainView'' (and the following codes) creates the MainView component. The lines after ''const MainView'' is the function assigned to MainView that returns the visual representation of the component (the function renders what is displayed on the screen). Inside this function is JSX.
 export const MainView = () => {
     //***'Wihtin the ''useState([])'' array are the objects of the ''movies'' variable (the ''movies'' variable being the first element in ''const [movies, setMovies] = useState([]);''). 
-    const [movies, setMovies] = useState([
-        {
-            id: 1,
-            title: "Jaws",
-            description: "Jaws stars Roy Scheider as police chief Martin Brody, who, with the help of a marine biologist (Richard Dreyfuss) and a professional shark hunter (Robert Shaw), hunts a man-eating great white shark that attacks beachgoers at a summer resort town.",
-            genre: "Thriller",
-            genreDescription: "Thriller film, also known as suspense film or suspense thriller, is a broad film genre that involves excitement and suspense in the audience.",
-            director: "Steven Spielberg",
-            directorBio: "Steven Spielberg is an American filmmaker and a major figure of the New Hollywood era.",
-            directorBirth: "1946-12-18",
-            directorDeath: "NA",
-            image:
-                "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/lxM6kqilAdpdhqUl2biYp5frUxE.jpg",
-        },
-        {
-            id: 2,
-            title: "Gladiator",
-            description: "Gladiator is a 2000 epic historical drama film.",
-            genre: "Drama",
-            genreDescription: "Drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.",
-            director: "Ridley Scott",
-            directorBio: "Ridley Scott is an English film director and producer.",
-            directorBirth: "1937-11-30",
-            directorDeath: "NA",
-            image:
-                "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
-        },
-        {
-            id: 3,
-            title: "The godfather",
-            description: "This movie is about the Corleone family under patriarch Vito Corleone from 1945 to 1955. It focuses on the transformation of his youngest son, Michael Corleone, from reluctant family outsider to ruthless mafia boss.",
-            genre: "Crime",
-            genreDescription: "Crime films, in the broadest sense, is a film genre inspired by and analogous to the crime fiction literary genre.",
-            director: "Francis Ford Coppola",
-            directorBio: "Francis Ford Coppola is an American film director, producer, and screenwriter. He is considered one of the major figures of the New Hollywood filmmaking movement of the 1960s and 1970s.",
-            directorBirth: "1939-04-07",
-            directorDeath: "NA",
-            image:
-                "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
-        }
-    ]);
+    const [movies, setMovies] = useState([]);
 
     //***Way to identify whether there was a user click on a MovieCard or not. The ''useState(null);'' tells the app that no movie cards were clicked. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details.
     const [selectedMovie, setSelectedMovie] = useState(null);
+
+    //***Used to fetch the list of movies from the ''movie_api'' (instead of keeping a hardcoded list of movies in the MainView component). 
+    useEffect(() => {
+        //***Fetch() used to make a GET request to the URL (this API endpoint retrieves JSON data containing information about movies).
+        fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies")
+        //***.then() is chained to the fetch() call and handles the response received from the fetch() by calling response.json() to parse the response body as JSON data.
+        .then((response) => response.json())
+        //***.then() is chained to the previous one. It receives the parsed JSON data as (data). The data is processed here to extract relevant information from each movie.
+        .then((data) => {
+            console.log(data);
+            const moviesFromApi = data.map((movie) => {
+                return {
+                  id: movie._id,
+                  image: movie.ImagePath,
+                  title: movie.Title,
+                  description: movie.Description,
+                  genre: movie.Genre.Name,
+                  genreDescription: movie.Genre.Description,
+                  director: movie.Director.Name,
+                  directorBio: movie.Director.Bio,
+                  directorBirth: movie.Director.Birth
+                };
+              });
+      
+              setMovies(moviesFromApi);
+            });
+        }, []);
 
     //***To determine whether to render a specific part of the UI (MovieView), a new state (selectedMovie) as a flag is added.
     if (selectedMovie) {
@@ -76,7 +66,7 @@ export const MainView = () => {
                 //***''return <MovieCard ... />'' uses right here the ''MovieCard'' child component imported upper in this file.
                 //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}). This kind of attribute is special (it’s how data are passed to a child component - in React, this type of attribute is referred to as props). However, it is still required to extract that data WITHIN the MovieCard component in movie-card.jsx (via accessing the props argument) so these data can used there. Both operations (in this file and in movie-card.jsx) are required to make it works.
                 return <MovieCard
-                    key={movie.id}
+                    key={movie._id}
                     movie={movie}
                     //***Listening for click events in React can be done by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
                     //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx, using object destructuring.
