@@ -18,10 +18,10 @@ export const LoginView = ({ onLoggedIn }) => {
         //***''event.preventDefault'' prevents the default behavior of the form when submitted, which is to reload the entire page (when a form is submitted in a web app, it typically triggers a page refresh. However, in many cases, especially in single-page applications built with React, its better to handle form submissions without refreshing the page or navigating away to another URL).
         event.preventDefault();
 
-        //***''const data'' is declared and assigned an object value with two properties: access and secret. The purpose of this block of code is to create a data object that will be sent in the request to log in when making a POST request to the specified fetched URL.
+        //***''const data'' is declared and assigned an object value with two properties: Username and password. The purpose of this block of code is to create a data object that will be sent in the request to log in when making a POST request to the specified fetched URL.
         const data = {
-            access: username,
-            secret: password
+            Username: username,
+            Password: password
         };
 
         //***A fetch request is made to the URL below with a POST method and the request body being the (data) object.
@@ -40,13 +40,18 @@ export const LoginView = ({ onLoggedIn }) => {
           .then((data) => {
             //***Logs the ''Login response'' message along with the data received from the server request.
             console.log("Login response: ", data);
-            //*** if data.user exists, onLoggedIn() function is called with the data.user and data.token as arguments. ''user'' and ''token'' can then be passed back to the MainView component so they can be used in all the subsequent API requests (but for this to work - important that in MainView compoenent, the token is stored as a state variable in addition to user).
+            //***if (data.user) checks if the data object received from the API response (now in JSON format) has a truthy user property or not, and then performed actions accordingly. à
             if (data.user) {
-              onLoggedIn(data.user, data.token);
-              //*** if data.user dont exists, an alert saying "No such user" is display on the user UI.
-            } else {
-              alert("No such user");
-            }
+                //***If data.user exists, it means the user object exists, so it is stored in the browser's localStorage. The localStorage is a web API that allows data to be stored in the browser's local storage area. Here, the user object is transformed to a JSON string using JSON.stringify() and then stored with the key ''user'' in the localStorage.
+                localStorage.setItem("user", JSON.stringify(data.user));
+                //***Idem to line above.
+                localStorage.setItem("token", data.token);
+                //***If data.user exists, onLoggedIn() function is called with the data.user and data.token as arguments. ''user'' and ''token'' can then be passed back to the MainView component so they can be used in all the subsequent API requests (for this to work, its important that in MainView component, the token is stored as a state variable in addition to user variable). This line is used to notify the MainView component that the user has successfully logged in. 
+                onLoggedIn(data.user, data.token);
+              } else {
+                //If data.user doesnt exist, the message ''No such user'' is displayed on the UI.
+                alert("No such user");
+              }
           })
           //***.catch() function is used to handle any errors that occur during the fetch request or any of the previous promises.
           .catch((e) => {
