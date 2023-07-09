@@ -27183,15 +27183,19 @@ var _signupView = require("../signup-view/signup-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
-    //***'Wihtin the ''useState([])'' array are the objects of the ''movies'' variable (the ''movies'' variable being the first element in ''const [movies, setMovies] = useState([]);''). 
-    const [movies, setMovies] = (0, _react.useState)([]);
-    //***Way to identify whether there was a user click on a MovieCard or not. The ''useState(null);'' tells the app that no movie cards were clicked. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details.
-    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    //***
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    //***
+    const storedToken = localStorage.getItem("token");
     //***Way to identify whether a user has logged in or not. The ''useState(null);'' tells the app that user is not logged in at first. However, if a user were to log in, the app would renders the normal view with all the movie info (MainView with MovieCard in it, and MovieView once a MovieCard is being clicked on).
     const [user, setUser] = (0, _react.useState)(null);
     //***This line declares a state variable token using the useState hook (it initializes the token with a value of null). The setToken function allows you to update the value of the token state variable.
     const [token, setToken] = (0, _react.useState)(null);
-    //***Used to fetch the list of movies from the ''movie_api'' (instead of keeping a hardcoded list of movies in the MainView component). 
+    //***'Wihtin the ''useState([])'' array are the objects of the ''movies'' variable (the ''movies'' variable being the first element in ''const [movies, setMovies] = useState([]);''). 
+    const [movies, setMovies] = (0, _react.useState)([]);
+    //***Way to identify whether there was a user click on a MovieCard or not. The ''useState(null);'' tells the app that no movie cards were clicked. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details.
+    const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
+    //***Used to fetch the list of movies from the ''movie_api'' and processes the response to extract relevant information. It runs only once, because of the empty dependency array [], indicating that there are no dependencies for this effect.
     (0, _react.useEffect)(()=>{
         //***Fetch() used to make a GET request to the URL (this API endpoint retrieves JSON data containing information about movies).
         fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies")//***.then() is chained to the fetch() call and handles the response received from the fetch() by calling response.json() to parse the response body as JSON data.
@@ -27214,6 +27218,23 @@ const MainView = ()=>{
             setMovies(moviesFromApi);
         });
     }, []);
+    //***This useEffect fetches movies from the API /movies endpoint when the token state changes (so when its not null anymore, meaning a request have been sent with an valid token, authorizing the server to give back the response).
+    (0, _react.useEffect)(()=>{
+        if (!token) //***If the token is ''null'' (no token), the function does not execute the API call. This ensure that the API call is only made when a valid token is present
+        return;
+        //***If the token other than ''null'', the code makes a fetch request to the specified URL "https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies" and includes the Authorization header with the Bearer token to authenticate the request.
+        fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })//***Once the response is received, the code parses the response body as JSON using the response.json() method.
+        .then((response)=>response.json())//***Response receive is transformed to (data), which is then console logged.
+        .then((data)=>{
+            console.log(data);
+        });
+    }, [
+        token
+    ]);
     //***If the user is not logged in (!user) (so if the user state is still at ''null'' like defined as his initial value in the ''const [user, setUser] = useState(null);'' upper), the component ''LoginView'' showning the form to log in (username and password) is shown on the UI, allowing the user to log in. If the user is logged in, this component ''LoginView'' won't show up on the UI (because ''user'' still won't be null), so this component will be ignored and the rest of the movie information will be shown instead (MainView, MovieCard, MovieView).
     if (!user) //***By passing the ''onLoggedIn'' prop with the callback function ''(user, token) => => {setUser (user); setToken(token); }}'' to the ''LoginView'' component, ''MainView'' component establishes a communication channel to receive the logged-in user data from LoginView component (by calling the setUser and setToken function , the const [user, setUser] = useState(null) and const [token, setToken] = useState(null) state variables in the MainView component are updated with the logged-in user data). This enables the login process within the ''LoginView'' component to update the user and token state variables in the MainView component (current file), providing access to all the logged-in user's movie data.
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -27225,72 +27246,94 @@ const MainView = ()=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 66,
-                columnNumber: 13
+                lineNumber: 91,
+                columnNumber: 17
             }, undefined),
             "or",
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 73,
-                columnNumber: 13
+                lineNumber: 98,
+                columnNumber: 17
             }, undefined)
         ]
     }, void 0, true);
-    (0, _react.useEffect)(()=>{
-        if (!token) return;
-        fetch("https://myflixmoviedb.herokuapp.com/movies", {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        }).then((response)=>response.json()).then((data)=>{
-            console.log(data);
-        });
-    }, [
-        token
-    ]);
-    //***To determine whether to render a specific part of the UI (MovieView), a new state (selectedMovie) as a flag is added.
-    if (selectedMovie) return(//***When a movie is clicked on, ''MovieView movie={selectedMovie}'' is activated and the movie details are shown from movie-view.jsx.
-    //***The code ''onBackClick={() => setSelectedMovie(null)}'' adds the ''onBackClick'' logic (from movie-view.jsx) in main-view.jsx (current file) that sets selectedBook back to its initial state value (null) when the button ''back'' is clicked. This make the movie-view window with more details closes and bring the interface back to the main view with the movie cards.
-    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-        movie: selectedMovie,
-        onBackClick: ()=>setSelectedMovie(null)
-    }, void 0, false, {
-        fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 97,
-        columnNumber: 13
-    }, undefined));
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list of movies is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 102,
+        lineNumber: 104,
         columnNumber: 16
     }, undefined);
-    return(//***The .map() method in the code below maps each element in the movies array to a piece of UI. So, after its execution, there will be one <MovieCard /> for each movie. 
-    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: movies.map((movie)=>{
-            //***''return <MovieCard ... />'' uses right here the ''MovieCard'' child component imported upper in this file.
-            //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}). This kind of attribute is special (it’s how data are passed to a child component - in React, this type of attribute is referred to as props). However, it is still required to extract that data WITHIN the MovieCard component in movie-card.jsx (via accessing the props argument) so these data can used there. Both operations (in this file and in movie-card.jsx) are required to make it works.
-            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                movie: movie,
-                //***Listening for click events in React can be done by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
-                //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx, using object destructuring.
-                onMovieClick: (newSelectedMovie)=>{
-                    setSelectedMovie(newSelectedMovie);
-                }
-            }, movie._id, false, {
+    //***To determine whether to render a specific part of the UI (MovieView), a new state (selectedMovie) as a flag is added.
+    if (selectedMovie) return(//***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
+    //***When a movie is clicked on, ''MovieView movie={selectedMovie}'' is activated and the movie details are shown from movie-view.jsx.
+    //***The code ''onBackClick={() => setSelectedMovie(null)}'' adds the ''onBackClick'' logic (from movie-view.jsx) in main-view.jsx (current file) that sets selectedBook back to its initial state value (null) when the button ''back'' is clicked. This make the movie-view window with more details closes and bring the interface back to the main view with the movie cards.
+    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+                movie: selectedMovie,
+                onBackClick: ()=>setSelectedMovie(null)
+            }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 111,
-                columnNumber: 24
-            }, undefined);
-        })
-    }, void 0, false, {
-        fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 107,
-        columnNumber: 9
-    }, undefined));
+                lineNumber: 114,
+                columnNumber: 17
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>{
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                },
+                children: "Logout"
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 115,
+                columnNumber: 17
+            }, undefined)
+        ]
+    }, void 0, true));
+    return(//***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
+    //***The .map() method in the code below maps each element in the movies array to a piece of UI. So, after its execution, there will be one <MovieCard /> for each movie. 
+    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: movies.map((movie)=>{
+                    //***''return <MovieCard ... />'' uses right here the ''MovieCard'' child component imported upper in this file.
+                    //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}). This kind of attribute is special (it’s how data are passed to a child component - in React, this type of attribute is referred to as props). However, it is still required to extract that data WITHIN the MovieCard component in movie-card.jsx (via accessing the props argument) so these data can used there. Both operations (in this file and in movie-card.jsx) are required to make it works.
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                        movie: movie,
+                        //***Listening for click events in React can be done by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
+                        //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx, using object destructuring.
+                        onMovieClick: (newSelectedMovie)=>{
+                            setSelectedMovie(newSelectedMovie);
+                        }
+                    }, movie._id, false, {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 136,
+                        columnNumber: 28
+                    }, undefined);
+                })
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 132,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>{
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                },
+                children: "Logout"
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 147,
+                columnNumber: 13
+            }, undefined)
+        ]
+    }, void 0, true));
 };
-_s(MainView, "Ntl+fchSg7oKcWJ3RZoj8B9Pvho=");
+_s(MainView, "NAvwIhqtRQbZ7xvjrNbRyWNk8Zg=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -28522,10 +28565,10 @@ const LoginView = ({ onLoggedIn })=>{
     const handleSubmit = (event)=>{
         //***''event.preventDefault'' prevents the default behavior of the form when submitted, which is to reload the entire page (when a form is submitted in a web app, it typically triggers a page refresh. However, in many cases, especially in single-page applications built with React, its better to handle form submissions without refreshing the page or navigating away to another URL).
         event.preventDefault();
-        //***''const data'' is declared and assigned an object value with two properties: access and secret. The purpose of this block of code is to create a data object that will be sent in the request to log in when making a POST request to the specified fetched URL.
+        //***''const data'' is declared and assigned an object value with two properties: Username and password. The purpose of this block of code is to create a data object that will be sent in the request to log in when making a POST request to the specified fetched URL.
         const data = {
-            access: username,
-            secret: password
+            Username: username,
+            Password: password
         };
         //***A fetch request is made to the URL below with a POST method and the request body being the (data) object.
         fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/login", {
@@ -28541,9 +28584,16 @@ const LoginView = ({ onLoggedIn })=>{
         .then((data)=>{
             //***Logs the ''Login response'' message along with the data received from the server request.
             console.log("Login response: ", data);
-            //*** if data.user exists, onLoggedIn() function is called with the data.user and data.token as arguments. ''user'' and ''token'' can then be passed back to the MainView component so they can be used in all the subsequent API requests (but for this to work - important that in MainView compoenent, the token is stored as a state variable in addition to user).
-            if (data.user) onLoggedIn(data.user, data.token);
-            else alert("No such user");
+            //***if (data.user) checks if the data object received from the API response (now in JSON format) has a truthy user property or not, and then performed actions accordingly. à
+            if (data.user) {
+                //***If data.user exists, it means the user object exists, so it is stored in the browser's localStorage. The localStorage is a web API that allows data to be stored in the browser's local storage area. Here, the user object is transformed to a JSON string using JSON.stringify() and then stored with the key ''user'' in the localStorage.
+                localStorage.setItem("user", JSON.stringify(data.user));
+                //***Idem to line above.
+                localStorage.setItem("token", data.token);
+                //***If data.user exists, onLoggedIn() function is called with the data.user and data.token as arguments. ''user'' and ''token'' can then be passed back to the MainView component so they can be used in all the subsequent API requests (for this to work, its important that in MainView component, the token is stored as a state variable in addition to user variable). This line is used to notify the MainView component that the user has successfully logged in. 
+                onLoggedIn(data.user, data.token);
+            } else //If data.user doesnt exist, the message ''No such user'' is displayed on the UI.
+            alert("No such user");
         })//***.catch() function is used to handle any errors that occur during the fetch request or any of the previous promises.
         .catch((e)=>{
             alert("Something went wrong");
@@ -28568,13 +28618,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 63,
+                        lineNumber: 68,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 61,
+                lineNumber: 66,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28591,13 +28641,13 @@ const LoginView = ({ onLoggedIn })=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 76,
+                        lineNumber: 81,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 74,
+                lineNumber: 79,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28605,13 +28655,13 @@ const LoginView = ({ onLoggedIn })=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 87,
+                lineNumber: 92,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 60,
+        lineNumber: 65,
         columnNumber: 9
     }, undefined));
 };
