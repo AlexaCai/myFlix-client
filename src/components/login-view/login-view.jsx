@@ -25,18 +25,32 @@ export const LoginView = ({ onLoggedIn }) => {
         };
 
         //***A fetch request is made to the URL below with a POST method and the request body being the (data) object.
-        fetch("https://openlibrary.org/account/login.json", {
+        fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/login", {
             method: "POST",
+            //***headers property is an object that sets the request headers (here its sets the ''Content-Type'' header to ''application/json'', indicating that the data being sent in the request body is in JSON format).
+            headers: {
+                "Content-Type": "application/json"
+              },
+            //***body property contains the (data) that will be sent with the request. It uses the JSON.stringify() to convert the data object to a JSON string before sending it in the request body.
             body: JSON.stringify(data)
-          }).then((response) => {
-            //***The response from the request is checked using the ''ok'' property.
-            if (response.ok) {
-            //***If the response is successful, the ''onLoggedIn'' callback function is called with the username as an argument (and this callback is responsible for updating the user state variable in the MainView component, allowing to, accordingly, display all movies information).
-              onLoggedIn(username);
+          })      
+          //***.then() is a promise chained to the fetch request. It takes the response object returned by the server and calls the .json() method on it to transform the response content into a JSON object that can be used to extract the JWT (JSON Web Token) sent by the movie API.
+          .then((response) => response.json())
+          //***.then () is a promise that is chained to the previous .then(). It takes the parsed JSON data as an argument (data) and performs actions below on it.
+          .then((data) => {
+            //***Logs the ''Login response'' message along with the data received from the server request.
+            console.log("Login response: ", data);
+            //*** if data.user exists, onLoggedIn() function is called with the data.user and data.token as arguments. ''user'' and ''token'' can then be passed back to the MainView component so they can be used in all the subsequent API requests (but for this to work - important that in MainView compoenent, the token is stored as a state variable in addition to user).
+            if (data.user) {
+              onLoggedIn(data.user, data.token);
+              //*** if data.user dont exists, an alert saying "No such user" is display on the user UI.
             } else {
-            //***If the response is not successful, an alert is displayed with the message ''Login failed''.
-              alert("Login failed");
+              alert("No such user");
             }
+          })
+          //***.catch() function is used to handle any errors that occur during the fetch request or any of the previous promises.
+          .catch((e) => {
+            alert("Something went wrong");
           });
         };
 
