@@ -53,6 +53,8 @@ export const LoginView = ({ onLoggedIn }) => {
                     value={username}
                     //***The onChange event handler updates the username state variable with the new value (username) entered in the input field by the user (with ''e.target.value''). So, initially, the username input field is empty because the value attribute is set to an empty string. As the user types in the input field, the onChange event handler will update the username state variable, and consequently, the username state variable will no longer be an empty string, but will hold the current username value entered in the input field.
                     onChange={(e) => setUsername(e.target.value)}
+                    //***Make sure a value in the username field of the form is required as an input from the user, otherwise UI will throws a ''Please fill out this field'' message.
+                    required
                 />
             </label>
             <label>
@@ -64,6 +66,8 @@ export const LoginView = ({ onLoggedIn }) => {
                     value={password}
                     //***The onChange event handler updates the password state variable with the new value (password) entered in the input field by the user (with ''e.target.value''). So, initially, the password input field is empty because the value attribute is set to an empty string. As the user types in the input field, the onChange event handler will update the password state variable, and consequently, the password state variable will no longer be an empty string, but will hold the current password value entered in the input field.
                     onChange={(e) => setPassword(e.target.value)}
+                    //***Make sure a value in the password field of the form is required as an input from the user, otherwise will UI throws a ''Please fill out this field'' message.
+                    required
                 />
             </label>
             <button type="submit">
