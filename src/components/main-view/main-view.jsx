@@ -10,6 +10,9 @@ import { MovieCard } from "../movie-card/movie-card";
 //***Import the ''MovieView'' child component into the current file/component ''MainView'' so that it can use it here.
 import { MovieView } from "../movie-view/movie-view";
 
+//***Import the ''LoginView'' child component into the current file/component ''MainView'' so that it can use it here.
+import { LoginView } from "../login-view/login-view";
+
 //***''export'' keyword exposes the ''MainView'' component making it available for use by other components, modules, and files - possible to import in other files.
 //***''const MainView'' (and the following codes) creates the MainView component. The lines after ''const MainView'' is the function assigned to MainView that returns the visual representation of the component (the function renders what is displayed on the screen). Inside this function is JSX.
 export const MainView = () => {
@@ -18,6 +21,9 @@ export const MainView = () => {
 
     //***Way to identify whether there was a user click on a MovieCard or not. The ''useState(null);'' tells the app that no movie cards were clicked. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details.
     const [selectedMovie, setSelectedMovie] = useState(null);
+
+    //***Way to identify whether a user has logged in or not. The ''useState(null);'' tells the app that user is not logged in at first. However, if a user were to log in, the app would renders the normal view with all the movie info (MainView with MovieCard in it, and MovieView once a MovieCard is being clicked on).
+    const [user, setUser] = useState(null);
 
     //***Used to fetch the list of movies from the ''movie_api'' (instead of keeping a hardcoded list of movies in the MainView component). 
     useEffect(() => {
@@ -45,6 +51,12 @@ export const MainView = () => {
               setMovies(moviesFromApi);
             });
         }, []);
+
+    //***If the user is not logged in (!user) (so if the user state is still at ''null'' like defined as his initial value in the ''const [user, setUser] = useState(null);'' upper), the component ''LoginView'' showning the form to log in (username and password) is shown on the UI, allowing the user to log in. If the user is logged in, this component ''LoginView'' won't show up on the UI (because ''user'' still won't be null), so this component will be ignored and the rest of the movie information will be shown instead (MainView, MovieCard, MovieView).
+     if (!user) {
+        //***By passing the ''onLoggedIn'' prop with the callback function ''(user) => setUser(user)'' to the ''LoginView'' component, ''MainView'' component establishes a communication channel to receive the logged-in user data from LoginView (by calling the setUser function with the user parameter inside the callback function, the user state variable in the MainView component is updated with the logged-in user data). This enables the login process within the ''LoginView'' component to update the user state variable in the MainView component (current file), providing access to all the logged-in user's movie data.
+        return <LoginView onLoggedIn={(user) => setUser(user)} />;
+    }
 
     //***To determine whether to render a specific part of the UI (MovieView), a new state (selectedMovie) as a flag is added.
     if (selectedMovie) {
