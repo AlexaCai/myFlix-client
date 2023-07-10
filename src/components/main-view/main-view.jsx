@@ -38,49 +38,34 @@ export const MainView = () => {
     //***Way to identify whether there was a user click on a MovieCard or not. The ''useState(null);'' tells the app that no movie cards were clicked. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details.
     const [selectedMovie, setSelectedMovie] = useState(null);
 
-    //***Used to fetch the list of movies from the ''movie_api'' and processes the response to extract relevant information. It runs only once, because of the empty dependency array [], indicating that there are no dependencies for this effect.
-    useEffect(() => {
-        //***Fetch() used to make a GET request to the URL (this API endpoint retrieves JSON data containing information about movies).
-        fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies")
-            //***.then() is chained to the fetch() call and handles the response received from the fetch() by calling response.json() to parse the response body as JSON data.
-            .then((response) => response.json())
-            //***.then() is chained to the previous one. It receives the parsed JSON data as (data). The data is processed here to extract relevant information from each movie.
-            .then((data) => {
-                console.log(data);
-                const moviesFromApi = data.map((movie) => {
-                    return {
-                        id: movie._id,
-                        image: movie.ImagePath,
-                        title: movie.Title,
-                        description: movie.Description,
-                        genre: movie.Genre.Name,
-                        genreDescription: movie.Genre.Description,
-                        director: movie.Director.Name,
-                        directorBio: movie.Director.Bio,
-                        directorBirth: movie.Director.Birth
-                    };
-                });
-                setMovies(moviesFromApi);
-            });
-    }, []);
-
     //***This useEffect fetches movies from the API /movies endpoint when the token state changes (so when its not null anymore, meaning a request have been sent with an valid token, authorizing the server to give back the response).
     useEffect(() => {
-
         if (!token)
             //***If the token is ''null'' (no token), the function does not execute the API call. This ensure that the API call is only made when a valid token is present
             return;
-
         //***If the token other than ''null'', the code makes a fetch request to the specified URL "https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies" and includes the Authorization header with the Bearer token to authenticate the request.
         fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies", {
             headers: { Authorization: `Bearer ${token}` }
         })
-            //***Once the response is received, the code parses the response body as JSON using the response.json() method.
-            .then((response) => response.json())
-            //***Response receive is transformed to (data), which is then console logged.
-            .then((data) => {
-                console.log(data);
+        .then((response) => response.json())
+        //***.then() is chained to the previous one. It receives the parsed JSON data as (data). The data is processed here to extract relevant information from each movie.
+        .then((data) => {
+            console.log(data);
+            const moviesFromApi = data.map((movie) => {
+                return {
+                    id: movie._id,
+                    image: movie.ImagePath,
+                    title: movie.Title,
+                    description: movie.Description,
+                    genre: movie.Genre.Name,
+                    genreDescription: movie.Genre.Description,
+                    director: movie.Director.Name,
+                    directorBio: movie.Director.Bio,
+                    directorBirth: movie.Director.Birth
+                };
             });
+            setMovies(moviesFromApi);
+        });
     }, [token]);
 
     //***If the user is not logged in (!user) (so if the user state is still at ''null'' like defined as his initial value in the ''const [user, setUser] = useState(null);'' upper), the component ''LoginView'' showning the form to log in (username and password) is shown on the UI, allowing the user to log in. If the user is logged in, this component ''LoginView'' won't show up on the UI (because ''user'' still won't be null), so this component will be ignored and the rest of the movie information will be shown instead (MainView, MovieCard, MovieView).
