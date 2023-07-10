@@ -37,8 +37,10 @@ export const SignupView = () => {
                     alert("Signup successful");
                     window.location.reload();
                 }
-                //***If the response is negative, indicating a failed registration, an alert message is displayed saying "Signup failed".
-                else {
+                else if (response.status === 409) {
+                    alert("Username already exists");
+                    //***If the response is negative, indicating a failed registration, an alert message is displayed saying "Signup failed".
+                } else {
                     alert("Signup failed");
                 }
             });

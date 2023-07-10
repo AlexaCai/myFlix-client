@@ -28719,7 +28719,8 @@ const SignupView = ()=>{
             if (response.ok) {
                 alert("Signup successful");
                 window.location.reload();
-            } else alert("Signup failed");
+            } else if (response.status === 409) alert("Username already exists");
+            else alert("Signup failed");
         });
     };
     return(//***Form shown on the UI with the different field to complete when signing up.
@@ -28746,13 +28747,13 @@ const SignupView = ()=>{
                         title: "Username must consist of alphanumeric characters"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 53,
+                        lineNumber: 55,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 51,
+                lineNumber: 53,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28766,13 +28767,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 71,
+                        lineNumber: 73,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 69,
+                lineNumber: 71,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28793,13 +28794,13 @@ const SignupView = ()=>{
                         title: "Please enter a valid email address"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 81,
+                        lineNumber: 83,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 79,
+                lineNumber: 81,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28812,13 +28813,13 @@ const SignupView = ()=>{
                         onChange: (e)=>setBirthday(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 98,
+                        lineNumber: 100,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 96,
+                lineNumber: 98,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28826,13 +28827,13 @@ const SignupView = ()=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 105,
+                lineNumber: 107,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/signup-view/signup-view.jsx",
-        lineNumber: 50,
+        lineNumber: 52,
         columnNumber: 9
     }, undefined));
 };
