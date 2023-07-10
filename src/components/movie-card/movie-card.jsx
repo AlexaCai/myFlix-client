@@ -8,6 +8,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
   return (
     <div
       //***A callback function is passed to onClick, then the logic (onMovieClick(movie);) that needed to execute once a click event is registered is added.
+      //***<img src={movie.image} and {movie.title} specify what will be rendered on the UI for the MovieCard component (in this case, the image of eacch movie as well as their title).
       onClick={() => {
         onMovieClick(movie);
       }}

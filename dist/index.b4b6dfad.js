@@ -27359,6 +27359,7 @@ var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 const MovieCard = ({ movie, onMovieClick })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         //***A callback function is passed to onClick, then the logic (onMovieClick(movie);) that needed to execute once a click event is registered is added.
+        //***<img src={movie.image} and {movie.title} specify what will be rendered on the UI for the MovieCard component (in this case, the image of eacch movie as well as their title).
         onClick: ()=>{
             onMovieClick(movie);
         },
@@ -27367,7 +27368,7 @@ const MovieCard = ({ movie, onMovieClick })=>{
                 src: movie.image
             }, void 0, false, {
                 fileName: "src/components/movie-card/movie-card.jsx",
-                lineNumber: 15,
+                lineNumber: 16,
                 columnNumber: 7
             }, undefined),
             movie.title
@@ -28513,11 +28514,11 @@ const MovieView = ({ movie, onBackClick })=>{
     }, undefined);
 };
 _c = MovieView;
-//***Definition of all the props constraints for the MovieCard. The following block of code set the static PropTypes property on MovieCard to an object that contains special values provided as utilities by prop-types. These values help specify what the MovieCard props should look like.
+//***Definition of all the props constraints for the MovieView. The following block of code set the static PropTypes property on MovieView to an object that contains special values provided as utilities by prop-types. These values help specify what the MovieView props should look like.
 MovieView.propTypes = {
     //***The props object must include a movie object (shape({...}) means that it’s an object).
     movie: (0, _propTypesDefault.default).shape({
-        //***Movie prop (object) must contain a title and an image (because of the .isRequiered at the end of each field). When a field is present but doesnt have ''isRequiered'' at the end, it MAY be passed in the prop (or not).
+        //***Movie prop (object) must contain a title, an image and more (because of the .isRequiered at the end of each field). When a field is present but doesnt have ''isRequiered'' at the end, it MAY be passed in the prop (or not).
         image: (0, _propTypesDefault.default).string.isRequired,
         title: (0, _propTypesDefault.default).string.isRequired,
         description: (0, _propTypesDefault.default).string.isRequired,
@@ -28527,7 +28528,7 @@ MovieView.propTypes = {
         directorBio: (0, _propTypesDefault.default).string.isRequired,
         directorBirth: (0, _propTypesDefault.default).string.isRequired
     }).isRequired,
-    //***The props object must contain onMovieClick and it must be a function (this onMovieClick function is present in the main-view.jsx where the MovieCard is return).
+    //***The props object must contain onBackClick and it must be a function (this onBackClick function is present in the main-view.jsx where the MovieView is return).
     onBackClick: (0, _propTypesDefault.default).func.isRequired
 };
 var _c;
