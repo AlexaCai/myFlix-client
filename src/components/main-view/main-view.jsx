@@ -129,7 +129,9 @@ export const MainView = () => {
                     //***''return <MovieCard ... />'' uses the ''MovieCard'' child component imported upper in this file.
                     //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}) (movies data are passed to the MovieCard component as props).
                     return <MovieCard
+                        //***The key serves as a unique identifier for each item in a list of components (here, each movie of the .map() array). When rendering a list of components dynamically using map, React uses the key prop to efficiently rendered and updated process for lists of components.
                         key={movie._id}
+                        //***''movie'' is the name of the prop being passed to the MovieCard component, while {movie} is the data being passed to the MovieCard component. It's the movie object that is received from the .map() function. Each MovieCard component receive a different movie object, representing a specific movie from the movies array.
                         movie={movie}
                         //***Listening for click events by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
                         //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. When a movie card is clicked, the selectedMovie value is updated with the movie clicked on, using seSelectedMovie. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx.
