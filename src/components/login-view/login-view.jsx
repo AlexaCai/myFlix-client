@@ -89,7 +89,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 />
             </label>
             <button type="submit">
-                Submit
+                Log in
             </button>
         </form>
     );
