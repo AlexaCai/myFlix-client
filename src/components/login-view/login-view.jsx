@@ -64,7 +64,8 @@ export const LoginView = ({ onLoggedIn }) => {
             });
     };
 
-    //***''return'' indicates the elements that will be returned as the output of the LoginView component. These returned elements are designed using React Bootstrap.
+    //***''return'' indicates the elements that will be returned as the output of the LoginView component. 
+    //***These returned elements are designed using React Bootstrap.
     return (
         //***When the form is submitted, the ''handleSubmit'' function is call from the ''onSubmit'' form event. This callback tells the login API to validate username and password sent on the POST request, as definied upper in this file (const handleSubmit = (event) => {...})
         <Form onSubmit={handleSubmit}>
