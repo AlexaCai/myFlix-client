@@ -77,6 +77,9 @@ export const SignupView = () => {
                     //***Descriptive error message when the pattern on alphanumerical character is not matched.
                     title="Username must consist of alphanumeric characters"
                 />
+                <Form.Text id="usernameCreation" muted>
+                    Username must be at least 5 characters long and contain only alphanumerical characters.
+                </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formPassword">
@@ -88,6 +91,9 @@ export const SignupView = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
+                <Form.Text id="usernameCreation" muted>
+                    Password can contain alphanumeric and non-alphanumeric characters.
+                </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formEmail">
@@ -106,6 +112,9 @@ export const SignupView = () => {
                     pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                     title="Please enter a valid email address"
                 />
+                <Form.Text id="usernameCreation" muted>
+                    Email must be in the following format : abc@domain.abc.
+                </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formBirthday">
@@ -116,6 +125,9 @@ export const SignupView = () => {
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
                 />
+                <Form.Text id="usernameCreation" muted>
+                    Birthday is optional.
+                </Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">
                 Log in
