@@ -2956,11 +2956,21 @@ var _indexScss = require("./index.scss");
 //***''const MyFlixApplication'' is the main component (will eventually use all the others).
 const MyFlixApplication = ()=>{
     //***''return <MainView />'' uses the component MainView imported upper in this file.
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
+    return(//***<Container> is a Bootstrap component. It is added here and it wraps up <MainView /> to allow the MainView component having a responsive grid with other Bootstrap features such as Col and Row. It is necessary to wrap the whole app within a <Container></Container> to used other Bootstrap grid features. Also important to import the ''Container'' Bootstrap component into the current file at the top of the file (which is done above).
+    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _containerDefault.default), {
+        style: {
+            border: "1px solid red"
+        },
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainView.MainView), {}, void 0, false, {
+            fileName: "src/index.jsx",
+            lineNumber: 21,
+            columnNumber: 7
+        }, undefined)
+    }, void 0, false, {
         fileName: "src/index.jsx",
-        lineNumber: 18,
-        columnNumber: 9
-    }, undefined);
+        lineNumber: 20,
+        columnNumber: 5
+    }, undefined));
 };
 _c = MyFlixApplication;
 //***Finds the root of the app.
@@ -2969,7 +2979,7 @@ const root = (0, _client.createRoot)(container);
 //***Tells React to render the app in the root DOM element.
 root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(MyFlixApplication, {}, void 0, false, {
     fileName: "src/index.jsx",
-    lineNumber: 26,
+    lineNumber: 31,
     columnNumber: 13
 }, undefined));
 var _c;
