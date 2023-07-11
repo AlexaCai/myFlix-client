@@ -1,5 +1,14 @@
 //***Import React module and allows to use React's functionalities and components.
+import React from "react";
+
+//***''useState'' is a React built-in function that allows to add state to a functional component.
 import { useState } from "react";
+
+//***Import the Button Bootstrap components for login form UI design
+import Button from "react-bootstrap/Button";
+
+//***Import the Form Bootstrap components for login form UI design
+import Form from "react-bootstrap/Form";
 
 //***''const SignupView'' (and the following codes) creates the SignupView component. The function assigned to SignupView returns the visual representation of the component (the function renders what is displayed on the screen).
 export const SignupView = () => {
@@ -46,13 +55,14 @@ export const SignupView = () => {
             });
     };
 
+    //***''return'' indicates the elements that will be returned as the output of the SignupView component. 
+    //***These returned elements are designed using React Bootstrap.
     return (
-        //***Form shown on the UI with the different field to complete when signing up.
-        //***onSubmit={handleSubmit} is used to associate the handleSubmit function upper with the form submission event. When a form is submitted, the handleSubmit function is executed, which performs the necessary logic (as definied in the ''const handleSubmit = (event) => {'' block of code above) for handling the form submission, such as preparing the data and making the POST request to the server.
-        <form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input
+        //***When the form is submitted, the ''handleSubmit'' function is call from the ''onSubmit'' form event. When a form is submitted, the handleSubmit function is executed, which performs the necessary logic (as definied in the ''const handleSubmit = (event) => {'' block of code above) for handling the form submission, such as preparing the data and making the POST request to the server.
+        <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formUsername">
+                <Form.Label>Username:</Form.Label>
+                <Form.Control
                     type="text"
                     //***''value={username}'' binds the first value of the input field to the username state variable (which is empty at first as defined in const [username, setUsername] = useState("");).
                     value={username}
@@ -67,20 +77,22 @@ export const SignupView = () => {
                     //***Descriptive error message when the pattern on alphanumerical character is not matched.
                     title="Username must consist of alphanumeric characters"
                 />
-            </label>
-            <label>
-                Password:
-                <input
+            </Form.Group>
+
+            <Form.Group controlId="formPassword">
+                <Form.Label>Password:</Form.Label>
+                <Form.Control
                     //***Same logic as or Username field above.
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-            </label>
-            <label>
-                Email:
-                <input
+            </Form.Group>
+
+            <Form.Group controlId="formEmail">
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
                     //***Same logic as or Username field above.
                     type="email"
                     value={email}
@@ -94,17 +106,20 @@ export const SignupView = () => {
                     pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                     title="Please enter a valid email address"
                 />
-            </label>
-            <label>
-                Birthday:
-                <input
+            </Form.Group>
+
+            <Form.Group controlId="formBirthday">
+                <Form.Label>Birthday:</Form.Label>
+                <Form.Control
                     //***Same logic as or Username field above.
                     type="date"
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
                 />
-            </label>
-            <button type="submit">Sign up</button>
-        </form>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+                Log in
+            </Button>
+        </Form>
     );
 };
