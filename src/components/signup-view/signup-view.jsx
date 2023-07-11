@@ -4,10 +4,10 @@ import React from "react";
 //***''useState'' is a React built-in function that allows to add state to a functional component.
 import { useState } from "react";
 
-//***Import the Button Bootstrap components for login form UI design
+//***Import the Button Bootstrap component for signup form UI design.
 import Button from "react-bootstrap/Button";
 
-//***Import the Form Bootstrap components for login form UI design
+//***Import the Form Bootstrap component for signup form UI design.
 import Form from "react-bootstrap/Form";
 
 //***''const SignupView'' (and the following codes) creates the SignupView component. The function assigned to SignupView returns the visual representation of the component (the function renders what is displayed on the screen).
