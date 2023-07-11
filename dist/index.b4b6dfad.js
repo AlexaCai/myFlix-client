@@ -27196,6 +27196,9 @@ var _movieView = require("../movie-view/movie-view");
 var _loginView = require("../login-view/login-view");
 //***Import the ''SignupView'' child component into the current file/component ''MainView'' so that it can use it here.
 var _signupView = require("../signup-view/signup-view");
+//***Import the Row Bootstrap component for Bootstrap grid UI design.
+var _row = require("react-bootstrap/Row");
+var _rowDefault = parcelHelpers.interopDefault(_row);
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
@@ -27248,105 +27251,122 @@ const MainView = ()=>{
     }, [
         token
     ]);
-    //***If the user is not logged in (!user) (so if the user state is still at ''null'' like defined as his initial value in the ''const [user, setUser] = useState(null);'' upper), the components ''LoginView'' and ''SignupView'' will be used, showning the forms to log in and to sign up on the UI, allowing the user to log in or sign up. If the user is logged in, this component ''LoginView'' and ''SignupView'' won't show up on the UI (because ''user'' variable won't be null anymore), so these two components will be ignored and the rest of the movie information will be shown instead (MainView, MovieCard, MovieView).
-    if (!user) //***By passing the ''onLoggedIn'' prop with the callback function ''(user, token) => => {setUser (user); setToken(token); }}'' to the ''LoginView'' component, ''MainView'' component establishes a communication channel to receive the logged-in user data from ''LoginView'. This enables the login process within the ''LoginView'' component to update the user and token state variables in the MainView component (current file) (so making them not ''null'' anymore), thus providing access to all the logged-in user's movie data.
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-                onLoggedIn: (user, token)=>{
-                    setUser(user);
-                    setToken(token);
-                }
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 85,
-                columnNumber: 17
-            }, undefined),
-            "or",
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 92,
-                columnNumber: 17
-            }, undefined)
-        ]
-    }, void 0, true);
-    //***Message returned if there's no data/movies received from the fetch() to the API.
-    if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: "The list of movies is empty!"
+    //***These returned elements are designed using React Bootstrap. The MainView component only has one return statement that has a ''Row'' as the root element. The nested elements are conditionally rendered using the ternary operator ?:. 
+    //***conditional (ternary) operator takes three operands: a condition followed by a question mark (?), then an expression to execute if the condition is truthy followed by a colon (:), and finally the expression to execute if the condition is falsy. This operator is frequently used as an alternative to an if...else statement. Format = condition ? exprIfTrue : exprIfFalse.
+    //***The following ''return'' is using conditional rendering to determine which content should be displayed on the user UI based on different conditions. 
+    return(//***<Row> is being used as a container component to structure the layout of the content inside the return statement. It helps to align and position the child components (''LoginView'', ''SignupView'', etc.) within a React Bootstrap row-based grid system.
+    //***{!user ? condition checks if the user variable is falsy (''null'' as its first state when no user is logged in). If user is falsy (''null''), it renders the content inside the first parentheses, which includes a LoginView component and a SignupView component. If user is truthy (a user is logged in), it moves to the next condition ) : selectedMovie ? (.
+    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
+        children: !user ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
+                    //***By passing the ''onLoggedIn'' prop with the callback function ''(user, token) => => {setUser (user); setToken(token); }}'' to the ''LoginView'' component, ''MainView'' component establishes a communication channel to receive the logged-in user data from ''LoginView'. This enables the login process within the ''LoginView'' component to update the user and token state variables in the MainView component (current file) (so making them not ''null'' anymore), thus providing access to all the logged-in user's movie data.
+                    onLoggedIn: (user, token)=>{
+                        setUser(user);
+                        setToken(token);
+                    }
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 92,
+                    columnNumber: 21
+                }, undefined),
+                "or",
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 100,
+                    columnNumber: 21
+                }, undefined)
+            ]
+        }, void 0, true) : selectedMovie ? //***When a movie is clicked on, ''MovieView movie={selectedMovie}'' is activated and the movie details are shown in the UI.
+        //***The code ''onBackClick={() => setSelectedMovie(null)}'' adds to the ''onBackClick'' (from the ''MovieView'' component file) the logic that sets the ''selectedMovie'' variable back to its initial state value (null) when the button ''back'' is clicked (the ''back'' button being defined in MovieView). This make the MovieView window with more details closes and bring the interface back to the MainView with the MovieCard.
+        //***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
+        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
+                        movie: selectedMovie,
+                        onBackClick: ()=>setSelectedMovie(null)
+                    }, void 0, false, {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 109,
+                        columnNumber: 25
+                    }, undefined)
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 108,
+                    columnNumber: 21
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        onClick: ()=>{
+                            setUser(null);
+                            setToken(null);
+                            localStorage.clear();
+                        },
+                        children: "Logout"
+                    }, void 0, false, {
+                        fileName: "src/components/main-view/main-view.jsx",
+                        lineNumber: 114,
+                        columnNumber: 25
+                    }, undefined)
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 113,
+                    columnNumber: 21
+                }, undefined)
+            ]
+        }, void 0, true) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            children: "The list is empty!"
+        }, void 0, false, {
+            fileName: "src/components/main-view/main-view.jsx",
+            lineNumber: 127,
+            columnNumber: 17
+        }, undefined) : //***The .map() method in the code below maps each element in the movies array to a piece of UI. So, after its execution, there will be one <MovieCard /> for each movie fetch() from the /movies API.
+        //***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
+        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    children: movies.map((movie)=>{
+                        //***''return <MovieCard ... />'' uses the ''MovieCard'' child component imported upper in this file.
+                        //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}) (movies data are passed to the MovieCard component as props).
+                        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                            //***''movie'' is the name of the prop being passed to the MovieCard component, while {movie} is the data being passed to the MovieCard component. It's the movie object that is received from the .map() function. Each MovieCard component receive a different movie object, representing a specific movie from the movies array.
+                            movie: movie,
+                            //***Listening for click events by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
+                            //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. When a movie card is clicked, the selectedMovie value is updated with the movie clicked on, using seSelectedMovie. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx.
+                            onMovieClick: (newSelectedMovie)=>{
+                                setSelectedMovie(newSelectedMovie);
+                            }
+                        }, movie._id, false, {
+                            fileName: "src/components/main-view/main-view.jsx",
+                            lineNumber: 137,
+                            columnNumber: 36
+                        }, undefined);
+                    })
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 133,
+                    columnNumber: 21
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                    onClick: ()=>{
+                        setUser(null);
+                        setToken(null);
+                        localStorage.clear();
+                    },
+                    children: "Logout"
+                }, void 0, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 150,
+                    columnNumber: 21
+                }, undefined)
+            ]
+        }, void 0, true)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 99,
-        columnNumber: 16
-    }, undefined);
-    //***''if (selectedMovie)'' here means that if the ''selectedMovie'' variable (derived from const [selectedMovie, setSelectedMovie] = useState(null)) above) is not ''null'', the ''MovieView'' component will be returned. At first, when there has been no user action, selectMovie variable is set to ''null'', so the ''MovieView'' component isnt used. However, when a user click on a movie card, the ''setSelectMovie'' is triggered and then update the ''selectMovie'' variable (as written in the ''return <MovieCard.../>''' below), meaning that the following block of code will be truth and so, will display the movie clicked on with the ''MovieView'' component.
-    if (selectedMovie) return(//***When a movie is clicked on, ''MovieView movie={selectedMovie}'' is activated and the movie details are shown in the UI.
-    //***The code ''onBackClick={() => setSelectedMovie(null)}'' adds to the ''onBackClick'' (from the ''MovieView'' component file) the logic that sets the ''selectedMovie'' variable back to its initial state value (null) when the button ''back'' is clicked (the ''back'' button being defined in MovieView). This make the MovieView window with more details closes and bring the interface back to the MainView with the MovieCard.
-    //***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
-    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
-                movie: selectedMovie,
-                onBackClick: ()=>setSelectedMovie(null)
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 109,
-                columnNumber: 17
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                onClick: ()=>{
-                    setUser(null);
-                    setToken(null);
-                    localStorage.clear();
-                },
-                children: "Logout"
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 110,
-                columnNumber: 17
-            }, undefined)
-        ]
-    }, void 0, true));
-    return(//***The .map() method in the code below maps each element in the movies array to a piece of UI. So, after its execution, there will be one <MovieCard /> for each movie fetch() from the /movies API. 
-    //***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
-    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: movies.map((movie)=>{
-                    //***''return <MovieCard ... />'' uses the ''MovieCard'' child component imported upper in this file.
-                    //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}) (movies data are passed to the MovieCard component as props).
-                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                        //***''movie'' is the name of the prop being passed to the MovieCard component, while {movie} is the data being passed to the MovieCard component. It's the movie object that is received from the .map() function. Each MovieCard component receive a different movie object, representing a specific movie from the movies array.
-                        movie: movie,
-                        //***Listening for click events by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
-                        //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. When a movie card is clicked, the selectedMovie value is updated with the movie clicked on, using seSelectedMovie. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx.
-                        onMovieClick: (newSelectedMovie)=>{
-                            setSelectedMovie(newSelectedMovie);
-                        }
-                    }, movie._id, false, {
-                        fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 131,
-                        columnNumber: 28
-                    }, undefined);
-                })
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 127,
-                columnNumber: 13
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                onClick: ()=>{
-                    setUser(null);
-                    setToken(null);
-                    localStorage.clear();
-                },
-                children: "Logout"
-            }, void 0, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 144,
-                columnNumber: 13
-            }, undefined)
-        ]
-    }, void 0, true));
+        lineNumber: 89,
+        columnNumber: 9
+    }, undefined));
 };
 _s(MainView, "qXlxSr1HRHFcq0wZllxU017V8qo=");
 _c = MainView;
@@ -27358,7 +27378,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","../signup-view/signup-view":"4OGiN"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","../signup-view/signup-view":"4OGiN","react-bootstrap/Row":"cMC39"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -30667,7 +30687,40 @@ $RefreshReg$(_c, "SignupView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","react-bootstrap/Button":"aPzUt","react-bootstrap/Form":"iBZ80"}],"lJZlQ":[function() {},{}],"i5LP7":[function() {},{}],"hEdsw":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","react-bootstrap/Button":"aPzUt","react-bootstrap/Form":"iBZ80"}],"cMC39":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _classnames = require("classnames");
+var _classnamesDefault = parcelHelpers.interopDefault(_classnames);
+var _react = require("react");
+var _themeProvider = require("./ThemeProvider");
+var _jsxRuntime = require("react/jsx-runtime");
+const Row = /*#__PURE__*/ _react.forwardRef(({ bsPrefix, className, // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
+as: Component = "div", ...props }, ref)=>{
+    const decoratedBsPrefix = (0, _themeProvider.useBootstrapPrefix)(bsPrefix, "row");
+    const breakpoints = (0, _themeProvider.useBootstrapBreakpoints)();
+    const minBreakpoint = (0, _themeProvider.useBootstrapMinBreakpoint)();
+    const sizePrefix = `${decoratedBsPrefix}-cols`;
+    const classes = [];
+    breakpoints.forEach((brkPoint)=>{
+        const propValue = props[brkPoint];
+        delete props[brkPoint];
+        let cols;
+        if (propValue != null && typeof propValue === "object") ({ cols } = propValue);
+        else cols = propValue;
+        const infix = brkPoint !== minBreakpoint ? `-${brkPoint}` : "";
+        if (cols != null) classes.push(`${sizePrefix}${infix}-${cols}`);
+    });
+    return /*#__PURE__*/ (0, _jsxRuntime.jsx)(Component, {
+        ref: ref,
+        ...props,
+        className: (0, _classnamesDefault.default)(className, decoratedBsPrefix, ...classes)
+    });
+});
+Row.displayName = "Row";
+exports.default = Row;
+
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan"}],"lJZlQ":[function() {},{}],"i5LP7":[function() {},{}],"hEdsw":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _classnames = require("classnames");
