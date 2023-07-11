@@ -3,6 +3,9 @@ import { createRoot } from 'react-dom/client';
 //***Import the MainView component. Note: MainView must be enclosed in curly braces because it was exported using the ''named export'' method in the main-view.jsx file.
 import { MainView } from './components/main-view/main-view';
 
+//***Import the bootstrap CSS file (needs to be imported before the line import "./index.scss";).
+import "bootstrap/dist/css/bootstrap.min.css";
+
 //***Import to indicate that ./index.scss needs to be bundle.
 import "./index.scss";
 
