@@ -100,7 +100,6 @@ export const MainView = () => {
                             setToken(token);
                         }}
                     />
-                    or
                     <SignupView />
                 </Col>
                 //***) : selectedMovie ? ( condition checks if the selectedMovie variable is truthy (so if his state is not ''null'' anymore after a user clicked on a MovieCard and so updated the selectdMovie variable via setSelectMovie). If selectedMovie is truthy (not ''null''), it renders the content inside the second parentheses, which includes a MovieView component displaying the details of the selected movie, a div containing a logout button, and a logout button. If selectedMovie is falsy (''null''), it moves to the next condition ) : movies.length === 0 ? (.

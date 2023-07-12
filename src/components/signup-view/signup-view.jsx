@@ -66,7 +66,7 @@ export const SignupView = () => {
             <div>
                 <h3>First time here?</h3>
                 <h6 className="TitleSpace">Sign up right now.</h6>
-                <Form.Group controlId="formUsername">
+                <Form.Group controlId="formUsername" className="formGroupWithMargin">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
                         type="text"
@@ -88,7 +88,7 @@ export const SignupView = () => {
                     </Form.Text>
                 </Form.Group>
 
-                <Form.Group controlId="formPassword">
+                <Form.Group controlId="formPassword" className="formGroupWithMargin">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                         //***Same logic as or Username field above.
@@ -102,7 +102,7 @@ export const SignupView = () => {
                     </Form.Text>
                 </Form.Group>
 
-                <Form.Group controlId="formEmail">
+                <Form.Group controlId="formEmail" className="formGroupWithMargin">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
                         //***Same logic as or Username field above.
