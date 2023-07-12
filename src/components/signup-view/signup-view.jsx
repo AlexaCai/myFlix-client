@@ -63,78 +63,80 @@ export const SignupView = () => {
     return (
         //***When the form is submitted, the ''handleSubmit'' function is call from the ''onSubmit'' form event. When a form is submitted, the handleSubmit function is executed, which performs the necessary logic (as definied in the ''const handleSubmit = (event) => {'' block of code above) for handling the form submission, such as preparing the data and making the POST request to the server.
         <Form onSubmit={handleSubmit} style={{ border: "1px solid blue" }}>
-            <div>
+            <div className="TitleDisplay">
                 <h3>First time here?</h3>
-                <h6 className="TitleSpace">Sign up right now.</h6>
-                <Form.Group controlId="formUsername" className="formGroupWithMargin">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        type="text"
-                        //***''value={username}'' binds the first value of the input field to the username state variable (which is empty at first as defined in const [username, setUsername] = useState("");).
-                        value={username}
-                        //***When the user types/modifies the username input value, this event handler is triggered. ''e.target.value'' represents the new value of the input field written by the user. By calling setUsername(e.target.value), the username state is updated with the new value entered by the user.
-                        onChange={(e) => setUsername(e.target.value)}
-                        //***Indicate that the field username must have a value when user is signing up.
-                        required
-                        //***Indicate that the username must have at least 5 characters.
-                        minLength="5"
-                        //***By using [a-zA-Z0-9]+ as the pattern, it enforces that the username input must consist of one or more alphanumeric characters. It will reject usernames that contain spaces, special characters, or other non-alphanumeric characters.
-                        pattern="[a-zA-Z0-9]+"
-                        //***Descriptive error message when the pattern on alphanumerical character is not matched.
-                        title="Username must consist of alphanumeric characters"
-                    />
-                    <Form.Text id="usernameCreation" muted>
-                        Username must be at least 5 characters long and contain only alphanumerical characters.
-                    </Form.Text>
-                </Form.Group>
+                <h6>Sign up now.</h6>
+            </div>
+            <Form.Group controlId="formUsername" className="formGroupWithMargin">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                    type="text"
+                    //***''value={username}'' binds the first value of the input field to the username state variable (which is empty at first as defined in const [username, setUsername] = useState("");).
+                    value={username}
+                    //***When the user types/modifies the username input value, this event handler is triggered. ''e.target.value'' represents the new value of the input field written by the user. By calling setUsername(e.target.value), the username state is updated with the new value entered by the user.
+                    onChange={(e) => setUsername(e.target.value)}
+                    //***Indicate that the field username must have a value when user is signing up.
+                    required
+                    //***Indicate that the username must have at least 5 characters.
+                    minLength="5"
+                    //***By using [a-zA-Z0-9]+ as the pattern, it enforces that the username input must consist of one or more alphanumeric characters. It will reject usernames that contain spaces, special characters, or other non-alphanumeric characters.
+                    pattern="[a-zA-Z0-9]+"
+                    //***Descriptive error message when the pattern on alphanumerical character is not matched.
+                    title="Username must consist of alphanumeric characters"
+                />
+                <Form.Text id="usernameCreation" muted>
+                    Username must be at least 5 characters long and contain only alphanumerical characters.
+                </Form.Text>
+            </Form.Group>
 
-                <Form.Group controlId="formPassword" className="formGroupWithMargin">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        //***Same logic as or Username field above.
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                    <Form.Text id="passwordCreation" muted>
-                        Password can contain alphanumeric and non-alphanumeric characters.
-                    </Form.Text>
-                </Form.Group>
+            <Form.Group controlId="formPassword" className="formGroupWithMargin">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    //***Same logic as or Username field above.
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <Form.Text id="passwordCreation" muted>
+                    Password can contain alphanumeric and non-alphanumeric characters.
+                </Form.Text>
+            </Form.Group>
 
-                <Form.Group controlId="formEmail" className="formGroupWithMargin">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control
-                        //***Same logic as or Username field above.
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        //***[a-zA-Z0-9._%+-]+ allows alphanumeric characters, dots, underscores, percent signs, plus signs, or hyphens before the @ symbol. Pattern used to match the local part of the email address, which is the part before the @ symbol.
-                        //***@ makes sure there is a @ symbol in the email provide.
-                        //***[a-zA-Z0-9.-]+ allows alphanumeric characters and dots after the @ symbol but before the domain extension. Pattern used to match the domain name part of the email address, which is the part after the @ symbol.
-                        //***\. makes sure a dot is present for the email extension.
-                        //***[a-zA-Z]{2,} allows two or more characters of uppercase or lowercase after the dot, representing the domain extension.
-                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                        title="Please enter a valid email address"
-                    />
-                    <Form.Text id="emailCreation" muted>
-                        Email must be in the following format : abc@domain.abc.
-                    </Form.Text>
-                </Form.Group>
+            <Form.Group controlId="formEmail" className="formGroupWithMargin">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                    //***Same logic as or Username field above.
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    //***[a-zA-Z0-9._%+-]+ allows alphanumeric characters, dots, underscores, percent signs, plus signs, or hyphens before the @ symbol. Pattern used to match the local part of the email address, which is the part before the @ symbol.
+                    //***@ makes sure there is a @ symbol in the email provide.
+                    //***[a-zA-Z0-9.-]+ allows alphanumeric characters and dots after the @ symbol but before the domain extension. Pattern used to match the domain name part of the email address, which is the part after the @ symbol.
+                    //***\. makes sure a dot is present for the email extension.
+                    //***[a-zA-Z]{2,} allows two or more characters of uppercase or lowercase after the dot, representing the domain extension.
+                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                    title="Please enter a valid email address"
+                />
+                <Form.Text id="emailCreation" muted>
+                    Email must be in the following format : abc@domain.abc.
+                </Form.Text>
+            </Form.Group>
 
-                <Form.Group controlId="formBirthday">
-                    <Form.Label>Birthday</Form.Label>
-                    <Form.Control
-                        //***Same logic as or Username field above.
-                        type="date"
-                        value={birthday}
-                        onChange={(e) => setBirthday(e.target.value)}
-                    />
-                    <Form.Text id="birthdayCreation" muted>
-                        Birthday is optional.
-                    </Form.Text>
-                </Form.Group>
+            <Form.Group controlId="formBirthday" className="formGroupWithMargin">
+                <Form.Label>Birthday</Form.Label>
+                <Form.Control
+                    //***Same logic as or Username field above.
+                    type="date"
+                    value={birthday}
+                    onChange={(e) => setBirthday(e.target.value)}
+                />
+                <Form.Text id="birthdayCreation" muted>
+                    Birthday is optional.
+                </Form.Text>
+            </Form.Group>
+            <div className="SignupButtonContainer">
                 <Button variant="primary" type="submit" className="SignupButton">
                     Sign up
                 </Button>

@@ -1,13 +1,5 @@
-.TitleSpace {
-  margin-bottom: 25px;
-}
-
-.LoginButton {
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-.TitleSpace {
+.TitleDisplay {
+  text-align: center;
   margin-bottom: 25px;
 }
 
@@ -15,8 +7,33 @@
   margin-bottom: 20px;
 }
 
+.LoginButtonContainer {
+  justify-content: center;
+  display: flex;
+}
+
+.LoginButton {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.TitleDisplay {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.formGroupWithMargin {
+  margin-bottom: 20px;
+}
+
+.SignupButtonContainer {
+  justify-content: center;
+  display: flex;
+}
+
 .SignupButton {
   margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 :root, [data-bs-theme="light"] {

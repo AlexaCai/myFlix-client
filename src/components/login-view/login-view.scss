@@ -1,8 +1,18 @@
-.TitleSpace {
+.TitleDisplay {
     margin-bottom: 25px;
+    text-align: center;
+}
+
+.formGroupWithMargin {
+    margin-bottom: 20px;
+  }
+
+.LoginButtonContainer {
+    display: flex;
+    justify-content: center;
   }
 
 .LoginButton {
     margin-top: 25px;
     margin-bottom: 25px;
-  }
+}

@@ -72,38 +72,40 @@ export const LoginView = ({ onLoggedIn }) => {
     return (
         //***When the form is submitted, the ''handleSubmit'' function is call from the ''onSubmit'' form event. When a form is submitted, the handleSubmit function is executed, which performs the necessary logic (as definied in the ''const handleSubmit = (event) => {'' block of code above) for handling the form submission, such as preparing the data and making the POST request to the server.
         <Form onSubmit={handleSubmit} style={{ border: "1px solid red" }}>
-            <div>
+            <div className="TitleDisplay">
                 <h3>Welcome back!</h3>
-                <h6 className="TitleSpace">Ready for your next marathon?</h6>
-                <Form.Group controlId="formUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        type="text"
-                        //***{username} come from useState() upper.
-                        //***value attribute is set to the first value of the username state variable {username}, which is an empty string at the beginning (const [username, setUsername] = useState("");).
-                        value={username}
-                        //***setUsername come from useState() upper.
-                        //***The onChange event handler updates the username state variable with the new value (username) entered in the input field by the user (with ''e.target.value''). So, initially, the username input field is empty because the value attribute is set to an empty string. As the user types in the input field, the onChange event handler will update the username state variable.
-                        onChange={(e) => setUsername(e.target.value)}
-                        //***Make sure a value in the username field of the log in form is required as an input from the user, otherwise UI will throws a ''Please fill out this field'' message.
-                        required
-                    />
-                </Form.Group>
+                <h6>Ready for your next marathon?</h6>
+            </div>
+            <Form.Group controlId="formUsername" className="formGroupWithMargin">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                    type="text"
+                    //***{username} come from useState() upper.
+                    //***value attribute is set to the first value of the username state variable {username}, which is an empty string at the beginning (const [username, setUsername] = useState("");).
+                    value={username}
+                    //***setUsername come from useState() upper.
+                    //***The onChange event handler updates the username state variable with the new value (username) entered in the input field by the user (with ''e.target.value''). So, initially, the username input field is empty because the value attribute is set to an empty string. As the user types in the input field, the onChange event handler will update the username state variable.
+                    onChange={(e) => setUsername(e.target.value)}
+                    //***Make sure a value in the username field of the log in form is required as an input from the user, otherwise UI will throws a ''Please fill out this field'' message.
+                    required
+                />
+            </Form.Group>
 
-                <Form.Group controlId="formPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        //***{password} come from useState() upper.
-                        //***value attribute is set to the first value of the password state variable {password}, which is an empty string at the beginning (const [password, setPassword] = useState("");).
-                        value={password}
-                        //***setPassword come from useState() upper.
-                        //***The onChange event handler updates the password state variable with the new value (password) entered in the input field by the user (with ''e.target.value''). So, initially, the password input field is empty because the value attribute is set to an empty string. As the user types in the input field, the onChange event handler will update the password state variable.
-                        onChange={(e) => setPassword(e.target.value)}
-                        //***Make sure a value in the password field of the log in form is required as an input from the user, otherwise will UI throws a ''Please fill out this field'' message.
-                        required
-                    />
-                </Form.Group>
+            <Form.Group controlId="formPassword" className="formGroupWithMargin">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    //***{password} come from useState() upper.
+                    //***value attribute is set to the first value of the password state variable {password}, which is an empty string at the beginning (const [password, setPassword] = useState("");).
+                    value={password}
+                    //***setPassword come from useState() upper.
+                    //***The onChange event handler updates the password state variable with the new value (password) entered in the input field by the user (with ''e.target.value''). So, initially, the password input field is empty because the value attribute is set to an empty string. As the user types in the input field, the onChange event handler will update the password state variable.
+                    onChange={(e) => setPassword(e.target.value)}
+                    //***Make sure a value in the password field of the log in form is required as an input from the user, otherwise will UI throws a ''Please fill out this field'' message.
+                    required
+                />
+            </Form.Group>
+            <div className="LoginButtonContainer">
                 <Button variant="primary" type="submit" className="LoginButton">
                     Log in
                 </Button>
