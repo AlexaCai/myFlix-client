@@ -13,7 +13,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
         onMovieClick(movie);
       }}
     >
-      <img src={movie.image}/>
+      <img src={movie.image} style={{ maxWidth: "100%" }}/>
       {movie.title}</div>
   );
 };
