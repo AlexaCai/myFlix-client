@@ -22,6 +22,9 @@ import Row from "react-bootstrap/Row";
 //***Import the Col Bootstrap component for Bootstrap grid UI design.
 import Col from 'react-bootstrap/Col';
 
+//***Import the Button Bootstrap component for log in form UI design.
+import Button from "react-bootstrap/Button";
+
 //***''export'' keyword exposes the ''MainView'' component making it available for use by other components, modules, and files (possible to import in other files).
 //***''const MainView'' (and the following codes) creates the ''MainView'' component. The lines after ''const MainView'' is the function assigned to ''MainView'' that returns the visual representation of the component (the function renders what is displayed on the screen).
 export const MainView = () => {
@@ -113,7 +116,7 @@ export const MainView = () => {
                         movie={selectedMovie}
                         onBackClick={() => setSelectedMovie(null)}
                     />
-                    <button
+                    <Button variant="primary" type="submit"
                         onClick={() => {
                             setUser(null);
                             setToken(null);
@@ -121,7 +124,7 @@ export const MainView = () => {
                         }}
                     >
                         Logout
-                    </button>
+                    </Button>
                 </Col>
                 //***) : movies.length === 0 ? ( condition checks if the movies array is empty. If the movies array is empty, it renders the message "The list is empty!". If the movies array is not empty, it moves to the final condition.
             ) : movies.length === 0 ? (
@@ -151,7 +154,7 @@ export const MainView = () => {
                         ))}
                     </Row>
                     <Row className="justify-content-md-center row">
-                        <button style={{ border: "2px solid blue", width: "10%" }}
+                    <Button variant="primary" type="submit" style={{ width: "10%" }}
                             onClick={() => {
                                 setUser(null);
                                 setToken(null);
@@ -159,7 +162,7 @@ export const MainView = () => {
                             }}
                         >
                             Logout
-                        </button>
+                        </Button>
                     </Row>
                 </>
             )}
