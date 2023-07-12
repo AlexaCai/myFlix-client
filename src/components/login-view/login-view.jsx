@@ -10,6 +10,9 @@ import Button from "react-bootstrap/Button";
 //***Import the Form Bootstrap component for log in form UI design.
 import Form from "react-bootstrap/Form";
 
+//***Import the login-view.scss the allow modiication to the React Bootstrap UI design.
+import './login-view.scss';
+
 //***''const LoginView'' (and the following codes) creates the LoginView component. This component is a functional component that receives props as its argument (onLoggedIn). This component will then be displayed in the UI when users are not logged in. 
 export const LoginView = ({ onLoggedIn }) => {
     //***This line declares a state variable username and a corresponding function setUsername to update its value. The initial value of username is an empty string (""). The purpose of this state variable is to keep track of the value entered in the username field and provide a way to update it.
@@ -71,7 +74,7 @@ export const LoginView = ({ onLoggedIn }) => {
         <Form onSubmit={handleSubmit} style={{ border: "1px solid red" }}>
             <div>
                 <h3>Welcome back!</h3>
-                <h6>Ready for your next marathon?</h6>
+                <h6 className="TitleSpace">Ready for your next marathon?</h6>
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
@@ -101,7 +104,7 @@ export const LoginView = ({ onLoggedIn }) => {
                         required
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="LoginButton">
                     Log in
                 </Button>
             </div>

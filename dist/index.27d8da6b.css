@@ -1,6 +1,14 @@
+.TitleSpace {
+  margin-bottom: 25px;
+}
 
+.LoginButton {
+  margin-top: 25px;
+}
 
-
+.SignupButton {
+  margin-top: 15px;
+}
 
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
@@ -13336,5 +13344,7 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+
+
 
 /*# sourceMappingURL=index.27d8da6b.css.map */

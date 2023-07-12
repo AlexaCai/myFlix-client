@@ -10,6 +10,9 @@ import Button from "react-bootstrap/Button";
 //***Import the Form Bootstrap component for signup form UI design.
 import Form from "react-bootstrap/Form";
 
+//***Import the signup-view.scss the allow modiication to the React Bootstrap UI design.
+import './signup-view.scss';
+
 //***''const SignupView'' (and the following codes) creates the SignupView component. The function assigned to SignupView returns the visual representation of the component (the function renders what is displayed on the screen).
 export const SignupView = () => {
     //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
@@ -62,7 +65,7 @@ export const SignupView = () => {
         <Form onSubmit={handleSubmit} style={{ border: "1px solid blue" }}>
             <div>
                 <h3>First time here?</h3>
-                <h6>Sign up right now.</h6>
+                <h6 className="TitleSpace">Sign up right now.</h6>
                 <Form.Group controlId="formUsername">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
@@ -132,7 +135,7 @@ export const SignupView = () => {
                         Birthday is optional.
                     </Form.Text>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="SignupButton">
                     Sign up
                 </Button>
             </div>
