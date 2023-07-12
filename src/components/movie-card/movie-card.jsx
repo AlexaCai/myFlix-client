@@ -6,7 +6,8 @@ import PropTypes from "prop-types";
 //***The ''onMovieClick'' inside ({ movie, onMovieClick }) is a prop from main-view.jsx being extracted here using object destructuring.
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <div
+    //***className="h-100" applies a height of 100% on the elements (here the movie cards). This allow each movie card to have the same height on the UI display, whatever their content is. Otherwise, cards with less content might seem to not have the same height as the cards with more content, and that's because the some columns with less content can sometimes not use the full height of its containing colum.
+    <div className="h-100"
       //***A callback function is passed to onClick, then the logic (onMovieClick(movie);) that needed to execute once a click event is registered is added.
       //***<img src={movie.image} and {movie.title} specify what will be rendered on the UI for the MovieCard component (in this case, the image of eacch movie as well as their title).
       onClick={() => {
