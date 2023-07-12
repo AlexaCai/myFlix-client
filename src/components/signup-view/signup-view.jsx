@@ -91,7 +91,7 @@ export const SignupView = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <Form.Text id="usernameCreation" muted>
+                <Form.Text id="passwordCreation" muted>
                     Password can contain alphanumeric and non-alphanumeric characters.
                 </Form.Text>
             </Form.Group>
@@ -112,7 +112,7 @@ export const SignupView = () => {
                     pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                     title="Please enter a valid email address"
                 />
-                <Form.Text id="usernameCreation" muted>
+                <Form.Text id="emailCreation" muted>
                     Email must be in the following format : abc@domain.abc.
                 </Form.Text>
             </Form.Group>
@@ -125,7 +125,7 @@ export const SignupView = () => {
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
                 />
-                <Form.Text id="usernameCreation" muted>
+                <Form.Text id="birthdayCreation" muted>
                     Birthday is optional.
                 </Form.Text>
             </Form.Group>
