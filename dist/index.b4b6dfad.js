@@ -2990,7 +2990,7 @@ $RefreshReg$(_c, "MyFlixApplication");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","react-bootstrap/Container":"hEdsw","bootstrap/dist/css/bootstrap.min.css":"i5LP7","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","react-bootstrap/Container":"hEdsw","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","bootstrap/dist/css/bootstrap.min.css":"i5LP7"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -30868,6 +30868,6 @@ as: Component = "div", className, ...props }, ref)=>{
 Container.displayName = "Container";
 exports.default = Container;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan"}],"i5LP7":[function() {},{}],"lJZlQ":[function() {},{}]},["cNnbc","cp6ZH","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan"}],"lJZlQ":[function() {},{}],"i5LP7":[function() {},{}]},["cNnbc","cp6ZH","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
