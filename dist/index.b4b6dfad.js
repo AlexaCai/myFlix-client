@@ -2949,8 +2949,8 @@ var _mainView = require("./components/main-view/main-view");
 //***Import the Container Bootstrap component for Bootstrap grid UI design.
 var _container = require("react-bootstrap/Container");
 var _containerDefault = parcelHelpers.interopDefault(_container);
-//***Import the bootstrap CSS file (needs to be imported before the line import "./index.scss";).
-var _bootstrapMinCss = require("bootstrap/dist/css/bootstrap.min.css");
+//***Import the bootstrap CSS file (needs to be imported before the line import "./index.scss";). This link provides the default Bootstrap styles and allows to use Bootstrap's predefined classes and components without any customization (to be removed later when want to customize Bootstrap's default styles - necessary to removed this link and import bootstrap/scss/bootstrap.scss into index.scss to allow customization instead).
+// import "bootstrap/dist/css/bootstrap.min.css";
 //***Import to indicate that ./index.scss needs to be bundle.
 var _indexScss = require("./index.scss");
 //***''const MyFlixApplication'' is the main component (will eventually use all the others).
@@ -2990,7 +2990,7 @@ $RefreshReg$(_c, "MyFlixApplication");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","react-bootstrap/Container":"hEdsw","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","bootstrap/dist/css/bootstrap.min.css":"i5LP7"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","react-bootstrap/Container":"hEdsw","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -30868,6 +30868,6 @@ as: Component = "div", className, ...props }, ref)=>{
 Container.displayName = "Container";
 exports.default = Container;
 
-},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan"}],"lJZlQ":[function() {},{}],"i5LP7":[function() {},{}]},["cNnbc","cp6ZH","d8Dch"], "d8Dch", "parcelRequireaec4")
+},{"classnames":"jocGM","react":"21dqq","./ThemeProvider":"dVixI","react/jsx-runtime":"6AEwr","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan"}],"lJZlQ":[function() {},{}]},["cNnbc","cp6ZH","d8Dch"], "d8Dch", "parcelRequireaec4")
 
 //# sourceMappingURL=index.b4b6dfad.js.map

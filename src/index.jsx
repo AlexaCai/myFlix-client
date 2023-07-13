@@ -6,8 +6,8 @@ import { MainView } from './components/main-view/main-view';
 //***Import the Container Bootstrap component for Bootstrap grid UI design.
 import Container from 'react-bootstrap/Container';
 
-//***Import the bootstrap CSS file (needs to be imported before the line import "./index.scss";).
-import "bootstrap/dist/css/bootstrap.min.css";
+//***Import the bootstrap CSS file (needs to be imported before the line import "./index.scss";). This link provides the default Bootstrap styles and allows to use Bootstrap's predefined classes and components without any customization (to be removed later when want to customize Bootstrap's default styles - necessary to removed this link and import bootstrap/scss/bootstrap.scss into index.scss to allow customization instead).
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 //***Import to indicate that ./index.scss needs to be bundle.
 import "./index.scss";
