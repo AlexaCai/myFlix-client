@@ -25,6 +25,9 @@ import Col from 'react-bootstrap/Col';
 //***Import the Button Bootstrap component for log in form UI design.
 import Button from "react-bootstrap/Button";
 
+//***Import specific components and utilities from the react-router-dom library in React applications.
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 //***''export'' keyword exposes the ''MainView'' component making it available for use by other components, modules, and files (possible to import in other files).
 //***''const MainView'' (and the following codes) creates the ''MainView'' component. The lines after ''const MainView'' is the function assigned to ''MainView'' that returns the visual representation of the component (the function renders what is displayed on the screen).
 export const MainView = () => {
