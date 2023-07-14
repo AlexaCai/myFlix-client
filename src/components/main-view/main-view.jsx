@@ -22,9 +22,6 @@ import Row from "react-bootstrap/Row";
 //***Import the Col Bootstrap component for Bootstrap grid UI design.
 import Col from 'react-bootstrap/Col';
 
-//***Import the Button Bootstrap component for log in form UI design.
-import Button from "react-bootstrap/Button";
-
 //***Import specific components and utilities from the react-router-dom library in React applications.
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -46,9 +43,6 @@ export const MainView = () => {
 
     //***'Wihtin the ''useState([])'' array are the objects of the ''movies'' variable. This object (movies) come from the fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies"). The ''setMovies'' function updates the movies state with the fetched movie data whe called.
     const [movies, setMovies] = useState([]);
-
-    //***Way to identify whether there was a user click on a ''MovieCard'' or not. The ''useState(null);'' tells the app that no movie cards is clicked at first. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details using the ''MovieView'' component.
-    const [selectedMovie, setSelectedMovie] = useState(null);
 
     //***This useEffect fetches movies from the API /movies endpoint when the token state changes (so when its not ''null'' anymore, meaning a request have been sent with an valid token by a user, authorizing the server to give back the response with the movies info).
     useEffect(() => {
@@ -82,93 +76,92 @@ export const MainView = () => {
                             directorBirth: movie.Director.Birth
                         };
                     });
+                    console.log(moviesFromApi); // Check the moviesFromApi array
                     //***setMovies(moviesFromApi) is used to update the movies variable state in ''const [movies, setMovies] = useState([]);'', which in turn updates the movies array (useState([])), adding into it the movies that have been fetched by fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies").
                     setMovies(moviesFromApi);
-                });
+                })
+                .catch((error) => {
+                    console.error("Error fetching movies:", error);
+                  });
         };
         //***[token] is a dependency array passed as the second argument to the useEffect, so the useEffect will be re-executed whenever the value of token changes.
     }, [token]);
 
-    //***These returned elements are designed using React Bootstrap. The MainView component only has one return statement that has a ''Row'' as the root element. The nested elements are conditionally rendered using the ternary operator ?:. 
-    //***conditional (ternary) operator takes three operands: a condition followed by a question mark (?), then an expression to execute if the condition is truthy followed by a colon (:), and finally the expression to execute if the condition is falsy. This operator is frequently used as an alternative to an if...else statement. Format = condition ? exprIfTrue : exprIfFalse.
-    //***The following ''return'' is using conditional rendering to determine which content should be displayed on the user UI based on different conditions. 
     return (
-        //***<Row> is being used as a container component to structure the layout of the content inside the return statement. It helps to align and position the child components (''LoginView'', ''SignupView'', etc.) within a React Bootstrap row-based grid system. className="justify-content-md-center row" is used to center the columns within a row using Bootstrap utility classes.
-        //***{!user ? condition checks if the user variable is falsy (''null'' as its first state when no user is logged in). If user is falsy (''null''), it renders the content inside the first parentheses, which includes a LoginView component and a SignupView component. If user is truthy (a user is logged in), it moves to the next condition ) : selectedMovie ? (.
-        <Row className="justify-content-md-center row">
-            {!user ? (
-                //***<Col md={5}> specifies the columns that LoginView and SignupView have (out of max 12 col). Since ''md'' breakpoint is used, if the screen width is less than 768px, each column will take the full width no matter how many shares it’s been assigned. If the screen width is greater than or equal to 768px, the two components will take 5/12 of the available width of the container/row.
-                <Col md={5} style={{ border: "1px solid black" }}>
-                    <LoginView
-                        //***By passing the ''onLoggedIn'' prop with the callback function ''(user, token) => => {setUser (user); setToken(token); }}'' to the ''LoginView'' component, ''MainView'' component establishes a communication channel to receive the logged-in user data from ''LoginView'. This enables the login process within the ''LoginView'' component to update the user and token state variables in the MainView component (current file) (so making them not ''null'' anymore), thus providing access to all the logged-in user's movie data.
-                        onLoggedIn={(user, token) => {
+        <BrowserRouter>
+          <Row className="justify-content-md-center">
+            <Routes>
+              <Route
+                path="/signup"
+                element={
+                  <>
+                    {user ? (
+                      <Navigate to="/" />
+                    ) : (
+                      <Col md={5}>
+                        <SignupView />
+                      </Col>
+                    )}
+                  </>
+    
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <>
+                    {user ? (
+                      <Navigate to="/" />
+                    ) : (
+                      <Col md={5}>
+                        <LoginView onLoggedIn={(user, token) => {
                             setUser(user);
                             setToken(token);
-                        }}
-                    />
-                    <SignupView />
-                </Col>
-                //***) : selectedMovie ? ( condition checks if the selectedMovie variable is truthy (so if his state is not ''null'' anymore after a user clicked on a MovieCard and so updated the selectdMovie variable via setSelectMovie). If selectedMovie is truthy (not ''null''), it renders the content inside the second parentheses, which includes a MovieView component displaying the details of the selected movie, a div containing a logout button, and a logout button. If selectedMovie is falsy (''null''), it moves to the next condition ) : movies.length === 0 ? (.
-            ) : selectedMovie ? (
-                //***<Col md={8}> specifies the columns that MovieView has (out of max 12 col). Since ''md'' breakpoint is used, if the screen width is less than 768px, each column will take the full width no matter how many shares it’s been assigned. If the screen width is greater than or equal to 768px, MovieView will take 8/12 of the available width of the container/row.
-                //***When a movie is clicked on, ''MovieView movie={selectedMovie}'' is activated and the movie details are shown in the UI.
-                //***The code ''onBackClick={() => setSelectedMovie(null)}'' adds to the ''onBackClick'' (from the ''MovieView'' component file) the logic that sets the ''selectedMovie'' variable back to its initial state value (null) when the button ''back'' is clicked (the ''back'' button being defined in MovieView). This make the MovieView window with more details closes and bring the interface back to the MainView with the MovieCard.
-                //***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
-                <Col md={8} style={{ border: "1px solid black" }}>
-                    <MovieView
-                        movie={selectedMovie}
-                        onBackClick={() => setSelectedMovie(null)}
-                    />
-                    <Button variant="primary" type="submit"
-                        onClick={() => {
-                            setUser(null);
-                            setToken(null);
-                            localStorage.clear();
-                        }}
-                    >
-                        Logout
-                    </Button>
-                </Col>
-                //***) : movies.length === 0 ? ( condition checks if the movies array is empty. If the movies array is empty, it renders the message "The list is empty!". If the movies array is not empty, it moves to the final condition.
-            ) : movies.length === 0 ? (
-                <div>The list is empty!</div>
-                //***This is the default condition when the previous conditions (selectedMovie ? and movies.length === 0 ?) werent met. It renders the content inside the final parentheses, which includes a div containing a list of MovieCard components rendered using movies.map(). Each MovieCard component represents a movie from the movies array. Additionally, it includes a logout button.
-            ) : (
-                //***The .map() method in the code below maps each element in the movies array to a piece of UI. So, after its execution, there will be one <MovieCard /> for each movie fetch() from the /movies API.
-                //***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
-                <>
-                    <Row className="justify-content-md-center row">
+                        }} />
+                      </Col>
+                    )}
+                  </>
+    
+                }
+              />
+              <Route
+                path="/movies/:movieId"
+                element={
+                  <>
+                    {!user ? (
+                      <Navigate to="/login" replace />
+                    ) : movies.length === 0 ? (
+                      <Col>The list is empty!</Col>
+                    ) : (
+                      <Col md={8}>
+                        <MovieView movies={movies} />
+                      </Col>
+                    )}
+                  </>
+                }
+              />
+              <Route
+                path="/"
+                element={
+                  <>
+                    {!user ? (
+                      <Navigate to="/login" replace />
+                    ) : movies.length === 0 ? (
+                      <Col>The list is empty!</Col>
+                    ) : (
+                      <>
                         {movies.map((movie) => (
-                            //***<Col md={3} specifies the columns that LoginView and SignupView have (out of max 12 col). Since ''md'' breakpoint is used, if the screen width is less than 768px, each column will take the full width no matter how many shares it’s been assigned. If the screen width is greater than or equal to 768px, the two components will take 5/12 of the available width of the container/row.
-                            //***<Col className="mb-5" margin bottom on each card, while ''mb'' stands for ''margin bottom'' and ''x'' is the number representing the size of the space.
-                            //***The key serves as a unique identifier for each item in a list of components (here, each movie of the .map() array). When rendering a list of components dynamically using map, React uses the key prop to efficiently rendered and updated process for lists of components.
-                            <Col key={movie._id} md={3} className="mb-5" style={{ border: "2px solid green" }}>
-                                <MovieCard
-                                    //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}) (movies data are passed to the MovieCard component as props).
-                                    //***''movie'' is the name of the prop being passed to the MovieCard component, while {movie} is the data being passed to the MovieCard component. It's the movie object that is received from the .map() function. Each MovieCard component receive a different movie object, representing a specific movie from the movies array.    
-                                    movie={movie}
-                                    //***Listening for click events by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
-                                    //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. When a movie card is clicked, the selectedMovie value is updated with the movie clicked on, using seSelectedMovie. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx.
-                                    onMovieClick={(newSelectedMovie) => {
-                                        setSelectedMovie(newSelectedMovie);
-                                    }}
-                                />
-                            </Col>
+                          <Col className="mb-4" key={movie._id} md={3}>
+                            <MovieCard movie={movie} />
+                          </Col>
                         ))}
-                    </Row>
-                    <Row className="justify-content-md-center row">
-                    <Button variant="primary" type="submit" style={{ width: "10%" }}
-                            onClick={() => {
-                                setUser(null);
-                                setToken(null);
-                                localStorage.clear();
-                            }}
-                        >
-                            Logout
-                        </Button>
-                    </Row>
-                </>
-            )}
-        </Row>
-    );
-}
+                      </>
+                    )}
+                  </>
+                }
+              />
+            </Routes>
+          </Row>
+        </BrowserRouter>
+      );
+    };
