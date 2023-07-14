@@ -19,6 +19,9 @@ import { SignupView } from "../signup-view/signup-view";
 //***Import the ''NavigationBar'' child component into the current file/component ''MainView'' so that it can use it here.
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 
+//***Import the ''NavigationBar'' child component into the current file/component ''MainView'' so that it can use it here.
+import { ProfileView } from "../profile-view/profile-view";
+
 //***Import the Row Bootstrap component for Bootstrap grid UI design.
 import Row from "react-bootstrap/Row";
 
@@ -144,6 +147,20 @@ export const MainView = () => {
                                 ) : (
                                     <Col md={8}>
                                         <MovieView movies={movies} />
+                                    </Col>
+                                )}
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/users/:Username"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <Col>
+                                        <ProfileView movies={movies} />
                                     </Col>
                                 )}
                             </>
