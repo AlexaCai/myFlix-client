@@ -93,6 +93,25 @@ export const MainView = () => {
         //***[token] is a dependency array passed as the second argument to the useEffect, so the useEffect will be re-executed whenever the value of token changes.
     }, [token]);
 
+    useEffect(() => {
+        if (!token) {
+            //***If the token is ''null'' (no token), the function does not execute the API call. This means that the fetch call will not be executed. This ensure that the API call is only made when a valid token is present.
+            return;
+        } else {
+            fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    const loggedInUser = data.find((user) => user.Username === storedUser.Username);
+                    setUser(loggedInUser);
+                })
+                .catch((error) => {
+                    console.error("Error fetching user:", error);
+                });
+        }
+    }, [token, storedUser]);
+
     return (
         <BrowserRouter>
             <NavigationBar
@@ -160,7 +179,7 @@ export const MainView = () => {
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <Col>
-                                        <ProfileView movies={movies} />
+                                        <ProfileView user={user} movies={movies} token={token} />
                                     </Col>
                                 )}
                             </>
