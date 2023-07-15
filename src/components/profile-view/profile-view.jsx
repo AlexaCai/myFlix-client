@@ -16,60 +16,77 @@ import './profile-view.scss';
 
 import axios from 'axios';
 
-export function ProfileView({ movies }) {
+export function ProfileView({ movies, user, token }) {
 
-    //***Way to identify whether a user has logged in or not.The ''useState(null); '' tells the app that user is not logged in at first.However, if a user were to log in (as written in the block of codes following if (!user) below), the ''setUser'' would be called and update the ''user'' value based on the user input during loggin in.The ''user'' value not being be equal to ''null'' anymore, the app would thus renders the normal view with all the movie info(''MainView'' with ''MovieCard'' in it, and ''MovieView'' once a MovieCard is being clicked on), if the token has been passed along as well.
-    const [user, setUser] = useState({})
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [birthday, setBirthday] = useState("");
+    const favoriteMovieList = movies.filter((movies) => { })
 
-    const favoriteMovieList = movies.filter((movies) => {})
-
-    // const getUser = () => { }
-
-    // const handleSubmit = (e) => { }
-
-    // const removeFav = (id) => { }
-
-    // const handleUpdate = (e) => { };
-
-    // useEffect(() => { }, [])
-
-    // const [favoriteMovies, setFavoriteMovies] = useState([]);
-
+    const handleUpdate = (event) => {
+        event.preventDefault();
+        const userData = {
+            Username: username,
+            Password: password,
+            Email: email,
+            Birthday: birthday
+        };
+        fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}`, {
+            method: "PUT",
+            body: JSON.stringify(userData),
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+        .then((response) => {
+            if (response.ok) {
+                alert("Update successful");
+                window.location.reload();
+            } else {
+                alert("Update failed");
+            }
+        });
+    };    
 
     return (
         <div>
             <h4>Your info</h4>
             <p>User: {user.Username}</p>
             <p>Email: {user.Email}</p>
-            <Form className='profile-form' onSubmit={(e) => handleSubmit(e)}>
+            <Form className='profile-form' onSubmit={handleUpdate}>
                 <h4>Update info</h4>
                 <label>Username: </label>
                 <input
-                    type='text'
-                    name='Username'
-                    defaultValue={user.Username}
-                    onChange={e => handleUpdate(e)} />
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                    minLength="5"
+                    pattern="[a-zA-Z0-9]+"
+                    title="Username must consist of alphanumeric characters" />
                 <label>Password: </label>
                 <input
-                    type='password'
-                    name='password'
-                    defaultValue={user.Password}
-                    onChange={e => handleUpdate(e)} />
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required />
                 <label>Email: </label>
                 <input
                     type='email'
                     name='email'
-                    defaultValue={user.Email}
-                    onChange={e => handleUpdate(e)} />
+                    defaultValue=''
+                    onChange={(e) => setEmail(e.target.value)} />
                 <label>Birthday: </label>
                 <input
                     type='birthday'
                     name='birthday'
-                    defaultValue={user.Birthday}
-                    onChange={e => handleUpdate(e)} />
-                    <Button variant='primary' type='submit'>
-                        Update
-                    </Button>
+                    defaultValue=''
+                    onChange={(e) => setBirthday(e.target.value)} />
+                <Button variant='primary' type='submit'>
+                    Update
+                </Button>
             </Form>
             <div>
                 <h4>Favorites Movies</h4>
