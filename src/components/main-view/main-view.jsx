@@ -1,76 +1,56 @@
-//***''useState'' is a React built-in function that allows to add state to a functional component.
+//***Import different React built-in function.
 import { useState } from "react";
-
-//***''useEffect'' is a React built-in function that allows to perform side effects in functional components (such as fetching data).
 import { useEffect } from "react";
 
-//***Import the ''MovieCard'' child component into the current file/component ''MainView'' so that it can use it here.
+//***Import the different components of the app.
 import { MovieCard } from "../movie-card/movie-card";
-
-//***Import the ''MovieView'' child component into the current file/component ''MainView'' so that it can use it here.
 import { MovieView } from "../movie-view/movie-view";
-
-//***Import the ''LoginView'' child component into the current file/component ''MainView'' so that it can use it here.
 import { LoginView } from "../login-view/login-view";
-
-//***Import the ''SignupView'' child component into the current file/component ''MainView'' so that it can use it here.
 import { SignupView } from "../signup-view/signup-view";
-
-//***Import the ''NavigationBar'' child component into the current file/component ''MainView'' so that it can use it here.
 import { NavigationBar } from "../navigation-bar/navigation-bar";
-
-//***Import the ''NavigationBar'' child component into the current file/component ''MainView'' so that it can use it here.
 import { ProfileView } from "../profile-view/profile-view";
 
-//***Import the Row Bootstrap component for Bootstrap grid UI design.
+//***Import the different React Bootstrap components.
 import Row from "react-bootstrap/Row";
-
-//***Import the Col Bootstrap component for Bootstrap grid UI design.
 import Col from 'react-bootstrap/Col';
 
-//***Import specific components and utilities from the react-router-dom library in React applications.
+//***Import specific components from the "react-router-dom" library. 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-//***''export'' keyword exposes the ''MainView'' component making it available for use by other components, modules, and files (possible to import in other files).
-//***''const MainView'' (and the following codes) creates the ''MainView'' component. The lines after ''const MainView'' is the function assigned to ''MainView'' that returns the visual representation of the component (the function renders what is displayed on the screen).
+//*** ''const MainView'' is functional component, ''MainView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
 export const MainView = () => {
 
-    //***Used to retrieve the user values from the browser's ''localStorage''. localStorage is a web API that allows to store data in the browser. In this case, it's used to store the user object received from the server during the login process. With this, its possible to maintain the user's login state even if the page is refreshed or reopened.
+    //***''storedUser'' is declared to store the user data fetched from the browser's localStorage. Since the data stored in localStorage is in string format, JSON.parse is used to convert it into a JavaScript object, then ''localStorage.getItem("user")'' is used to retrieve the value stored under the key "user" in the browser's localStorage. This allows to access the properties of the user object.
     const storedUser = JSON.parse(localStorage.getItem("user"));
-
-    //***Idem to the code definition above.
+    //***''storedToken'' is declared to store the token fetched from the browser's localStorage. ''localStorage.getItem("token")'' is used to retrieve the value stored under the key "token" in the browser's localStorage.
     const storedToken = localStorage.getItem("token");
-
-    //***Way to identify whether a user has logged in or not. The ''useState(null);'' tells the app that user is not logged in at first. However, if a user were to log in (as written in the block of codes following if (!user) below), the ''setUser'' would be called and update the ''user'' value based on the user input during loggin in. The ''user'' value not being be equal to ''null'' anymore, the app would thus renders the normal view with all the movie info (''MainView'' with ''MovieCard'' in it, and ''MovieView'' once a MovieCard is being clicked on), if the token has been passed along as well.
+    //***''const [user, setUser] = useState(null);'' holds user data. The useState hook initializes the user state to ''null'' and use setUser as the function to update the user state when needed.
     const [user, setUser] = useState(null);
-
-    //***The ''useState(null);'' tells the app that there is no token at first. However, if a user were to log in (as written in the block of codes following if (!user) below), the ''setToken'' would be called and update the ''token'' value with the token generated automatically during user log in. The ''token'' value not being be equal to ''null'' anymore, the app would thus renders the normal view with all the movie info (''MainView'' with ''MovieCard'' in it, and ''MovieView'' once a MovieCard is being clicked on).
+    //***''const [token, setToken] = useState(null);'' holds token data. The useState hook initializes the token state to ''null'' and use setToken as the function to update the token state when needed.
     const [token, setToken] = useState(null);
-
-    //***'Wihtin the ''useState([])'' array are the objects of the ''movies'' variable. This object (movies) come from the fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies"). The ''setMovies'' function updates the movies state with the fetched movie data whe called.
+    //***''const [movies, setMovies] = useState([]);'' holds movie data. The useState hook initializes the movie state to en empty array and use setMovie as the function to update the movie state when needed.
     const [movies, setMovies] = useState([]);
 
-    //***This useEffect fetches movies from the API /movies endpoint when the token state changes (so when its not ''null'' anymore, meaning a request have been sent with an valid token by a user, authorizing the server to give back the response with the movies info).
+    //***This useEffect is responsible for fetching movie data from the server when there is a valid token available (when the user is authenticated). After fetching the movie data, it transforms the API response into a format that the application can use and updates the movies state accordingly. The effect is triggered whenever the token state changes.
     useEffect(() => {
+        //***Conditional logic that ensures that the effect is only executed if the token state is not null or undefined (such as when a user has logged in successfuly). If token is null or undefined (such as when a user it NOT logged in), the effect returns and nothing inside the effect is executed.
         if (!token) {
-            //***If the token is ''null'' (no token), the function does not execute the API call. This means that the fetch call will not be executed. This ensure that the API call is only made when a valid token is present.
             return;
+            //***If a token is present, the following ''else'' logic goes on.
         } else {
-            //***If the token has another value than ''null'', the code makes a fetch request to the specified URL "https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies" and includes the Authorization header with the Bearer token to authenticate the request.
+            //***Send a network request to the specified URL. to fetch movie data. It includes the Authorization header with the Bearer token value to authenticate the request, which is necessary, otherwise the server would send back ''unautorized''.
             fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies", {
-                //***headers is an object that contains the request headers to be sent with the fetch request. Headers are used to provide additional information about the request or to include specific authorization credentials (such as here - as the headers object is being used to include an authorization token in the request header).
+                //***Send along the request to the URL the authorization token to access the movies data in the database.
                 headers: { Authorization: `Bearer ${token}` }
             })
-                //***.then() is chained to the fetch call, and it takes the response object received from the fetch() request as its parameter. ''response.json())'' is used to transformed the response from the server to JSON format.
+            //***Converts the response received back from the API to a JavaScript object using the json() method.
                 .then((response) => response.json())
-                //***.then() is chained to the previous one. It receives the parsed JSON data as (data). The data is processed here to extract relevant information from each movie.
+                //***After parsing the response data, the data received from the API is processed.
                 .then((data) => {
                     console.log(data);
-                    //***.map() method transforms each element of the data array (so the ''movies'' array in const [movies, setMovies] = useState([])) into a new object with specific properties. The .map() method is used to iterate over each element (movie) in the data array received from the fetch request URL. For each movie in the data array, a new object is create with the costum properties defined below.
+                    //***This maps over the data received from the API and transforms each movie object into a new object with selected properties (id, image, title, description, genre, genreDescription, director, directorBio, directorBirth).
                     const moviesFromApi = data.map((movie) => {
-                        //***Properties for each new object (movie) created by .map(). Once the movie data have been transformed using the properties within the .map() method, its possible to pass those properties as attributes to child components, such as MovieCard and MovieView, and use them to display the wanted for each component. 
                         return {
-                            //***The name of each key (ex: directorBio) here is used to access the information the value contains in other components (MovieCard and MovieView). To display the director's bio information of a movie for exemple, {movie.directorBio} has been added in the MovieView component.
                             id: movie._id,
                             image: movie.ImagePath,
                             title: movie.Title,
@@ -82,20 +62,21 @@ export const MainView = () => {
                             directorBirth: movie.Director.Birth
                         };
                     });
-                    console.log(moviesFromApi); // Check the moviesFromApi array
-                    //***setMovies(moviesFromApi) is used to update the movies variable state in ''const [movies, setMovies] = useState([]);'', which in turn updates the movies array (useState([])), adding into it the movies that have been fetched by fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies").
+                    console.log(moviesFromApi);
+                    //***Updates the movies state from ''const [movies, setMovies] = useState([]);'' with the transformed movie data obtained from the API.
                     setMovies(moviesFromApi);
                 })
+                //***Catches any errors that might occur during the fetch operation and logs an error message to the console.
                 .catch((error) => {
                     console.error("Error fetching movies:", error);
                 });
         };
-        //***[token] is a dependency array passed as the second argument to the useEffect, so the useEffect will be re-executed whenever the value of token changes.
+        //***[token] is a dependency array that controls when the effect should be executed. It specifies that the effect should be executed whenever the value of the token variable changes. If token remains the same between renders, the effect will not be executed repeatedly, preventing unnecessary network requests. By including [token] as a dependency, the effect is optimized to run only when token changes.
     }, [token]);
 
+    //***This useEffect is responsible for fetching all user data from the server when there is a valid token available (when the user is authenticated). Then, it searches for the user object that corresponds to the currently logged-in user by comparing the ''storedUser'' object's ''Username'' with the ''Username'' properties of all user objects in the data array. Once it identifies the logged-in user's data in the array, it updates the user state with that specific user's data, allowing the app to have access to the logged-in user's data throughout the component and enables rendering components and views specific to the currently logged-in user. The effect is triggered whenever the token state changes.
     useEffect(() => {
         if (!token) {
-            //***If the token is ''null'' (no token), the function does not execute the API call. This means that the fetch call will not be executed. This ensure that the API call is only made when a valid token is present.
             return;
         } else {
             fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users", {
@@ -103,19 +84,25 @@ export const MainView = () => {
             })
                 .then((response) => response.json())
                 .then((data) => {
+                    //***''const loggedInUser = ...'' uses the find method on the data array (the parsed API response) to search for a user whose Username property matches the Username property of the storedUser object. The storedUser object is obtained from the localStorage earlier in the code.
                     const loggedInUser = data.find((user) => user.Username === storedUser.Username);
+                    //***''setUser(loggedInUser);'' updates the user state from ''const [user, setUser] = useState(null);'' with the logged-in user data obtained from the API response. It uses the setUser function from the useState hook to update the state.
+                    //***By updating the user state, the component now has access to the data of the currently logged-in user, and it can display the user's information and control the rendering of different parts of the app accordingly.
                     setUser(loggedInUser);
                 })
                 .catch((error) => {
                     console.error("Error fetching user:", error);
                 });
         }
-    }, [token, storedUser]);
+    }, [token]);
 
     return (
+        //***<BrowserRouter> is component from the react-router-dom library. It provides the routing functionality for the application, allowing different components to be rendered based on the current URL path.
         <BrowserRouter>
             <NavigationBar
+            //***{user} is prop called user and is passed to the NavigationBar component. The value of {user} is the current user value/state from ''const [user, setUser] = useState(null);'' , which at this point is an object containing the information about the logged-in user (because of the action of the second useEffect in this file, who updated the user state initially set to ''null'' with the logged-in user information using ''setUser(loggedInUser);'').
                 user={user}
+                //***{onLoggedOut} is another prop passed to the NavigationBar component. It is a function that is executed when the user clicks on a "Logout"  button (as defined on navigation-bar.jsx) to log out. In this case, the function sets the user state to null, effectively logging the user out.
                 onLoggedOut={() => {
                     setUser(null);
                 }}
