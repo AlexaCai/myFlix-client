@@ -1,35 +1,26 @@
 import React from "react";
-
 import { useState } from "react";
-
-import { useEffect } from "react";
-
-import Form from "react-bootstrap/Form";
-
+import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
-
 import { Button } from "react-bootstrap";
-
-import { Card } from "react-bootstrap";
-
-import { Link } from "react-router-dom";
-
 import './profile-view.scss';
-
 import axios from 'axios';
 
 export function ProfileView({ movies, user, token }) {
 
+    //For React Bootstrap Modal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    console.log("All Movies:", movies);
+    let favoriteMovies = user.FavoriteMovies.map((favoriteMovieId) =>
+        movies.find((movie) => movie.id === favoriteMovieId)); 
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
-
-    const favoriteMovieList = movies.filter((movies) => { })
 
     const handleUpdate = (event) => {
         event.preventDefault();
@@ -58,26 +49,45 @@ export function ProfileView({ movies, user, token }) {
     };
 
     const handleDelete = () => {
-            fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
+        fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert("Account deleted successfully");
+                    window.location.reload();
+                } else {
+                    alert("Error - account not deleted");
+                }
             })
-                .then((response) => {
-                    if (response.ok) {
-                        alert("Account deleted successfully");
-                        window.location.reload();
-                    } else {
-                        alert("Error - account not deleted");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error deleting account:", error);
-                    alert("An error occurred while deleting the account");
-                });
-        };
+            .catch((error) => {
+                console.error("Error deleting account:", error);
+                alert("An error occurred while deleting the account");
+            });
+    };
+
+    const deleteFavoriteMovie = (event, movieId) => {
+        event.preventDefault();
+        fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        })
+        .then((response) => {
+          if (response.ok) {
+            alert("Movie has been deleted from favorite");
+            window.location.reload();
+          } else {
+            alert("Error - Movie has not been deleted from favorite");
+          }
+        });
+      };
 
     return (
         <div>
@@ -119,9 +129,9 @@ export function ProfileView({ movies, user, token }) {
             </Form>
 
             <div>
-                <h4>Favorites Movies</h4>
+                <h4>Delete account</h4>
                 <Button variant="primary" onClick={handleShow}>
-                    Delete account
+                    Delete
                 </Button>
 
                 <Modal show={show} onHide={handleClose}>
@@ -141,20 +151,26 @@ export function ProfileView({ movies, user, token }) {
             </div>
 
             <div>
-                <h4>Favorites Movies</h4>
-                {favoriteMovieList.map((movies) => {
-                    return (
-                        <div key={movies._id} >
-                            < img src={movies.ImagePath} />
-                            <Link to={`/movies/${movies._id}`}>
-                                <h4>{movies.Title}</h4>
-                            </Link>
-                            <Button variant='secondary' onClick={() => removeFav(movies._id)}>Remove from list</Button>
-                        </div>
-                    )
-                })
-                }
+            <h4>Favorite Movies</h4>
+        {favoriteMovies.length > 0 ? (
+          favoriteMovies.map((movie) => (
+            <div key={movie._id}>
+              <img src={movie.image} />
+              <h4>{movie.title}</h4>
+              <Button
+                className="deleteFavorite-button"
+                onClick={(event) => deleteFavoriteMovie(event, movie.id)}
+              >
+                Delete from favorite
+              </Button>
             </div>
-        </div>
-    )
+          ))
+        ) : (
+          <p>No favorite movies yet.</p>
+        )}
+      </div>
+
+      {/* Other sections and closing tags */}
+    </div>
+  );
 }
