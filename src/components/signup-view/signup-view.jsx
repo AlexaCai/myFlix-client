@@ -4,6 +4,8 @@ import React from "react";
 //***''useState'' is a React built-in function that allows to add state to a functional component.
 import { useState } from "react";
 
+import { useNavigate } from 'react-router-dom';
+
 //***Import the Button Bootstrap component for signup form UI design.
 import Button from "react-bootstrap/Button";
 
@@ -20,6 +22,8 @@ export const SignupView = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
+    const navigate = useNavigate();
+
 
     //***''const handleSubmit = (event) =>'' handles the form submission when a user signs up.
     const handleSubmit = (event) => {
@@ -47,7 +51,7 @@ export const SignupView = () => {
                 //***If the response is positive, indicating a successful registration, an alert message is displayed saying "Signup successful" and the page is reloaded.
                 if (response.ok) {
                     alert("Signup successful");
-                    window.location.reload();
+                    navigate('/login');
                 }
                 else if (response.status === 409) {
                     alert("Username already exists");
