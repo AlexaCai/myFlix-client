@@ -19,14 +19,14 @@ export const SignupView = () => {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    //***''navigate'' encapsulates the ''useNavigate'', which is a functional component hook provided by React Router. When useNavigate() is called, it allows to navigate to different specified routes within the application (its possible to call ''useNavigate'' with the desired path as an argument to change the current route and navigate to the specified location - as shown below).
-    const navigate = useNavigate();
-
     //***const used for React Bootstrap modals popping up after a user signup, depending on the output of the signup operation. This code is related to ''const handleCloseModal = () => {'' and the modals block of codes below.
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showUserExistsModal, setShowUserExistsModal] = useState(false);
     const [showSignupFailedModal, setShowSignupFailedModal] = useState(false);
     const [signupSuccess, setSignupSuccess] = useState(false);
+
+    //***''navigate'' encapsulates the ''useNavigate'', which is a functional component hook provided by React Router. When useNavigate() is called, it allows to navigate to different specified routes within the application (its possible to call ''useNavigate'' with the desired path as an argument to change the current route and navigate to the specified location - as shown below).
+    const navigate = useNavigate();
 
     //***Block of codes used to close the React Bootstrap Modal pooping up after a user signup, whatever the output of this operation is.
     const handleCloseModal = () => {
@@ -65,12 +65,12 @@ export const SignupView = () => {
                 //***If the response is positive, indicating a successful registration, a React Bootstrap modal is displayed saying "Signup successful" and the page is redirected to /login.
                 if (response.ok) {
                     setShowSuccessModal(true);
-                    setSignupSuccess(true); 
+                    setSignupSuccess(true);
                 }
                 //***If the response is a status 409, indicating that the username used to create an account already exist, a React Bootstrap modal is displayed saying "User already exists" and the page stays on the signup view for the user to make changes in his form.
                 else if (response.status === 409) {
                     setShowUserExistsModal(true);
-                } 
+                }
                 //***If the response is negative, indicating a failed registration, a React Bootstrap modal is displayed saying "Signup failed" and the page stays on the signup view for the user to make changes in his form.
                 else {
                     setShowSignupFailedModal(true);
