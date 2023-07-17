@@ -1,14 +1,12 @@
-//***Import React module and allows to use React's functionalities and components.
+//***Import different React built-in function.
 import React from "react";
-
-//***''useState'' is a React built-in function that allows to add state to a functional component.
 import { useState } from "react";
 
-//***Import the Button Bootstrap component for log in form UI design.
+//***Import the different React Bootstrap components.
 import Button from "react-bootstrap/Button";
-
-//***Import the Form Bootstrap component for log in form UI design.
 import Form from "react-bootstrap/Form";
+import Modal from 'react-bootstrap/Modal';
+import { Link } from "react-router-dom";
 
 //***Import the login-view.scss the allow modiication to the React Bootstrap UI design.
 import './login-view.scss';
@@ -19,6 +17,13 @@ export const LoginView = ({ onLoggedIn }) => {
     const [username, setUsername] = useState("");
     //***This line declares a state variable password and a corresponding function setPassword to update its value. The initial value of password is an empty string (""). The purpose of this state variable is to keep track of the value entered in the password field and provide a way to update it.
     const [password, setPassword] = useState("");
+
+    //***const used for React Bootstrap modals popping up after a user signup, depending on the output of the signup operation. This code is related to ''const handleCloseModal = () => {'' and the modals block of codes below.
+    const [showLoginFailedModal, setShowLoginFailedModal] = useState(false);
+
+    const handleCloseModal = () => {
+        setShowLoginFailedModal(false);
+    };
 
 
     //***''const handleSubmit'' is declared and assigned an arrow function. This function takes an event parameter, which represents the form submission event.
@@ -58,7 +63,7 @@ export const LoginView = ({ onLoggedIn }) => {
                     onLoggedIn(data.user, data.token);
                 } else {
                     //If (data.user) doesnt exist, the message ''No such user'' is displayed on the UI.
-                    alert("No such user");
+                    setShowLoginFailedModal(true);
                 }
             })
             //***.catch() function is used to handle any errors that occur during the fetch request or any of the previous promises.
@@ -109,6 +114,20 @@ export const LoginView = ({ onLoggedIn }) => {
                 <Button variant="primary" type="submit" className="LoginButton">
                     Log in
                 </Button>
+                {/* Modal popping up after failed signup because of en error */}
+                <Modal show={showLoginFailedModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Login failed</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Please check your username and/or password and try again. <br /> <br />
+                        Not a user yet? <Link to="/signup">Sign up now.</Link>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         </Form>
     );
