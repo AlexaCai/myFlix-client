@@ -1,16 +1,12 @@
-//***Import React module and allows to use React's functionalities and components.
+//***Import different React built-in function.
 import React from "react";
-
-//***''useState'' is a React built-in function that allows to add state to a functional component.
 import { useState } from "react";
-
 import { useNavigate } from 'react-router-dom';
 
-//***Import the Button Bootstrap component for signup form UI design.
+//***Import the different React Bootstrap components.
 import Button from "react-bootstrap/Button";
-
-//***Import the Form Bootstrap component for signup form UI design.
 import Form from "react-bootstrap/Form";
+import Modal from 'react-bootstrap/Modal';
 
 //***Import the signup-view.scss the allow modiication to the React Bootstrap UI design.
 import './signup-view.scss';
@@ -24,6 +20,21 @@ export const SignupView = () => {
     const [birthday, setBirthday] = useState("");
     const navigate = useNavigate();
 
+    //***For Bootstrap design
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showUserExistsModal, setShowUserExistsModal] = useState(false);
+    const [showSignupFailedModal, setShowSignupFailedModal] = useState(false);
+    const [signupSuccess, setSignupSuccess] = useState(false);
+
+    // Modal close handlers
+    const handleCloseModal = () => {
+        setShowSuccessModal(false);
+        setShowUserExistsModal(false);
+        setShowSignupFailedModal(false);
+        if (signupSuccess) {
+            navigate('/login');
+        }
+    };
 
     //***''const handleSubmit = (event) =>'' handles the form submission when a user signs up.
     const handleSubmit = (event) => {
@@ -50,14 +61,14 @@ export const SignupView = () => {
             .then((response) => {
                 //***If the response is positive, indicating a successful registration, an alert message is displayed saying "Signup successful" and the page is reloaded.
                 if (response.ok) {
-                    alert("Signup successful");
-                    navigate('/login');
+                    setShowSuccessModal(true);
+                    setSignupSuccess(true); // Set signupSuccess to true if signup was successful
                 }
                 else if (response.status === 409) {
-                    alert("Username already exists");
+                    setShowUserExistsModal(true);
                     //***If the response is negative, indicating a failed registration, an alert message is displayed saying "Signup failed".
                 } else {
-                    alert("Signup failed");
+                    setShowSignupFailedModal(true);
                 }
             });
     };
@@ -140,10 +151,53 @@ export const SignupView = () => {
                     Birthday is optional.
                 </Form.Text>
             </Form.Group>
+
             <div className="SignupButtonContainer">
-                <Button variant="primary" type="submit" className="SignupButton">
+                <Button variant="primary" type="submit">
                     Sign up
                 </Button>
+
+                {/* Success Modal */}
+                <Modal show={showSuccessModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Signup successful!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>You will be redirected to the login page.</Modal.Body>
+                    <Modal.Footer>
+                        {/* Move the navigation inside the onClick event handler */}
+                        <Button variant="primary" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                {/* User Exists Modal */}
+                <Modal show={showUserExistsModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>User already exists</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>The provided username already exists. Please choose a different username.</Modal.Body>
+                    <Modal.Footer>
+                        {/* Move the navigation inside the onClick event handler */}
+                        <Button variant="primary" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
+                {/* Signup Failed Modal */}
+                <Modal show={showSignupFailedModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Signup failed</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Something went wrong during signup. Please try again.</Modal.Body>
+                    <Modal.Footer>
+                        {/* Move the navigation inside the onClick event handler */}
+                        <Button variant="primary" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         </Form>
     );

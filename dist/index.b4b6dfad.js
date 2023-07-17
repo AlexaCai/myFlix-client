@@ -47267,7 +47267,7 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$73d1.prelude(module);
 
 try {
-//***Import React module and allows to use React's functionalities and components.
+//***Import different React built-in function.
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SignupView", ()=>SignupView);
@@ -47275,12 +47275,13 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactRouterDom = require("react-router-dom");
-//***Import the Button Bootstrap component for signup form UI design.
+//***Import the different React Bootstrap components.
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
-//***Import the Form Bootstrap component for signup form UI design.
 var _form = require("react-bootstrap/Form");
 var _formDefault = parcelHelpers.interopDefault(_form);
+var _modal = require("react-bootstrap/Modal");
+var _modalDefault = parcelHelpers.interopDefault(_modal);
 //***Import the signup-view.scss the allow modiication to the React Bootstrap UI design.
 var _signupViewScss = require("./signup-view.scss");
 var _s = $RefreshSig$();
@@ -47292,6 +47293,18 @@ const SignupView = ()=>{
     const [email, setEmail] = (0, _react.useState)("");
     const [birthday, setBirthday] = (0, _react.useState)("");
     const navigate = (0, _reactRouterDom.useNavigate)();
+    //***For Bootstrap design
+    const [showSuccessModal, setShowSuccessModal] = (0, _react.useState)(false);
+    const [showUserExistsModal, setShowUserExistsModal] = (0, _react.useState)(false);
+    const [showSignupFailedModal, setShowSignupFailedModal] = (0, _react.useState)(false);
+    const [signupSuccess, setSignupSuccess] = (0, _react.useState)(false);
+    // Modal close handlers
+    const handleCloseModal = ()=>{
+        setShowSuccessModal(false);
+        setShowUserExistsModal(false);
+        setShowSignupFailedModal(false);
+        if (signupSuccess) navigate("/login");
+    };
     //***''const handleSubmit = (event) =>'' handles the form submission when a user signs up.
     const handleSubmit = (event)=>{
         //***This prevents the default behavior of the form which is to reload the entire page. Calling preventDefault() stops the form from performing its default action.
@@ -47316,10 +47329,10 @@ const SignupView = ()=>{
         .then((response)=>{
             //***If the response is positive, indicating a successful registration, an alert message is displayed saying "Signup successful" and the page is reloaded.
             if (response.ok) {
-                alert("Signup successful");
-                navigate("/login");
-            } else if (response.status === 409) alert("Username already exists");
-            else alert("Signup failed");
+                setShowSuccessModal(true);
+                setSignupSuccess(true); // Set signupSuccess to true if signup was successful
+            } else if (response.status === 409) setShowUserExistsModal(true);
+            else setShowSignupFailedModal(true);
         });
     };
     //***''return'' indicates the elements that will be returned as the output of the SignupView component. 
@@ -47338,20 +47351,20 @@ const SignupView = ()=>{
                         children: "First time here?"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 71,
+                        lineNumber: 82,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h6", {
                         children: "Sign up now."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 72,
+                        lineNumber: 83,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 70,
+                lineNumber: 81,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47362,7 +47375,7 @@ const SignupView = ()=>{
                         children: "Username"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 75,
+                        lineNumber: 86,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -47381,7 +47394,7 @@ const SignupView = ()=>{
                         title: "Username must consist of alphanumeric characters"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 76,
+                        lineNumber: 87,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -47390,13 +47403,13 @@ const SignupView = ()=>{
                         children: "Username must be at least 5 characters long and contain only alphanumerical characters."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 91,
+                        lineNumber: 102,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 74,
+                lineNumber: 85,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47407,7 +47420,7 @@ const SignupView = ()=>{
                         children: "Password"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 97,
+                        lineNumber: 108,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -47418,7 +47431,7 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 98,
+                        lineNumber: 109,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -47427,13 +47440,13 @@ const SignupView = ()=>{
                         children: "Password can contain alphanumeric and non-alphanumeric characters."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 105,
+                        lineNumber: 116,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 96,
+                lineNumber: 107,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47444,7 +47457,7 @@ const SignupView = ()=>{
                         children: "Email"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 111,
+                        lineNumber: 122,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -47462,7 +47475,7 @@ const SignupView = ()=>{
                         title: "Please enter a valid email address"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 112,
+                        lineNumber: 123,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -47471,13 +47484,13 @@ const SignupView = ()=>{
                         children: "Email must be in the following format : abc@domain.abc."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 126,
+                        lineNumber: 137,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 110,
+                lineNumber: 121,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47488,7 +47501,7 @@ const SignupView = ()=>{
                         children: "Birthday"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 132,
+                        lineNumber: 143,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -47498,7 +47511,7 @@ const SignupView = ()=>{
                         onChange: (e)=>setBirthday(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 133,
+                        lineNumber: 144,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -47507,40 +47520,179 @@ const SignupView = ()=>{
                         children: "Birthday is optional."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 139,
+                        lineNumber: 150,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 131,
+                lineNumber: 142,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "SignupButtonContainer",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                    variant: "primary",
-                    type: "submit",
-                    className: "SignupButton",
-                    children: "Sign up"
-                }, void 0, false, {
-                    fileName: "src/components/signup-view/signup-view.jsx",
-                    lineNumber: 144,
-                    columnNumber: 17
-                }, undefined)
-            }, void 0, false, {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                        variant: "primary",
+                        type: "submit",
+                        children: "Sign up"
+                    }, void 0, false, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 156,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default), {
+                        show: showSuccessModal,
+                        onHide: handleCloseModal,
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Header, {
+                                closeButton: true,
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Title, {
+                                    children: "Signup successful!"
+                                }, void 0, false, {
+                                    fileName: "src/components/signup-view/signup-view.jsx",
+                                    lineNumber: 163,
+                                    columnNumber: 25
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 162,
+                                columnNumber: 21
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Body, {
+                                children: "You will be redirected to the login page."
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 165,
+                                columnNumber: 21
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Footer, {
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                    variant: "primary",
+                                    onClick: handleCloseModal,
+                                    children: "Close"
+                                }, void 0, false, {
+                                    fileName: "src/components/signup-view/signup-view.jsx",
+                                    lineNumber: 168,
+                                    columnNumber: 25
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 166,
+                                columnNumber: 21
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 161,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default), {
+                        show: showUserExistsModal,
+                        onHide: handleCloseModal,
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Header, {
+                                closeButton: true,
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Title, {
+                                    children: "User already exists"
+                                }, void 0, false, {
+                                    fileName: "src/components/signup-view/signup-view.jsx",
+                                    lineNumber: 177,
+                                    columnNumber: 25
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 176,
+                                columnNumber: 21
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Body, {
+                                children: "The provided username already exists. Please choose a different username."
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 179,
+                                columnNumber: 21
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Footer, {
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                    variant: "primary",
+                                    onClick: handleCloseModal,
+                                    children: "Close"
+                                }, void 0, false, {
+                                    fileName: "src/components/signup-view/signup-view.jsx",
+                                    lineNumber: 182,
+                                    columnNumber: 25
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 180,
+                                columnNumber: 21
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 175,
+                        columnNumber: 17
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default), {
+                        show: showSignupFailedModal,
+                        onHide: handleCloseModal,
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Header, {
+                                closeButton: true,
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Title, {
+                                    children: "Signup failed"
+                                }, void 0, false, {
+                                    fileName: "src/components/signup-view/signup-view.jsx",
+                                    lineNumber: 191,
+                                    columnNumber: 25
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 190,
+                                columnNumber: 21
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Body, {
+                                children: "Something went wrong during signup. Please try again."
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 193,
+                                columnNumber: 21
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Footer, {
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
+                                    variant: "primary",
+                                    onClick: handleCloseModal,
+                                    children: "Close"
+                                }, void 0, false, {
+                                    fileName: "src/components/signup-view/signup-view.jsx",
+                                    lineNumber: 196,
+                                    columnNumber: 25
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/components/signup-view/signup-view.jsx",
+                                lineNumber: 194,
+                                columnNumber: 21
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 189,
+                        columnNumber: 17
+                    }, undefined)
+                ]
+            }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 143,
+                lineNumber: 155,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/signup-view/signup-view.jsx",
-        lineNumber: 69,
+        lineNumber: 80,
         columnNumber: 9
     }, undefined));
 };
-_s(SignupView, "9EY7aHBTeX4vrgzfukBDdK8v2Cw=", false, function() {
+_s(SignupView, "Qg0nv7logV58gHEKLAfqNVLEe84=", false, function() {
     return [
         (0, _reactRouterDom.useNavigate)
     ];
@@ -47554,7 +47706,7 @@ $RefreshReg$(_c, "SignupView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","react-bootstrap/Button":"aPzUt","react-bootstrap/Form":"iBZ80","./signup-view.scss":"6Z19M","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf"}],"6Z19M":[function() {},{}],"bsPVM":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","react-bootstrap/Button":"aPzUt","react-bootstrap/Form":"iBZ80","./signup-view.scss":"6Z19M","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","react-bootstrap/Modal":"aNVmp"}],"6Z19M":[function() {},{}],"bsPVM":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$abf5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
