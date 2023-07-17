@@ -19,7 +19,7 @@ export const SignupView = () => {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    //***const used for React Bootstrap modals popping up after a user signup, depending on the output of the signup operation. This code is related to ''const handleCloseModal = () => {'' and the modals block of codes below.
+    //***The const are used for React Bootstrap modals popping up after a user signup. Each const (ex: const [showSuccessModal, setShowSuccessModal] = useState(false);) render a different modal view depending on the output of the signup operation. This code is related to ''const handleCloseModal = () => {'' and the modals block of codes below.
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showUserExistsModal, setShowUserExistsModal] = useState(false);
     const [showSignupFailedModal, setShowSignupFailedModal] = useState(false);
@@ -33,7 +33,7 @@ export const SignupView = () => {
         setShowSuccessModal(false);
         setShowUserExistsModal(false);
         setShowSignupFailedModal(false);
-        //***Specify that if the signup operation is sucessful, const 'navigate'' upper is called, so ''useNavigate();'' is used to redirect the page to the /login view. If signup operation is not successful, the page stay on the signup view.
+        //***Specify that if the signup operation is sucessful, const ''navigate'' upper is called, so ''useNavigate();'' is used to redirect the page to the /login view. If signup operation is not successful, the page stay on the signup view.
         if (signupSuccess) {
             navigate('/login');
         }

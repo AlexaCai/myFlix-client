@@ -11,20 +11,17 @@ import { Link } from "react-router-dom";
 //***Import the login-view.scss the allow modiication to the React Bootstrap UI design.
 import './login-view.scss';
 
-//***''const LoginView'' (and the following codes) creates the LoginView component. This component is a functional component that receives props as its argument (onLoggedIn). This component will then be displayed in the UI when users are not logged in. 
+//*** ''const LoginView'' is functional component, ''LoginView'' being it's name. It is defined as an arrow function without one parameter, indicating it receives { onLoggedIn } prop.
 export const LoginView = ({ onLoggedIn }) => {
-    //***This line declares a state variable username and a corresponding function setUsername to update its value. The initial value of username is an empty string (""). The purpose of this state variable is to keep track of the value entered in the username field and provide a way to update it.
+    //***Initiate the first value for each log in field as empty. A function allowing the update of this first value for each field is added inside each const (ex: setUsername, setPassword...).
     const [username, setUsername] = useState("");
-    //***This line declares a state variable password and a corresponding function setPassword to update its value. The initial value of password is an empty string (""). The purpose of this state variable is to keep track of the value entered in the password field and provide a way to update it.
     const [password, setPassword] = useState("");
 
     //***const used for React Bootstrap modals popping up after a user signup, depending on the output of the signup operation. This code is related to ''const handleCloseModal = () => {'' and the modals block of codes below.
     const [showLoginFailedModal, setShowLoginFailedModal] = useState(false);
-
     const handleCloseModal = () => {
         setShowLoginFailedModal(false);
     };
-
 
     //***''const handleSubmit'' is declared and assigned an arrow function. This function takes an event parameter, which represents the form submission event.
     const handleSubmit = (event) => {
@@ -110,6 +107,7 @@ export const LoginView = ({ onLoggedIn }) => {
                     required
                 />
             </Form.Group>
+
             <div className="LoginButtonContainer">
                 <Button variant="primary" type="submit" className="LoginButton">
                     Log in
