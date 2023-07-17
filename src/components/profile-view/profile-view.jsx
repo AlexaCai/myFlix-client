@@ -58,7 +58,6 @@ export function ProfileView({ movies, user, token }) {
         })
             .then((response) => {
                 if (response.ok) {
-                    alert("Account deleted successfully");
                     window.location.reload();
                 } else {
                     alert("Error - account not deleted");
