@@ -151,7 +151,7 @@ export function ProfileView({ movies, user, token }) {
                 {/* Modal to display the API response message */}
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Update failed</Modal.Title>
+                        <Modal.Title>Update status</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{responseMessage}</Modal.Body>
                     <Modal.Footer>

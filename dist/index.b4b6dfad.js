@@ -48051,7 +48051,7 @@ function ProfileView({ movies, user, token }) {
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Header, {
                                 closeButton: true,
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Title, {
-                                    children: "Update failed"
+                                    children: "Update status"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
                                     lineNumber: 154,
