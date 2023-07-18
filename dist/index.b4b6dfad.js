@@ -47367,7 +47367,7 @@ const SignupView = ()=>{
         setResponseMessage("");
         if (isSignupSuccessful) navigate("/login");
     };
-    //***
+    //***const to allows the signup view to be redirected to login view after a successful signup.
     const [isSignupSuccessful, setIsSignupSuccessful] = (0, _react.useState)(false);
     const navigate = (0, _reactRouterDom.useNavigate)();
     //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).

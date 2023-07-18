@@ -25,7 +25,7 @@ export const SignupView = () => {
           } 
     };
 
-    //***
+    //***const to allows the signup view to be redirected to login view after a successful signup.
     const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
     const navigate = useNavigate();
 
