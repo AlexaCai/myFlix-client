@@ -129,6 +129,7 @@ export function ProfileView({ movies, user, token }) {
             <h4>Info</h4>
             <p>User: {user.Username}</p>
             <p>Email: {user.Email}</p>
+
             <Form className='profile-form' onSubmit={handleUpdate}>
                 <h4>Update info</h4>
                 <label>Username: </label>
@@ -165,9 +166,11 @@ export function ProfileView({ movies, user, token }) {
                     name='birthday'
                     defaultValue=''
                     onChange={(e) => setBirthday(e.target.value)} />
+
                 <Button variant="primary" type="submit">
                     Update
                 </Button>
+
                 {/* Modal to confirm update */}
                 <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal}>
                     <Modal.Header closeButton>
@@ -195,29 +198,27 @@ export function ProfileView({ movies, user, token }) {
                 </Modal>
             </Form>
 
-            <div>
-                <h4>Delete account</h4>
-                <Button variant="primary" onClick={handleShow}>
-                    Delete
-                </Button>
 
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>You are about to delete your account</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>This action is irreversible, are you sure you want to continue?</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        <Button variant="primary" onClick={handleDelete}>
-                            Delete
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+            <h4>Delete account</h4>
+            <Button variant="primary" onClick={handleShow}>
+                Delete
+            </Button>
 
-            <div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>You are about to delete your account</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>This action is irreversible, are you sure you want to continue?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={handleDelete}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
                 <h4>Favorite Movies</h4>
                 {favoriteMovies.length > 0 ? (
                     favoriteMovies.map((movie) => (
@@ -235,9 +236,6 @@ export function ProfileView({ movies, user, token }) {
                 ) : (
                     <p>No favorite movies yet.</p>
                 )}
-            </div>
-
-            {/* Other sections and closing tags */}
         </div>
     );
 }
