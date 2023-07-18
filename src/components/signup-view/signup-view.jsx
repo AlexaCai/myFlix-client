@@ -19,26 +19,6 @@ export const SignupView = () => {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    //***The const are used for React Bootstrap modals popping up after a user signup. Each const (ex: const [showSuccessModal, setShowSuccessModal] = useState(false);) render a different modal view depending on the output of the signup operation. This code is related to ''const handleCloseModal = () => {'' and the modals block of codes below.
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showUserExistsModal, setShowUserExistsModal] = useState(false);
-    const [showSignupFailedModal, setShowSignupFailedModal] = useState(false);
-    const [signupSuccess, setSignupSuccess] = useState(false);
-
-    //***''navigate'' encapsulates the ''useNavigate'', which is a functional component hook provided by React Router. When useNavigate() is called, it allows to navigate to different specified routes within the application (its possible to call ''useNavigate'' with the desired path as an argument to change the current route and navigate to the specified location - as shown below).
-    const navigate = useNavigate();
-
-    //***Block of codes used to close the React Bootstrap Modal pooping up after a user signup, whatever the output of this operation is.
-    const handleCloseModal = () => {
-        setShowSuccessModal(false);
-        setShowUserExistsModal(false);
-        setShowSignupFailedModal(false);
-        //***Specify that if the signup operation is sucessful, const ''navigate'' upper is called, so ''useNavigate();'' is used to redirect the page to the /login view. If signup operation is not successful, the page stay on the signup view.
-        if (signupSuccess) {
-            navigate('/login');
-        }
-    };
-
     //***''const handleSubmit = (event) =>'' handles the form submission when a user signs up.
     const handleSubmit = (event) => {
         //***This prevents the default behavior of the form which is to reload the entire page. Calling preventDefault() stops the form from performing its default action.
@@ -60,24 +40,30 @@ export const SignupView = () => {
                 "Content-Type": "application/json"
             }
         })
-            //***.then() method is chained to the fetch request to handle the response.
-            .then((response) => {
-                //***If the response is positive, indicating a successful registration, a React Bootstrap modal is displayed saying "Signup successful" and the page is redirected to /login.
-                if (response.ok) {
-                    setShowSuccessModal(true);
-                    setSignupSuccess(true);
-                }
-                //***If the response is a status 409, indicating that the username used to create an account already exist, a React Bootstrap modal is displayed saying "User already exists" and the page stays on the signup view for the user to make changes in his form.
-                else if (response.status === 409) {
-                    setShowUserExistsModal(true);
-                }
-                //***If the response is negative, indicating a failed registration, a React Bootstrap modal is displayed saying "Signup failed" and the page stays on the signup view for the user to make changes in his form.
-                else {
-                    setShowSignupFailedModal(true);
-                }
-            });
+        .then((response) => {
+            if (response.ok) {
+                alert("Signup successful");
+                window.location.reload();
+            } else if (response.status === 409) {
+                response.text().then((text) => {
+                    // Display the plain text response.
+                    alert(text);
+                }).catch((error) => {
+                    // If there is an error reading the response, show a generic "Signup failed" alert.
+                    console.error("Error reading response data:", error);
+                    alert("Signup failed");
+                });
+            } else {
+                // For other error codes, show a generic "Signup failed" alert.
+                alert("Signup failed");
+            }
+        })
+        .catch((error) => {
+            console.error("Error signing up user:", error);
+            alert("Signup failed");
+        });
     };
-
+    
     //***''return'' indicates all the elements that will be returned as the output on the UI of the SignupView component. 
     //***These returned elements are designed using React Bootstrap.
     return (
@@ -167,45 +153,6 @@ export const SignupView = () => {
                 <Button variant="primary" type="submit">
                     Sign up
                 </Button>
-
-                {/* Modal popping up after a successful signup */}
-                <Modal show={showSuccessModal} onHide={handleCloseModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Signup successful!</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>You will be redirected to the login page.</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" onClick={handleCloseModal}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-
-                {/* Modal popping up after failed signup because the User already exists */}
-                <Modal show={showUserExistsModal} onHide={handleCloseModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>User already exists</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>The provided username already exists. Please choose a different username.</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" onClick={handleCloseModal}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-
-                {/* Modal popping up after failed signup because of en error */}
-                <Modal show={showSignupFailedModal} onHide={handleCloseModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Signup failed</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>Something went wrong during signup. Please try again.</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="primary" onClick={handleCloseModal}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
             </div>
         </Form>
     );
