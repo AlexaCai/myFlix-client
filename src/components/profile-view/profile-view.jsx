@@ -15,7 +15,7 @@ export function ProfileView({ movies, user, token }) {
 
     console.log("All Movies:", movies);
     let favoriteMovies = user.FavoriteMovies.map((favoriteMovieId) =>
-        movies.find((movie) => movie.id === favoriteMovieId)); 
+        movies.find((movie) => movie.id === favoriteMovieId));
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -42,11 +42,25 @@ export function ProfileView({ movies, user, token }) {
                 if (response.ok) {
                     alert("Update successful");
                     window.location.reload();
+                } else if (response.status === 409) {
+                    response.text().then((text) => {
+                        // Display the plain text response.
+                        alert(text);
+                    }).catch((error) => {
+                        // If there is an error reading the response, show a generic "Signup failed" alert.
+                        console.error("Error reading response data:", error);
+                        alert("Update failed");
+                    });
                 } else {
+                    // For other error codes, show a generic "Signup failed" alert.
                     alert("Update failed");
                 }
+            })
+            .catch((error) => {
+                console.error("Error updated user:", error);
+                alert("Update failed");
             });
-    };
+        };
 
     const handleDelete = () => {
         fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}`, {
@@ -72,21 +86,21 @@ export function ProfileView({ movies, user, token }) {
     const deleteFavoriteMovie = (event, movieId) => {
         event.preventDefault();
         fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
         })
-        .then((response) => {
-          if (response.ok) {
-            alert("Movie has been deleted from favorite");
-            window.location.reload();
-          } else {
-            alert("Error - Movie has not been deleted from favorite");
-          }
-        });
-      };
+            .then((response) => {
+                if (response.ok) {
+                    alert("Movie has been deleted from favorite");
+                    window.location.reload();
+                } else {
+                    alert("Error - Movie has not been deleted from favorite");
+                }
+            });
+    };
 
     return (
         <div>
@@ -118,7 +132,7 @@ export function ProfileView({ movies, user, token }) {
                     onChange={(e) => setEmail(e.target.value)} />
                 <label>Birthday: </label>
                 <input
-                    type='birthday'
+                    type='date'
                     name='birthday'
                     defaultValue=''
                     onChange={(e) => setBirthday(e.target.value)} />
@@ -150,26 +164,26 @@ export function ProfileView({ movies, user, token }) {
             </div>
 
             <div>
-            <h4>Favorite Movies</h4>
-        {favoriteMovies.length > 0 ? (
-          favoriteMovies.map((movie) => (
-            <div key={movie._id}>
-              <img src={movie.image} />
-              <h4>{movie.title}</h4>
-              <Button
-                className="deleteFavorite-button"
-                onClick={(event) => deleteFavoriteMovie(event, movie.id)}
-              >
-                Delete from favorite
-              </Button>
+                <h4>Favorite Movies</h4>
+                {favoriteMovies.length > 0 ? (
+                    favoriteMovies.map((movie) => (
+                        <div key={movie._id}>
+                            <img src={movie.image} />
+                            <h4>{movie.title}</h4>
+                            <Button
+                                className="deleteFavorite-button"
+                                onClick={(event) => deleteFavoriteMovie(event, movie.id)}
+                            >
+                                Delete from favorite
+                            </Button>
+                        </div>
+                    ))
+                ) : (
+                    <p>No favorite movies yet.</p>
+                )}
             </div>
-          ))
-        ) : (
-          <p>No favorite movies yet.</p>
-        )}
-      </div>
 
-      {/* Other sections and closing tags */}
-    </div>
-  );
+            {/* Other sections and closing tags */}
+        </div>
+    );
 }
