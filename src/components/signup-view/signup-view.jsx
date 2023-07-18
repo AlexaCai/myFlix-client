@@ -13,6 +13,15 @@ import './signup-view.scss';
 
 //*** ''const SignupView'' is functional component, ''SignupView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
 export const SignupView = () => {
+
+    //***Bootstrap const for modal popping up after a user click the sign up button.
+    const [showModal, setShowModal] = useState(false);
+    const [responseMessage, setResponseMessage] = useState("");
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setResponseMessage(""); // Clear the response message when closing the modal
+    };
+
     //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -40,30 +49,32 @@ export const SignupView = () => {
                 "Content-Type": "application/json"
             }
         })
-        .then((response) => {
-            if (response.ok) {
-                alert("Signup successful");
-                window.location.reload();
-            } else if (response.status === 409) {
-                response.text().then((text) => {
-                    // Display the plain text response.
-                    alert(text);
-                }).catch((error) => {
-                    // If there is an error reading the response, show a generic "Signup failed" alert.
-                    console.error("Error reading response data:", error);
-                    alert("Signup failed");
-                });
-            } else {
-                // For other error codes, show a generic "Signup failed" alert.
-                alert("Signup failed");
-            }
-        })
-        .catch((error) => {
-            console.error("Error signing up user:", error);
-            alert("Signup failed");
-        });
+            .then((response) => {
+                if (response.ok) {
+                    setResponseMessage("Signup successful");
+                } else if (response.status === 409) {
+                    response.text().then((text) => {
+                        // Display the plain text response.
+                        setResponseMessage(text);
+                    }).catch((error) => {
+                        // If there is an error reading the response, show a generic "Signup failed" alert.
+                        console.error("Error reading response data:", error);
+                        setResponseMessage("Signup failed");
+                    });
+                } else {
+                    // For other error codes, show a generic "Signup failed" alert.
+                    setResponseMessage("Signup failed");
+                }
+                setShowModal(true);
+            })
+            .catch((error) => {
+                console.error("Error signing up user:", error);
+                setResponseMessage("Signup failed");
+                setShowModal(true); // Show the modal with the generic "Signup failed" message
+            });
     };
-    
+
+
     //***''return'' indicates all the elements that will be returned as the output on the UI of the SignupView component. 
     //***These returned elements are designed using React Bootstrap.
     return (
@@ -153,6 +164,18 @@ export const SignupView = () => {
                 <Button variant="primary" type="submit">
                     Sign up
                 </Button>
+                {/* Modal to display the API response message */}
+                <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Signup failed</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{responseMessage}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         </Form>
     );

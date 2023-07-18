@@ -8,12 +8,19 @@ import axios from 'axios';
 
 export function ProfileView({ movies, user, token }) {
 
-    //For React Bootstrap Modal
+    //***Bootstrap const for update modal (after a user click the sign up button).
+    const [showModal, setShowModal] = useState(false);
+    const [responseMessage, setResponseMessage] = useState("");
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setResponseMessage(""); // Clear the response message when closing the modal
+    };
+
+    //***Bootstrap const for delete modal (after a user click the delete button).
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    console.log("All Movies:", movies);
     let favoriteMovies = user.FavoriteMovies.map((favoriteMovieId) =>
         movies.find((movie) => movie.id === favoriteMovieId));
 
@@ -40,27 +47,29 @@ export function ProfileView({ movies, user, token }) {
         })
             .then((response) => {
                 if (response.ok) {
-                    alert("Update successful");
+                    setResponseMessage("Signup successful");
                     window.location.reload();
                 } else if (response.status === 409) {
                     response.text().then((text) => {
                         // Display the plain text response.
-                        alert(text);
+                        setResponseMessage(text);
                     }).catch((error) => {
                         // If there is an error reading the response, show a generic "Signup failed" alert.
                         console.error("Error reading response data:", error);
-                        alert("Update failed");
+                        setResponseMessage("Update failed");
                     });
                 } else {
                     // For other error codes, show a generic "Signup failed" alert.
-                    alert("Update failed");
+                    setResponseMessage("Update failed");
                 }
+                setShowModal(true);
             })
             .catch((error) => {
                 console.error("Error updated user:", error);
-                alert("Update failed");
+                setResponseMessage("Signup failed");
+                setShowModal(true); // Show the modal with the generic "Signup failed" message
             });
-        };
+    };
 
     const handleDelete = () => {
         fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}`, {
@@ -139,6 +148,18 @@ export function ProfileView({ movies, user, token }) {
                 <Button variant='primary' type='submit'>
                     Update
                 </Button>
+                {/* Modal to display the API response message */}
+                <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Update failed</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{responseMessage}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </Form>
 
             <div>
