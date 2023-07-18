@@ -19,8 +19,16 @@ export const SignupView = () => {
     const [responseMessage, setResponseMessage] = useState("");
     const handleCloseModal = () => {
         setShowModal(false);
-        setResponseMessage(""); // Clear the response message when closing the modal
+        setResponseMessage("");
+        if (isSignupSuccessful) {
+            navigate('/login');
+          } 
     };
+
+    //***
+    const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
+    const navigate = useNavigate();
+
 
     //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
     const [username, setUsername] = useState("");
@@ -51,7 +59,8 @@ export const SignupView = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    setResponseMessage("Signup successful");
+                    setResponseMessage("You're on board! Your registration was successful, you will be redirected to the login page");
+                    setIsSignupSuccessful(true);
                 } else if (response.status === 409) {
                     response.text().then((text) => {
                         // Display the plain text response.
@@ -167,7 +176,7 @@ export const SignupView = () => {
                 {/* Modal to display the API response message */}
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Signup failed</Modal.Title>
+                        <Modal.Title>Signup status</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{responseMessage}</Modal.Body>
                     <Modal.Footer>
