@@ -24,11 +24,9 @@ export const MainView = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     //***''storedToken'' is declared to store the token fetched from the browser's localStorage. ''localStorage.getItem("token")'' is used to retrieve the value stored under the key "token" in the browser's localStorage.
     const storedToken = localStorage.getItem("token");
-    //***''const [user, setUser] = useState(null);'' holds user data. The useState hook initializes the user state to ''null'' and use setUser as the function to update the user state when needed.
+    //***Initiate the first variable for each log in field as empty. A function allowing the update of this first variable is added inside each const (ex: setUser, setToken...).
     const [user, setUser] = useState(null);
-    //***''const [token, setToken] = useState(null);'' holds token data. The useState hook initializes the token state to ''null'' and use setToken as the function to update the token state when needed.
     const [token, setToken] = useState(null);
-    //***''const [movies, setMovies] = useState([]);'' holds movie data. The useState hook initializes the movie state to en empty array and use setMovie as the function to update the movie state when needed.
     const [movies, setMovies] = useState([]);
 
     //***This useEffect is responsible for fetching movie data from the server when there is a valid token available (when the user is authenticated). After fetching the movie data, it transforms the API response into a format that the application can use and updates the movies state accordingly. The effect is triggered whenever the token state changes.
@@ -108,9 +106,12 @@ export const MainView = () => {
                 }}
             />
             <Row className="justify-content-md-center">
+            {/* <Routes> is used as a container for multiple <Route> components, and it defines the different routes that can be accessed in the application. */}
                 <Routes>
+                    {/* First Route component has a path prop set to "/signup" so that this route will be active when the URL matches "/signup". */}
                     <Route
                         path="/signup"
+                        /* element prop of the Route is set to a JSX expression that will be rendered when the route is active. Inside the element prop, there's a conditional statement. */
                         element={
                             <>
                                 {user ? (
