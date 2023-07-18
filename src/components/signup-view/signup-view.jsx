@@ -14,7 +14,7 @@ import './signup-view.scss';
 //*** ''const SignupView'' is functional component, ''SignupView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
 export const SignupView = () => {
 
-    //***Bootstrap const for modal popping up after a user click the sign up button.
+    //***Bootstrap const for modal popping up after a user click the signup button.
     const [showModal, setShowModal] = useState(false);
     const [responseMessage, setResponseMessage] = useState("");
     const handleCloseModal = () => {
@@ -22,13 +22,12 @@ export const SignupView = () => {
         setResponseMessage("");
         if (isSignupSuccessful) {
             navigate('/login');
-          } 
+        }
     };
 
-    //***const to allows the signup view to be redirected to login view after a successful signup.
+    //***const to allows the signup page to be redirected to login view after a successful signup.
     const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
     const navigate = useNavigate();
-
 
     //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
     const [username, setUsername] = useState("");
@@ -173,6 +172,7 @@ export const SignupView = () => {
                 <Button variant="primary" type="submit">
                     Sign up
                 </Button>
+
                 {/* Modal to display the API response message */}
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>

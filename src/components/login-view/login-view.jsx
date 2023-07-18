@@ -17,7 +17,7 @@ export const LoginView = ({ onLoggedIn }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    //***const used for React Bootstrap modals popping up after a user signup, depending on the output of the signup operation. This code is related to ''const handleCloseModal = () => {'' and the modals block of codes below.
+    //***Bootstrap const for modal popping up after a user click the login button, only if the login failed.
     const [showLoginFailedModal, setShowLoginFailedModal] = useState(false);
     const handleCloseModal = () => {
         setShowLoginFailedModal(false);
@@ -27,13 +27,11 @@ export const LoginView = ({ onLoggedIn }) => {
     const handleSubmit = (event) => {
         //***''event.preventDefault'' prevents the default behavior of the form when submitted, which is to reload the entire page (when a form is submitted in a web app, it typically triggers a page refresh. However, in many cases, especially in single-page applications built with React, its better to handle form submissions without refreshing the page or navigating away to another URL).
         event.preventDefault();
-
         //***''const data'' is declared and assigned an object value with two properties: Username and Password. The purpose of this block of code is to create a data object that will be sent in the request to log in when making a POST request to the specified fetched URL.
         const data = {
             Username: username,
             Password: password
         };
-
         //***A fetch request is made to the URL below with a POST method and the request body being the (data) object from above with the two properties.
         fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/login", {
             method: "POST",
@@ -59,7 +57,7 @@ export const LoginView = ({ onLoggedIn }) => {
                     //***If data.user exists, onLoggedIn() function is called with the data.user and data.token as arguments. ''user'' and ''token'' can then be passed back to the ''MainView'' component so they can be used in all the subsequent API requests. This line is used to notify the ''MainView'' component that the user has successfully logged in (see ''if (!user)'' function in MainView component, and the logic related to it for a view of the commands it triggered).
                     onLoggedIn(data.user, data.token);
                 } else {
-                    //If (data.user) doesnt exist, the message ''No such user'' is displayed on the UI.
+                    //***If (data.user) doesnt exist, the message ''No such user'' is displayed on the UI.
                     setShowLoginFailedModal(true);
                 }
             })
@@ -112,6 +110,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 <Button variant="primary" type="submit" className="LoginButton">
                     Log in
                 </Button>
+                
                 {/* Modal popping up after failed signup because of en error */}
                 <Modal show={showLoginFailedModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
