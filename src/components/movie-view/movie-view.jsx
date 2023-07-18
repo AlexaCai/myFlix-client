@@ -24,7 +24,6 @@ export const MovieView = ({ movies }) => {
     .then((response) => {
       if (response.ok) {
         alert("Movie has been added to favorite");
-        window.location.reload();
       } else {
         alert("Error - Movie has not been added to favorite");
       }
@@ -43,7 +42,6 @@ export const MovieView = ({ movies }) => {
     .then((response) => {
       if (response.ok) {
         alert("Movie has been deleted from favorite");
-        window.location.reload();
       } else {
         alert("Error - Movie has not been deleted from favorite");
       }
