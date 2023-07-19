@@ -2,13 +2,14 @@
 import React from "react";
 import { useState } from "react";
 
+import { MovieCard } from "../movie-card/movie-card";
+
 //***Import the different React Bootstrap components.
 import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import './profile-view.scss';
 
 import axios from 'axios';
@@ -135,7 +136,7 @@ export function ProfileView({ movies, user, token }) {
 
     return (
         <Container>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-md-center styling-position">
 
                 {/* USER info display*/}
                 <Col sm style={{ border: "1px solid blue" }}>
@@ -148,8 +149,8 @@ export function ProfileView({ movies, user, token }) {
                 <Col sm style={{ border: "1px solid blue" }}>
                     <Form className='profile-form' onSubmit={handleUpdate}>
                         <h4>Update info</h4>
-                        <label>Username: </label>
-                        <input
+                        <label>Username </label>
+                        <input className="inputField"
                             type="text"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -157,14 +158,14 @@ export function ProfileView({ movies, user, token }) {
                             minLength="5"
                             pattern="[a-zA-Z0-9]+"
                             title="Username must consist of alphanumeric characters" />
-                        <label>Password: </label>
-                        <input
+                        <label>Password </label>
+                        <input className="inputField"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required />
-                        <label>Email: </label>
-                        <input
+                        <label>Email </label>
+                        <input className="inputField"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -176,15 +177,15 @@ export function ProfileView({ movies, user, token }) {
                             //***[a-zA-Z]{2,} allows two or more characters of uppercase or lowercase after the dot, representing the domain extension.
                             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                             title="Please enter a valid email address" />
-                        <label>Birthday: </label>
-                        <input
+                        <label>Birthday </label>
+                        <input className="inputField"
                             type='date'
                             name='birthday'
                             defaultValue=''
                             onChange={(e) => setBirthday(e.target.value)} />
 
                         {/* BUTTON to UPDATE user information */}
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" className="update-button">
                             Update
                         </Button>
                     </Form>
@@ -246,16 +247,17 @@ export function ProfileView({ movies, user, token }) {
 
 
             {/* LOGIC to display each FAVORITE MOVIES being in the user's favorite movie list */}
-            <Row>
-                <Col style={{ border: "1px solid blue" }}>
-                    <h4>Favorite Movies</h4>
+            <>
+                <Row>
+                    <Col style={{ border: "1px solid blue" }}>
+                        <h4>Favorite Movies</h4>
+                    </Col>
+                </Row>
+                <Row>
                     {favoriteMovies.length > 0 ? (
-                        favoriteMovies.map((movie) => (
-                            <div key={movie._id}>
-                                <img src={movie.image} />
-                                <h4>{movie.title}</h4>
-
-                                {/* BUTTON for user to REMOVE movie from list of favorite */}
+                        favoriteMovies.map((movie, index) => (
+                            <Col lg="3" key={movie.id}>
+                                <MovieCard movie={movie} />
                                 <Button
                                     className="deleteFavorite-button"
                                     onClick={(event) => {
@@ -265,33 +267,35 @@ export function ProfileView({ movies, user, token }) {
                                 >
                                     Remove from favorite
                                 </Button>
-                            </div>
+                                </Col>
                         ))
                     ) : (
                         <p>No favorite movies yet.</p>
                     )}
-                </Col>
             </Row>
+        </>
 
-            {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */}
-            <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Remove Movie from favorites</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary"
-                        onClick={(event) => {
-                            deleteFavoriteMovie(event, selectedMovieId);
-                            handleCloseDeleteFavoriteModal();
-                        }}>
-                        Confirm
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </Container>
+
+
+            {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */ }
+    <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
+        <Modal.Header closeButton>
+            <Modal.Title>Remove Movie from favorites</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
+        <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
+                Cancel
+            </Button>
+            <Button variant="primary"
+                onClick={(event) => {
+                    deleteFavoriteMovie(event, selectedMovieId);
+                    handleCloseDeleteFavoriteModal();
+                }}>
+                Confirm
+            </Button>
+        </Modal.Footer>
+    </Modal>
+        </Container >
     );
 }
