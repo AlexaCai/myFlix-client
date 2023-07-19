@@ -1,5 +1,8 @@
+//***Import different React built-in function.
 import React from "react";
 import { useState } from "react";
+
+//***Import the different React Bootstrap components.
 import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -7,28 +10,28 @@ import './profile-view.scss';
 import axios from 'axios';
 
 export function ProfileView({ movies, user, token }) {
-
     //***Use to initiate all the field of the update form to empty as first.
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    //***Bootstrap const for update modal (after a user click the sign up button).
+    //***Bootstrap const for update modal (after a user click the update button).
     const [responseMessage, setResponseMessage] = useState("");
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [isUpdateConfirmed, setIsUpdateConfirmed] = useState(false);
 
-    //***Bootstrap const for update modal (after a user click the sign up button).
+
+    //***Bootstrap const for update modal (after a user click the update button).
     const handleCloseConfirmationModal = () => {
         setShowConfirmationModal(false);
-        setIsUpdateConfirmed(false); // Reset the update confirmation status
+        setIsUpdateConfirmed(false); 
         +        localStorage.removeItem("userToken");
         window.location.href = "/login";
     };
 
-    //***Bootstrap const for update modal (after a user click the sign up button).
+    //***Bootstrap const for update modal (after a user click the update button).
     const handleCloseErrorModal = () => {
         setShowErrorModal(false);
         setResponseMessage("");
@@ -43,6 +46,7 @@ export function ProfileView({ movies, user, token }) {
     let favoriteMovies = user.FavoriteMovies.map((favoriteMovieId) =>
         movies.find((movie) => movie.id === favoriteMovieId));
 
+    //***Logic to allow user update his information.
     const handleUpdate = (event) => {
         event.preventDefault();
         const userData = {
@@ -62,7 +66,7 @@ export function ProfileView({ movies, user, token }) {
             .then((response) => {
                 if (response.ok) {
                     setResponseMessage("Update successful");
-                    setShowConfirmationModal(true); // Show the confirmation modal on successful update
+                    setShowConfirmationModal(true); 
                 } else if (response.status === 409) {
                     response.text().then((text) => {
                         setResponseMessage(text);
@@ -84,6 +88,7 @@ export function ProfileView({ movies, user, token }) {
             });
     };
 
+    //***Logic to allow user delete his information.
     const handleDelete = () => {
         fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}`, {
             method: "DELETE",
@@ -105,6 +110,7 @@ export function ProfileView({ movies, user, token }) {
             });
     };
 
+    //***Logic to allow user update remove movie from his favorite list of movies.
     const deleteFavoriteMovie = (event, movieId) => {
         event.preventDefault();
         fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
@@ -117,7 +123,6 @@ export function ProfileView({ movies, user, token }) {
             .then((response) => {
                 if (response.ok) {
                     alert("Movie has been deleted from favorite");
-                    window.location.reload();
                 } else {
                     alert("Error - Movie has not been deleted from favorite");
                 }
@@ -129,7 +134,8 @@ export function ProfileView({ movies, user, token }) {
             <h4>Info</h4>
             <p>User: {user.Username}</p>
             <p>Email: {user.Email}</p>
-
+          
+            {/* From to update user information */}
             <Form className='profile-form' onSubmit={handleUpdate}>
                 <h4>Update info</h4>
                 <label>Username: </label>
@@ -167,11 +173,12 @@ export function ProfileView({ movies, user, token }) {
                     defaultValue=''
                     onChange={(e) => setBirthday(e.target.value)} />
 
+            {/* Button to update user information */}
                 <Button variant="primary" type="submit">
                     Update
                 </Button>
 
-                {/* Modal to confirm update */}
+                {/* Modal to confirm user update */}
                 <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Update succesful!</Modal.Title>
@@ -184,7 +191,7 @@ export function ProfileView({ movies, user, token }) {
                     </Modal.Footer>
                 </Modal>
 
-                {/* Modal to display the error message */}
+                {/* Modal to display user update error message */}
                 <Modal show={showErrorModal} onHide={handleCloseErrorModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Update failed</Modal.Title>
@@ -198,12 +205,13 @@ export function ProfileView({ movies, user, token }) {
                 </Modal>
             </Form>
 
-
+            {/* button to user delete account */}
             <h4>Delete account</h4>
             <Button variant="primary" onClick={handleShow}>
                 Delete
             </Button>
 
+            {/* Modal to confirm delete operation */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>You are about to delete your account</Modal.Title>
@@ -219,6 +227,7 @@ export function ProfileView({ movies, user, token }) {
                 </Modal.Footer>
             </Modal>
 
+            {/* Logic to display each favorite movies being in the user's favorite movie list */}
                 <h4>Favorite Movies</h4>
                 {favoriteMovies.length > 0 ? (
                     favoriteMovies.map((movie) => (

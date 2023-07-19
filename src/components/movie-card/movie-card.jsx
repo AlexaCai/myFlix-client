@@ -1,16 +1,10 @@
-//***Import React module and allows to use React's functionalities and components.
+//***Import different React built-in function.
 import React from "react";
-
-//***Import the PropTypes.
 import PropTypes from "prop-types";
 
-//***Import the Card Bootstrap component for log in form UI design.
+//***Import the different React Bootstrap components.
 import { Card } from "react-bootstrap";
-
-//***Import the Button Bootstrap component for log in form UI design.
 import { Button } from "react-bootstrap";
-
-//***Import the Link Bootstrap component for log in form UI design.
 import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie }) => {

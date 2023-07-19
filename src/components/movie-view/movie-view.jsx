@@ -1,9 +1,8 @@
+//***Import different React built-in function.
 import { useParams } from "react-router";
 
-import { useState } from "react";
-
+//***Import the different React Bootstrap components.
 import { Link } from "react-router-dom";
-
 import { Button } from "react-bootstrap";
 
 export const MovieView = ({ movies }) => {
