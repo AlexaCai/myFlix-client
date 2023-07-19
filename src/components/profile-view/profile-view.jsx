@@ -6,7 +6,11 @@ import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import './profile-view.scss';
+
 import axios from 'axios';
 
 export function ProfileView({ movies, user, token }) {
@@ -130,56 +134,61 @@ export function ProfileView({ movies, user, token }) {
     };
 
     return (
-        <div>
-            {/* USER info display*/}
-            <h4>Info</h4>
-            <p>User: {user.Username}</p>
-            <p>Email: {user.Email}</p>
+        <Container>
+            <Row className="justify-content-md-center">
 
+                {/* USER info display*/}
+                <Col sm style={{ border: "1px solid blue" }}>
+                    <h4>Info</h4>
+                    <p>User: {user.Username}</p>
+                    <p>Email: {user.Email}</p>
+                </Col>
 
+                {/* FORM to UPDATE user information */}
+                <Col sm style={{ border: "1px solid blue" }}>
+                    <Form className='profile-form' onSubmit={handleUpdate}>
+                        <h4>Update info</h4>
+                        <label>Username: </label>
+                        <input
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            minLength="5"
+                            pattern="[a-zA-Z0-9]+"
+                            title="Username must consist of alphanumeric characters" />
+                        <label>Password: </label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required />
+                        <label>Email: </label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            //***[a-zA-Z0-9._%+-]+ allows alphanumeric characters, dots, underscores, percent signs, plus signs, or hyphens before the @ symbol. Pattern used to match the local part of the email address, which is the part before the @ symbol.
+                            //***@ makes sure there is a @ symbol in the email provide.
+                            //***[a-zA-Z0-9.-]+ allows alphanumeric characters and dots after the @ symbol but before the domain extension. Pattern used to match the domain name part of the email address, which is the part after the @ symbol.
+                            //***\. makes sure a dot is present for the email extension.
+                            //***[a-zA-Z]{2,} allows two or more characters of uppercase or lowercase after the dot, representing the domain extension.
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                            title="Please enter a valid email address" />
+                        <label>Birthday: </label>
+                        <input
+                            type='date'
+                            name='birthday'
+                            defaultValue=''
+                            onChange={(e) => setBirthday(e.target.value)} />
 
-            {/* FORM to UPDATE user information */}
-            <Form className='profile-form' onSubmit={handleUpdate}>
-                <h4>Update info</h4>
-                <label>Username: </label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                    minLength="5"
-                    pattern="[a-zA-Z0-9]+"
-                    title="Username must consist of alphanumeric characters" />
-                <label>Password: </label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required />
-                <label>Email: </label>
-                <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    //***[a-zA-Z0-9._%+-]+ allows alphanumeric characters, dots, underscores, percent signs, plus signs, or hyphens before the @ symbol. Pattern used to match the local part of the email address, which is the part before the @ symbol.
-                    //***@ makes sure there is a @ symbol in the email provide.
-                    //***[a-zA-Z0-9.-]+ allows alphanumeric characters and dots after the @ symbol but before the domain extension. Pattern used to match the domain name part of the email address, which is the part after the @ symbol.
-                    //***\. makes sure a dot is present for the email extension.
-                    //***[a-zA-Z]{2,} allows two or more characters of uppercase or lowercase after the dot, representing the domain extension.
-                    pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-                    title="Please enter a valid email address" />
-                <label>Birthday: </label>
-                <input
-                    type='date'
-                    name='birthday'
-                    defaultValue=''
-                    onChange={(e) => setBirthday(e.target.value)} />
-
-                {/* BUTTON to UPDATE user information */}
-                <Button variant="primary" type="submit">
-                    Update
-                </Button>
+                        {/* BUTTON to UPDATE user information */}
+                        <Button variant="primary" type="submit">
+                            Update
+                        </Button>
+                    </Form>
+                </Col>
 
                 {/* MODAL to CONFIRM user UPDATE sucess */}
                 <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal}>
@@ -206,77 +215,83 @@ export function ProfileView({ movies, user, token }) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-            </Form>
 
 
-
-            {/* BUTTON for user to DELETE account */}
-            <h4>Delete account</h4>
-            <Button variant="primary" onClick={handleShow}>
-                Delete
-            </Button>
-
-            {/* MODAL to CONFIRM DELETE operation */}
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>You are about to delete your account</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>This action is irreversible, are you sure you want to continue?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={handleDelete}>
+                {/* BUTTON for user to DELETE account */}
+                <Col sm style={{ border: "1px solid blue" }}>
+                    <h4>Delete account</h4>
+                    <Button variant="primary" onClick={handleShow}>
                         Delete
                     </Button>
-                </Modal.Footer>
-            </Modal>
+                </Col>
+
+
+                {/* MODAL to CONFIRM DELETE operation */}
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>You are about to delete your account</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>This action is irreversible, are you sure you want to continue?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Cancel
+                        </Button>
+                        <Button variant="primary" onClick={handleDelete}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </Row>
 
 
 
             {/* LOGIC to display each FAVORITE MOVIES being in the user's favorite movie list */}
-            <h4>Favorite Movies</h4>
-            {favoriteMovies.length > 0 ? (
-                favoriteMovies.map((movie) => (
-                    <div key={movie._id}>
-                        <img src={movie.image} />
-                        <h4>{movie.title}</h4>
+            <Row>
+                <Col style={{ border: "1px solid blue" }}>
+                    <h4>Favorite Movies</h4>
+                    {favoriteMovies.length > 0 ? (
+                        favoriteMovies.map((movie) => (
+                            <div key={movie._id}>
+                                <img src={movie.image} />
+                                <h4>{movie.title}</h4>
 
-                        {/* BUTTON for user to REMOVE movie from list of favorite */}
-                        <Button
-                            className="deleteFavorite-button"
-                            onClick={(event) => {
-                                setSelectedMovieId(movie.id);
-                                handleShowDeleteFavoriteModal();
-                            }}
-                        >
-                            Remove from favorite
-                        </Button>
-
-                        {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */}
-                        <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Remove Movie from favorites</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
-                                    Cancel
-                                </Button>
-                                <Button variant="primary"
+                                {/* BUTTON for user to REMOVE movie from list of favorite */}
+                                <Button
+                                    className="deleteFavorite-button"
                                     onClick={(event) => {
-                                        deleteFavoriteMovie(event, selectedMovieId);
-                                        handleCloseDeleteFavoriteModal();
-                                    }}>
-                                    Confirm
+                                        setSelectedMovieId(movie.id);
+                                        handleShowDeleteFavoriteModal();
+                                    }}
+                                >
+                                    Remove from favorite
                                 </Button>
-                            </Modal.Footer>
-                        </Modal>
-                    </div>
-                ))
-            ) : (
-                <p>No favorite movies yet.</p>
-            )}
-        </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No favorite movies yet.</p>
+                    )}
+                </Col>
+            </Row>
+
+            {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */}
+            <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Remove Movie from favorites</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary"
+                        onClick={(event) => {
+                            deleteFavoriteMovie(event, selectedMovieId);
+                            handleCloseDeleteFavoriteModal();
+                        }}>
+                        Confirm
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </Container>
     );
 }
