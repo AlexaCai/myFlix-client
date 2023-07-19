@@ -13226,4 +13226,11 @@ textarea.form-control-lg {
   }
 }
 
+.styling {
+  background-color: #a7f3ef;
+  flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+}
+
 /*# sourceMappingURL=index.27d8da6b.css.map */
