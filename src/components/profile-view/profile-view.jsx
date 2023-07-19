@@ -256,7 +256,7 @@ export function ProfileView({ movies, user, token }) {
                 <Row>
                     {favoriteMovies.length > 0 ? (
                         favoriteMovies.map((movie, index) => (
-                            <Col lg="3" key={movie.id}>
+                            <Col xs={12} md={6} lg="3" key={movie.id}>
                                 <MovieCard movie={movie} />
                                 <Button
                                     className="deleteFavorite-button"
