@@ -16,28 +16,23 @@ export function ProfileView({ movies, user, token }) {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    //***Bootstrap const for update modal (after a user click the update button).
+    //***Bootstrap const for UPDATE user modal (after a user click the update button).
     const [responseMessage, setResponseMessage] = useState("");
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [isUpdateConfirmed, setIsUpdateConfirmed] = useState(false);
-
-
-    //***Bootstrap const for update modal (after a user click the update button).
     const handleCloseConfirmationModal = () => {
         setShowConfirmationModal(false);
-        setIsUpdateConfirmed(false); 
+        setIsUpdateConfirmed(false);
         +        localStorage.removeItem("userToken");
         window.location.href = "/login";
     };
-
-    //***Bootstrap const for update modal (after a user click the update button).
     const handleCloseErrorModal = () => {
         setShowErrorModal(false);
         setResponseMessage("");
     };
 
-    //***Bootstrap const for delete modal (after a user click the delete button).
+    //***Bootstrap const for DELETE user modal (after a user click the delete button).
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -45,6 +40,12 @@ export function ProfileView({ movies, user, token }) {
     //***Use to display movie added in the favorite movie list.
     let favoriteMovies = user.FavoriteMovies.map((favoriteMovieId) =>
         movies.find((movie) => movie.id === favoriteMovieId));
+
+    //***Bootstrap const for REMOVE MOVIE from favorite modal (after a user click the update button).
+    const [showDeleteFavoriteModal, setShowDeleteFavoriteModal] = useState(false);
+    const handleCloseDeleteFavoriteModal = () => setShowDeleteFavoriteModal(false);
+    const handleShowDeleteFavoriteModal = () => setShowDeleteFavoriteModal(true);
+    const [selectedMovieId, setSelectedMovieId] = useState(null);
 
     //***Logic to allow user update his information.
     const handleUpdate = (event) => {
@@ -66,7 +67,7 @@ export function ProfileView({ movies, user, token }) {
             .then((response) => {
                 if (response.ok) {
                     setResponseMessage("Update successful");
-                    setShowConfirmationModal(true); 
+                    setShowConfirmationModal(true);
                 } else if (response.status === 409) {
                     response.text().then((text) => {
                         setResponseMessage(text);
@@ -122,7 +123,6 @@ export function ProfileView({ movies, user, token }) {
         })
             .then((response) => {
                 if (response.ok) {
-                    alert("Movie has been deleted from favorite");
                 } else {
                     alert("Error - Movie has not been deleted from favorite");
                 }
@@ -131,11 +131,14 @@ export function ProfileView({ movies, user, token }) {
 
     return (
         <div>
+            {/* USER info display*/}
             <h4>Info</h4>
             <p>User: {user.Username}</p>
             <p>Email: {user.Email}</p>
-          
-            {/* From to update user information */}
+
+
+
+            {/* FORM to UPDATE user information */}
             <Form className='profile-form' onSubmit={handleUpdate}>
                 <h4>Update info</h4>
                 <label>Username: </label>
@@ -173,12 +176,12 @@ export function ProfileView({ movies, user, token }) {
                     defaultValue=''
                     onChange={(e) => setBirthday(e.target.value)} />
 
-            {/* Button to update user information */}
+                {/* BUTTON to UPDATE user information */}
                 <Button variant="primary" type="submit">
                     Update
                 </Button>
 
-                {/* Modal to confirm user update */}
+                {/* MODAL to CONFIRM user UPDATE sucess */}
                 <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Update succesful!</Modal.Title>
@@ -191,7 +194,7 @@ export function ProfileView({ movies, user, token }) {
                     </Modal.Footer>
                 </Modal>
 
-                {/* Modal to display user update error message */}
+                {/* MODAL to display user UPDATE ERROR message */}
                 <Modal show={showErrorModal} onHide={handleCloseErrorModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Update failed</Modal.Title>
@@ -205,13 +208,15 @@ export function ProfileView({ movies, user, token }) {
                 </Modal>
             </Form>
 
-            {/* button to user delete account */}
+
+
+            {/* BUTTON for user to DELETE account */}
             <h4>Delete account</h4>
             <Button variant="primary" onClick={handleShow}>
                 Delete
             </Button>
 
-            {/* Modal to confirm delete operation */}
+            {/* MODAL to CONFIRM DELETE operation */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>You are about to delete your account</Modal.Title>
@@ -227,24 +232,51 @@ export function ProfileView({ movies, user, token }) {
                 </Modal.Footer>
             </Modal>
 
-            {/* Logic to display each favorite movies being in the user's favorite movie list */}
-                <h4>Favorite Movies</h4>
-                {favoriteMovies.length > 0 ? (
-                    favoriteMovies.map((movie) => (
-                        <div key={movie._id}>
-                            <img src={movie.image} />
-                            <h4>{movie.title}</h4>
-                            <Button
-                                className="deleteFavorite-button"
-                                onClick={(event) => deleteFavoriteMovie(event, movie.id)}
-                            >
-                                Delete from favorite
-                            </Button>
-                        </div>
-                    ))
-                ) : (
-                    <p>No favorite movies yet.</p>
-                )}
+
+
+            {/* LOGIC to display each FAVORITE MOVIES being in the user's favorite movie list */}
+            <h4>Favorite Movies</h4>
+            {favoriteMovies.length > 0 ? (
+                favoriteMovies.map((movie) => (
+                    <div key={movie._id}>
+                        <img src={movie.image} />
+                        <h4>{movie.title}</h4>
+
+                        {/* BUTTON for user to REMOVE movie from list of favorite */}
+                        <Button
+                            className="deleteFavorite-button"
+                            onClick={(event) => {
+                                setSelectedMovieId(movie.id);
+                                handleShowDeleteFavoriteModal();
+                            }}
+                        >
+                            Remove from favorite
+                        </Button>
+
+                        {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */}
+                        <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Remove Movie from favorites</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
+                                    Cancel
+                                </Button>
+                                <Button variant="primary"
+                                    onClick={(event) => {
+                                        deleteFavoriteMovie(event, selectedMovieId);
+                                        handleCloseDeleteFavoriteModal();
+                                    }}>
+                                    Confirm
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                ))
+            ) : (
+                <p>No favorite movies yet.</p>
+            )}
         </div>
     );
 }
