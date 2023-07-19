@@ -71,7 +71,7 @@ export const LoginView = ({ onLoggedIn }) => {
     //***These returned elements are designed using React Bootstrap.
     return (
         //***When the form is submitted, the ''handleSubmit'' function is call from the ''onSubmit'' form event. When a form is submitted, the handleSubmit function is executed, which performs the necessary logic (as definied in the ''const handleSubmit = (event) => {'' block of code above) for handling the form submission, such as preparing the data and making the POST request to the server.
-        <Form onSubmit={handleSubmit} style={{ border: "1px solid red" }}>
+        <Form onSubmit={handleSubmit} style={{ border: "1px solid red" }} className="form-container">
             <div className="TitleDisplay">
                 <h3>Welcome back!</h3>
                 <h6>Ready for your next marathon?</h6>
@@ -89,6 +89,9 @@ export const LoginView = ({ onLoggedIn }) => {
                     //***Make sure a value in the username field of the log in form is required as an input from the user, otherwise UI will throws a ''Please fill out this field'' message.
                     required
                 />
+                <Form.Text id="usernameCreation" muted>
+                    Username must be at least 5 characters long and contain only alphanumerical characters.
+                </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formPassword" className="formGroupWithMargin">
@@ -104,13 +107,16 @@ export const LoginView = ({ onLoggedIn }) => {
                     //***Make sure a value in the password field of the log in form is required as an input from the user, otherwise will UI throws a ''Please fill out this field'' message.
                     required
                 />
+                <Form.Text id="passwordCreation" muted>
+                    Password can contain alphanumeric and non-alphanumeric characters.
+                </Form.Text>
             </Form.Group>
 
             <div className="LoginButtonContainer">
                 <Button variant="primary" type="submit" className="LoginButton">
                     Log in
                 </Button>
-                
+
                 {/* Modal popping up after failed signup because of en error */}
                 <Modal show={showLoginFailedModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>

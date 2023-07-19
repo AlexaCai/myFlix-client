@@ -16,3 +16,15 @@
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh; /* This ensures the container takes the full viewport height */
+}
+
+
+.form-field {
+width:50%
+}

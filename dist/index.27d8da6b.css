@@ -17,6 +17,17 @@
   margin-bottom: 25px;
 }
 
+.form-container {
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  display: flex;
+}
+
+.form-field {
+  width: 50%;
+}
+
 .TitleDisplay {
   text-align: center;
   margin-bottom: 25px;
@@ -13227,7 +13238,7 @@ textarea.form-control-lg {
 }
 
 .styling {
-  background-color: #a7f3ef;
+  background-color: #bbf3f0;
   flex-direction: column;
   min-height: 100vh;
   display: flex;
