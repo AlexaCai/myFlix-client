@@ -7,15 +7,19 @@ import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import './movie-card.scss'; // Import the SCSS file
+
 export const MovieCard = ({ movie }) => {
   return (
-    <Card>
+    <Card className="TopMargin">
+      <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
       <Card.Img variant="top" src={movie.image} />
-      <Card.Body>
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.genre}</Card.Text>
+      </Link>
+      <Card.Body className="card-body-wrapper"> {/* Use the CSS class */}
+      <Card.Title>{movie.title}</Card.Title> {/* Use the CSS class */}
+      <Card.Text>{movie.genre}</Card.Text> {/* Use the CSS class */}
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-          <Button variant="link">Open</Button>
+          <Button variant="link">See detail</Button>
         </Link>
       </Card.Body>
     </Card>
