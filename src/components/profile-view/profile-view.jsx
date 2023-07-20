@@ -138,7 +138,7 @@ export function ProfileView({ movies, user, token }) {
         <Container>
             <Row className="justify-content-md-center styling-position">
                 {/* USER info display*/}
-                <Col sm={12} md={4} style={{ border: "1px solid blue" }}>
+                <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
                     <br />
                     <h4>User info</h4>
                     <p>User: {user.Username}</p>
@@ -150,7 +150,7 @@ export function ProfileView({ movies, user, token }) {
                 </Col>
 
                 {/* FORM to UPDATE user information */}
-                <Col sm={12} md={4} style={{ border: "1px solid blue" }}>
+                <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
                     <Form className='profile-form' onSubmit={handleUpdate}>
                         <br />
                         <h4>Update info</h4>
@@ -224,7 +224,7 @@ export function ProfileView({ movies, user, token }) {
 
 
                 {/* BUTTON for user to DELETE account */}
-                <Col sm={12} md={4} style={{ border: "1px solid blue" }}>
+                <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
                     <br />
                     <h4>Delete account</h4>
                     <p>Would you like to leave us?

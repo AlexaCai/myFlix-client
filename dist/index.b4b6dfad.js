@@ -48084,8 +48084,8 @@ function ProfileView({ movies, user, token }) {
                 className: "justify-content-md-center styling-position",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        sm: 12,
-                        md: 4,
+                        md: 12,
+                        lg: 4,
                         style: {
                             border: "1px solid blue"
                         },
@@ -48149,8 +48149,8 @@ function ProfileView({ movies, user, token }) {
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        sm: 12,
-                        md: 4,
+                        md: 12,
+                        lg: 4,
                         style: {
                             border: "1px solid blue"
                         },
@@ -48366,8 +48366,8 @@ function ProfileView({ movies, user, token }) {
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                        sm: 12,
-                        md: 4,
+                        md: 12,
+                        lg: 4,
                         style: {
                             border: "1px solid blue"
                         },
