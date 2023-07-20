@@ -19,7 +19,7 @@ export const MovieCard = ({ movie }) => {
       <Card.Title>{movie.title}</Card.Title> {/* Use the CSS class */}
       <Card.Text>{movie.genre}</Card.Text> {/* Use the CSS class */}
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-          <Button variant="link">See detail</Button>
+          <Button variant="link">See details</Button>
         </Link>
       </Card.Body>
     </Card>
