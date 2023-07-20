@@ -15,7 +15,7 @@
 }
 
 .text-position {
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 .titles {
@@ -24,14 +24,18 @@
   font-weight: bold;
 }
 
-.addFavorite-button, .deleteFavorite-button {
+.addFavorite-button {
+  width: 50%;
+  margin: 25px 15px 15px 0;
+}
+
+.deleteFavorite-button {
   width: 50%;
   margin: 15px 15px 15px 0;
 }
 
 .back-button {
   margin-top: 15px;
-  margin-left: -7px;
 }
 
 .TitleDisplay {

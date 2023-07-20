@@ -106,9 +106,11 @@ export const MovieView = ({ movies }) => {
             </div>
             <Button className="addFavorite-button custom-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>Add to favorite</Button>
             <Button className="deleteFavorite-button custom-button" onClick={(event) => deleteFavoriteMovie(event, movie.id)}>Delete from favorite</Button>
+            <div className="back-button custom-button">
             <Link to={`/`} className="back-button custom-button">
-              <Button className="back-button custom-button">Back</Button>
+              <Button>Back</Button>
             </Link>
+            </div>
   
         </Col>
       </Row>
