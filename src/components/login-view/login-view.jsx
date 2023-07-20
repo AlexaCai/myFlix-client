@@ -76,7 +76,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 <h3>Welcome back!</h3>
                 <h6>Ready for your next marathon?</h6>
             </div>
-            <Form.Group controlId="formUsername" className="formGroupWithMargin">
+            <Form.Group controlId="formUsername" className="formGroupStyling">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
                     type="text"
@@ -94,7 +94,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="formPassword" className="formGroupWithMargin">
+            <Form.Group controlId="formPassword" className="formGroupStyling">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                     type="password"
