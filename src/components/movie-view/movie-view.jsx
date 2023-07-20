@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
+import './movie-view.scss'; // Import the SCSS file
+
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
   const movie = movies.find((m) => m.id === movieId);
@@ -20,13 +22,13 @@ export const MovieView = ({ movies }) => {
         "Content-Type": "application/json"
       }
     })
-    .then((response) => {
-      if (response.ok) {
-        alert("Movie has been added to favorite");
-      } else {
-        alert("Error - Movie has not been added to favorite");
-      }
-    });
+      .then((response) => {
+        if (response.ok) {
+          alert("Movie has been added to favorite");
+        } else {
+          alert("Error - Movie has not been added to favorite");
+        }
+      });
   };
 
   const deleteFavoriteMovie = (event, movieId) => {
@@ -38,53 +40,69 @@ export const MovieView = ({ movies }) => {
         "Content-Type": "application/json"
       }
     })
-    .then((response) => {
-      if (response.ok) {
-        alert("Movie has been deleted from favorite");
-      } else {
-        alert("Error - Movie has not been deleted from favorite");
-      }
-    });
+      .then((response) => {
+        if (response.ok) {
+          alert("Movie has been deleted from favorite");
+        } else {
+          alert("Error - Movie has not been deleted from favorite");
+        }
+      });
   };
 
   return (
-    <div>
+    <div className="image-position">
       <div>
-        <img className="w-100" src={movie.image} />
+        <img src={movie.image} />
+      </div>
+      <div className="text-position">
+      <div className="titles">
+        <span className="text-position">Title </span>
       </div>
       <div>
-        <span>Title: </span>
         <span>{movie.title}</span>
       </div>
+      <div className="titles">
+        <span>Description </span>
+      </div>
       <div>
-        <span>Description: </span>
         <span>{movie.description}</span>
       </div>
+      <div className="titles">
+        <span>Genre </span>
+      </div>
       <div>
-        <span>Genre: </span>
         <span>{movie.genre}</span>
       </div>
+      <div className="titles">
+        <span>Genre description </span>
+      </div>
       <div>
-        <span>Genre description: </span>
         <span>{movie.genreDescription}</span>
       </div>
+      <div className="titles">
+        <span>Director </span>
+      </div>
       <div>
-        <span>Director: </span>
         <span>{movie.director}</span>
       </div>
+      <div className="titles">
+        <span>Director bio </span>
+      </div>
       <div>
-        <span>Director bio: </span>
         <span>{movie.directorBio}</span>
       </div>
+      <div className="titles">
+        <span>Director birth </span>
+      </div>
       <div>
-        <span>Director birth: </span>
         <span>{movie.directorBirth}</span>
       </div>
+      </div>
+      <Button className="addFavorite-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>Add to favorite</Button>
+      <Button className="deleteFavorite-button" onClick={(event) => deleteFavoriteMovie(event, movie.id)}>Delete from favorite</Button>
       <Link to={`/`}>
         <Button className="back-button">Back</Button>
       </Link>
-      <Button className="addFavorite-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>Add to favorite</Button>
-      <Button className="deleteFavorite-button" onClick={(event) => deleteFavoriteMovie(event, movie.id)}>Delete from favorite</Button>
-    </div>
+    </div >
   );
 };
