@@ -258,8 +258,8 @@ export function ProfileView({ movies, user, token }) {
 
             {/* LOGIC to display each FAVORITE MOVIES being in the user's favorite movie list */}
             <>
-            <Row>
-                <Col style={{ border: "1px solid blue" }} className="d-flex justify-content-center align-items-center">
+                <Row>
+                    <Col style={{ border: "1px solid blue" }} className="d-flex justify-content-center align-items-center">
                         <h4>Favorite Movies</h4>
                     </Col>
                 </Row>
@@ -268,16 +268,16 @@ export function ProfileView({ movies, user, token }) {
                         favoriteMovies.map((movie, index) => (
                             <Col xs={12} md={6} lg="3" key={movie.id} className="removeFavorite-button"
                             >
-                                <MovieCard movie={movie}/>
+                                <MovieCard movie={movie} />
                                 <div className="button-container">
-                                <Button
-                                    onClick={(event) => {
-                                        setSelectedMovieId(movie.id);
-                                        handleShowDeleteFavoriteModal();
-                                    }}
-                                >
-                                    Remove from favorite
-                                </Button>
+                                    <Button
+                                        onClick={(event) => {
+                                            setSelectedMovieId(movie.id);
+                                            handleShowDeleteFavoriteModal();
+                                        }}
+                                    >
+                                        Remove from favorite
+                                    </Button>
                                 </div>
                             </Col>
                         ))
