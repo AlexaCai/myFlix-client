@@ -4,6 +4,8 @@ import { useParams } from "react-router";
 //***Import the different React Bootstrap components.
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
+import Container from 'react-bootstrap/Container';
 
 import './movie-view.scss'; // Import the SCSS file
 
@@ -50,59 +52,66 @@ export const MovieView = ({ movies }) => {
   };
 
   return (
-    <div className="image-position">
-      <div>
-        <img src={movie.image} />
-      </div>
-      <div className="text-position">
-      <div className="titles">
-        <span className="text-position">Title </span>
-      </div>
-      <div>
-        <span>{movie.title}</span>
-      </div>
-      <div className="titles">
-        <span>Description </span>
-      </div>
-      <div>
-        <span>{movie.description}</span>
-      </div>
-      <div className="titles">
-        <span>Genre </span>
-      </div>
-      <div>
-        <span>{movie.genre}</span>
-      </div>
-      <div className="titles">
-        <span>Genre description </span>
-      </div>
-      <div>
-        <span>{movie.genreDescription}</span>
-      </div>
-      <div className="titles">
-        <span>Director </span>
-      </div>
-      <div>
-        <span>{movie.director}</span>
-      </div>
-      <div className="titles">
-        <span>Director bio </span>
-      </div>
-      <div>
-        <span>{movie.directorBio}</span>
-      </div>
-      <div className="titles">
-        <span>Director birth </span>
-      </div>
-      <div>
-        <span>{movie.directorBirth}</span>
-      </div>
-      </div>
-      <Button className="addFavorite-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>Add to favorite</Button>
-      <Button className="deleteFavorite-button" onClick={(event) => deleteFavoriteMovie(event, movie.id)}>Delete from favorite</Button>
-      <Link to={`/`}>
-        <Button className="back-button">Back</Button>
-      </Link>
-    </div >
+    <Container>
+      <Row>
+        <Col sm={4} md={6} style={{ border: "1px solid green" }}>
+          <div>
+            <img src={movie.image} className="image-position" />
+          </div>
+        </Col>
+        <Col sm={8} md={6} style={{ border: "1px solid blue" }}>
+            <div className="text-position">
+              <div className="titles">
+                <span className="text-position">Title </span>
+              </div>
+              <div>
+                <span>{movie.title}</span>
+              </div>
+              <div className="titles">
+                <span>Description </span>
+              </div>
+              <div>
+                <span>{movie.description}</span>
+              </div>
+              <div className="titles">
+                <span>Genre </span>
+              </div>
+              <div>
+                <span>{movie.genre}</span>
+              </div>
+              <div className="titles">
+                <span>Genre description </span>
+              </div>
+              <div>
+                <span>{movie.genreDescription}</span>
+              </div>
+              <div className="titles">
+                <span>Director </span>
+              </div>
+              <div>
+                <span>{movie.director}</span>
+              </div>
+              <div className="titles">
+                <span>Director bio </span>
+              </div>
+              <div>
+                <span>{movie.directorBio}</span>
+              </div>
+              <div className="titles">
+                <span>Director birth </span>
+              </div>
+              <div>
+                <span>{movie.directorBirth}</span>
+              </div>
+            </div>
+            <Button className="addFavorite-button custom-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>Add to favorite</Button>
+            <Button className="deleteFavorite-button custom-button" onClick={(event) => deleteFavoriteMovie(event, movie.id)}>Delete from favorite</Button>
+            <Link to={`/`} className="back-button custom-button">
+              <Button className="back-button custom-button">Back</Button>
+            </Link>
+  
+        </Col>
+      </Row>
+    </Container>
   );
 };

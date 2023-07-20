@@ -1,37 +1,30 @@
 .image-position {
     margin-top: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: black
+    margin-bottom: 25px;
+    width: 100%;
 }
 
 .text-position {
-    max-width: 500px; /* Set the maximum width you desire, you can adjust this value as needed */
-    margin: 0 auto; /* Center the div horizontally */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center; /* Align the text within the .titles class to the center */
+    margin-top: 25px;
 }
 
 .titles {
     font-size: 25px;
     font-weight: bold;
-    margin-top: 10px;
-}
-
-.back-button {
-    margin: 15px
+    margin-top: 5px;
 }
 
 .addFavorite-button {
-    margin: 15px;
-    margin-top: 25px
+    margin: 15px 15px 15px 0px;
+    width: 50%;
 }
 
 .deleteFavorite-button {
-    margin: 15px
+    margin: 15px 15px 15px 0px;
+    width: 50%;
 }
 
+.back-button {
+    margin-top: 15px;
+    margin-left: -7px
+}
