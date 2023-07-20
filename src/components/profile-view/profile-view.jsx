@@ -140,14 +140,20 @@ export function ProfileView({ movies, user, token }) {
 
                 {/* USER info display*/}
                 <Col sm={12} md={4} style={{ border: "1px solid blue" }}>
-                    <h4>Info</h4>
+                    <br />
+                    <h4>User info</h4>
                     <p>User: {user.Username}</p>
                     <p>Email: {user.Email}</p>
+                    <p>If you wish to update your information, please fill in the update form. All fields must be completed.
+                        <br />
+                        <br />
+                        If you only want to change some information, enter your current information you want to keep in the corresponding field (e.g. username) along with the information you want to change in the other field(s).</p>
                 </Col>
 
                 {/* FORM to UPDATE user information */}
                 <Col sm={12} md={4} style={{ border: "1px solid blue" }}>
                     <Form className='profile-form' onSubmit={handleUpdate}>
+                        <br />
                         <h4>Update info</h4>
                         <label>Username </label>
                         <input className="inputField"
@@ -220,7 +226,12 @@ export function ProfileView({ movies, user, token }) {
 
                 {/* BUTTON for user to DELETE account */}
                 <Col sm={12} md={4} style={{ border: "1px solid blue" }}>
+                    <br />
                     <h4>Delete account</h4>
+                    <p>Would you like to leave us?
+                        <br />
+                        <br />
+                        You can delete your account. By doing so, your data will be permanently deleted, and you will have to create a new account if you wish to return.</p>
                     <Button variant="primary" className="delete-button" onClick={handleShow}>
                         Delete
                     </Button>
@@ -249,7 +260,7 @@ export function ProfileView({ movies, user, token }) {
             {/* LOGIC to display each FAVORITE MOVIES being in the user's favorite movie list */}
             <>
                 <Row>
-                    <Col style={{ border: "1px solid blue" }}>
+                <Col style={{ border: "1px solid blue" }} className="d-flex justify-content-center align-items-center">
                         <h4>Favorite Movies</h4>
                     </Col>
                 </Row>
@@ -267,35 +278,35 @@ export function ProfileView({ movies, user, token }) {
                                 >
                                     Remove from favorite
                                 </Button>
-                                </Col>
+                            </Col>
                         ))
                     ) : (
                         <p>No favorite movies yet.</p>
                     )}
-            </Row>
-        </>
+                </Row>
+            </>
 
 
 
-            {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */ }
-    <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
-        <Modal.Header closeButton>
-            <Modal.Title>Remove Movie from favorites</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
-        <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
-                Cancel
-            </Button>
-            <Button variant="primary"
-                onClick={(event) => {
-                    deleteFavoriteMovie(event, selectedMovieId);
-                    handleCloseDeleteFavoriteModal();
-                }}>
-                Confirm
-            </Button>
-        </Modal.Footer>
-    </Modal>
+            {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */}
+            <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Remove Movie from favorites</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary"
+                        onClick={(event) => {
+                            deleteFavoriteMovie(event, selectedMovieId);
+                            handleCloseDeleteFavoriteModal();
+                        }}>
+                        Confirm
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </Container >
     );
 }
