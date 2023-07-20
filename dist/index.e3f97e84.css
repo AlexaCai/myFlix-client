@@ -102,8 +102,12 @@
   width: 95%;
 }
 
-.update-button, .delete-button {
-  margin-top: 15px;
+.update-button {
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+.delete-button {
   margin-bottom: 25px;
 }
 
