@@ -54,12 +54,12 @@ export const MovieView = ({ movies }) => {
   return (
     <Container>
       <Row>
-        <Col sm={4} md={6} style={{ border: "1px solid green" }}>
+        <Col md={12} lg={6} style={{ border: "1px solid green" }}>
           <div>
             <img src={movie.image} className="image-position" />
           </div>
         </Col>
-        <Col sm={8} md={6} style={{ border: "1px solid blue" }}>
+        <Col md={12} lg={6} className="text-container" style={{ border: "1px solid blue" }}>
             <div className="text-position">
               <div className="titles">
                 <span className="text-position">Title </span>

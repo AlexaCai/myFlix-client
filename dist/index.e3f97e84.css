@@ -38,6 +38,12 @@
   margin-top: 15px;
 }
 
+@media (width <= 991.98px) {
+  .text-container {
+    text-align: center;
+  }
+}
+
 .TitleDisplay {
   text-align: center;
   margin-bottom: 25px;

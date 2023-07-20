@@ -46871,8 +46871,8 @@ const MovieView = ({ movies })=>{
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                    sm: 4,
-                    md: 6,
+                    md: 12,
+                    lg: 6,
                     style: {
                         border: "1px solid green"
                     },
@@ -46896,8 +46896,9 @@ const MovieView = ({ movies })=>{
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                    sm: 8,
-                    md: 6,
+                    md: 12,
+                    lg: 6,
+                    className: "text-container",
                     style: {
                         border: "1px solid blue"
                     },
