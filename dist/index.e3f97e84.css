@@ -44,11 +44,6 @@
   }
 }
 
-.TitleDisplay {
-  text-align: center;
-  margin-bottom: 25px;
-}
-
 .formGroupStyling {
   margin-bottom: 20px;
 }
@@ -59,38 +54,29 @@
 }
 
 .LoginButton {
-  margin-top: 25px;
+  margin-top: 20px;
   margin-bottom: 25px;
 }
 
 .form-container {
-  flex-direction: column;
-  justify-content: center;
   height: 100vh;
-  display: flex;
 }
 
 .TitleDisplay {
   text-align: center;
+  margin-top: 15px;
   margin-bottom: 25px;
-}
-
-.formGroupWithMargin {
-  margin-bottom: 20px;
 }
 
 .SignupButtonContainer {
   justify-content: center;
+  margin-top: 45px;
+  margin-bottom: 25px;
   display: flex;
 }
 
-.SignupButton {
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
 .Styling {
-  margin-top: 25px;
+  height: 100vh;
 }
 
 .styling-position {

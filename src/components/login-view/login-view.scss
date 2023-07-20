@@ -1,8 +1,3 @@
-.TitleDisplay {
-    margin-bottom: 25px;
-    text-align: center;
-}
-
 .formGroupStyling {
     margin-bottom: 20px;
   }
@@ -13,13 +8,10 @@
   }
 
 .LoginButton {
-    margin-top: 25px;
+    margin-top: 20px;
     margin-bottom: 25px;
 }
 
 .form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   height: 100vh; /* This ensures the container takes the full viewport height */
 }
