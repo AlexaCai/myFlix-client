@@ -228,10 +228,10 @@ export function ProfileView({ movies, user, token }) {
                 <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
                     <br />
                     <h4>Delete account</h4>
-                    <p>Would you like to leave us?
+                    <p>Want to leave us?
                         <br />
                         <br />
-                        You can delete your account. By doing so, your data will be permanently deleted, and you will have to create a new account if you wish to return.</p>
+                        By deleting your account, your data will be permanently deleted, and you will have to create a new account if you wish to return.</p>
                     <Button variant="primary" className="delete-button" onClick={handleShow}>
                         Delete
                     </Button>

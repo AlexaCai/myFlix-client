@@ -48396,7 +48396,7 @@ function ProfileView({ movies, user, token }) {
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                 children: [
-                                    "Would you like to leave us?",
+                                    "Want to leave us?",
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
                                         lineNumber: 232,
@@ -48407,7 +48407,7 @@ function ProfileView({ movies, user, token }) {
                                         lineNumber: 233,
                                         columnNumber: 25
                                     }, this),
-                                    "You can delete your account. By doing so, your data will be permanently deleted, and you will have to create a new account if you wish to return."
+                                    "By deleting your account, your data will be permanently deleted, and you will have to create a new account if you wish to return."
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
