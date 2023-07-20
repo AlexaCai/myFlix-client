@@ -98,11 +98,16 @@
   margin-bottom: 20px;
 }
 
+.label {
+  width: 100%;
+}
+
 .inputField {
-  width: 95%;
+  width: 65%;
 }
 
 .update-button {
+  width: 30%;
   margin-top: 20px;
   margin-bottom: 25px;
 }

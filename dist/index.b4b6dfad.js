@@ -48171,6 +48171,7 @@ function ProfileView({ movies, user, token }) {
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                    className: "label",
                                     children: "Username "
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
@@ -48192,6 +48193,7 @@ function ProfileView({ movies, user, token }) {
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                    className: "label",
                                     children: "Password "
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
@@ -48210,6 +48212,7 @@ function ProfileView({ movies, user, token }) {
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                    className: "label",
                                     children: "Email "
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
@@ -48235,6 +48238,7 @@ function ProfileView({ movies, user, token }) {
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                                    className: "label",
                                     children: "Birthday "
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
@@ -48252,15 +48256,21 @@ function ProfileView({ movies, user, token }) {
                                     lineNumber: 186,
                                     columnNumber: 25
                                 }, this),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    variant: "primary",
-                                    type: "submit",
-                                    className: "update-button",
-                                    children: "Update"
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                        variant: "primary",
+                                        type: "submit",
+                                        className: "update-button",
+                                        children: "Update"
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 193,
+                                        columnNumber: 25
+                                    }, this)
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 193,
-                                    columnNumber: 25
+                                    lineNumber: 191,
+                                    columnNumber: 1
                                 }, this)
                             ]
                         }, void 0, true, {
@@ -48283,19 +48293,19 @@ function ProfileView({ movies, user, token }) {
                                     children: "Update succesful!"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 202,
+                                    lineNumber: 203,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 201,
+                                lineNumber: 202,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
                                 children: "You will be redirected to the login page"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 204,
+                                lineNumber: 205,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
@@ -48305,18 +48315,18 @@ function ProfileView({ movies, user, token }) {
                                     children: "Close"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 206,
+                                    lineNumber: 207,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 205,
+                                lineNumber: 206,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 200,
+                        lineNumber: 201,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal), {
@@ -48329,19 +48339,19 @@ function ProfileView({ movies, user, token }) {
                                     children: "Update failed"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 215,
+                                    lineNumber: 216,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 214,
+                                lineNumber: 215,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
                                 children: responseMessage
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 217,
+                                lineNumber: 218,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
@@ -48351,18 +48361,18 @@ function ProfileView({ movies, user, token }) {
                                     children: "Close"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 219,
+                                    lineNumber: 220,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 218,
+                                lineNumber: 219,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 213,
+                        lineNumber: 214,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -48374,14 +48384,14 @@ function ProfileView({ movies, user, token }) {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 228,
+                                lineNumber: 229,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
                                 children: "Delete account"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 229,
+                                lineNumber: 230,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -48389,19 +48399,19 @@ function ProfileView({ movies, user, token }) {
                                     "Would you like to leave us?",
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 231,
+                                        lineNumber: 232,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 232,
+                                        lineNumber: 233,
                                         columnNumber: 25
                                     }, this),
                                     "You can delete your account. By doing so, your data will be permanently deleted, and you will have to create a new account if you wish to return."
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 230,
+                                lineNumber: 231,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -48411,13 +48421,13 @@ function ProfileView({ movies, user, token }) {
                                 children: "Delete"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 234,
+                                lineNumber: 235,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 227,
+                        lineNumber: 228,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal), {
@@ -48430,19 +48440,19 @@ function ProfileView({ movies, user, token }) {
                                     children: "You are about to delete your account"
                                 }, void 0, false, {
                                     fileName: "src/components/profile-view/profile-view.jsx",
-                                    lineNumber: 243,
+                                    lineNumber: 244,
                                     columnNumber: 25
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 242,
+                                lineNumber: 243,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
                                 children: "This action is irreversible, are you sure you want to continue?"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 245,
+                                lineNumber: 246,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
@@ -48453,7 +48463,7 @@ function ProfileView({ movies, user, token }) {
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 247,
+                                        lineNumber: 248,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -48462,19 +48472,19 @@ function ProfileView({ movies, user, token }) {
                                         children: "Delete"
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 250,
+                                        lineNumber: 251,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 246,
+                                lineNumber: 247,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 241,
+                        lineNumber: 242,
                         columnNumber: 17
                     }, this)
                 ]
@@ -48495,17 +48505,17 @@ function ProfileView({ movies, user, token }) {
                                 children: "Favorite Movies"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 263,
+                                lineNumber: 264,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 262,
+                            lineNumber: 263,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 261,
+                        lineNumber: 262,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -48520,7 +48530,7 @@ function ProfileView({ movies, user, token }) {
                                         movie: movie
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 271,
+                                        lineNumber: 272,
                                         columnNumber: 33
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -48533,29 +48543,29 @@ function ProfileView({ movies, user, token }) {
                                             children: "Remove from favorite"
                                         }, void 0, false, {
                                             fileName: "src/components/profile-view/profile-view.jsx",
-                                            lineNumber: 273,
+                                            lineNumber: 274,
                                             columnNumber: 37
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "src/components/profile-view/profile-view.jsx",
-                                        lineNumber: 272,
+                                        lineNumber: 273,
                                         columnNumber: 33
                                     }, this)
                                 ]
                             }, movie.id, true, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 269,
+                                lineNumber: 270,
                                 columnNumber: 29
                             }, this)) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                             children: "No favorite movies yet."
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 285,
+                            lineNumber: 286,
                             columnNumber: 25
                         }, this)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 266,
+                        lineNumber: 267,
                         columnNumber: 17
                     }, this)
                 ]
@@ -48570,19 +48580,19 @@ function ProfileView({ movies, user, token }) {
                             children: "Remove Movie from favorites"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
-                            lineNumber: 295,
+                            lineNumber: 296,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 294,
+                        lineNumber: 295,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
                         children: "Are you sure you want to remove this movie from your favorites?"
                     }, void 0, false, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 297,
+                        lineNumber: 298,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
@@ -48593,7 +48603,7 @@ function ProfileView({ movies, user, token }) {
                                 children: "Cancel"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 299,
+                                lineNumber: 300,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -48605,19 +48615,19 @@ function ProfileView({ movies, user, token }) {
                                 children: "Confirm"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
-                                lineNumber: 302,
+                                lineNumber: 303,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/profile-view/profile-view.jsx",
-                        lineNumber: 298,
+                        lineNumber: 299,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/profile-view/profile-view.jsx",
-                lineNumber: 293,
+                lineNumber: 294,
                 columnNumber: 13
             }, this)
         ]

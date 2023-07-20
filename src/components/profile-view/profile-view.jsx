@@ -154,7 +154,7 @@ export function ProfileView({ movies, user, token }) {
                     <Form className='profile-form' onSubmit={handleUpdate}>
                         <br />
                         <h4>Update info</h4>
-                        <label>Username </label>
+                        <label className="label">Username </label>
                         <input className="inputField"
                             type="text"
                             value={username}
@@ -163,13 +163,13 @@ export function ProfileView({ movies, user, token }) {
                             minLength="5"
                             pattern="[a-zA-Z0-9]+"
                             title="Username must consist of alphanumeric characters" />
-                        <label>Password </label>
+                        <label className="label">Password </label>
                         <input className="inputField"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required />
-                        <label>Email </label>
+                        <label className="label">Email </label>
                         <input className="inputField"
                             type="email"
                             value={email}
@@ -182,17 +182,18 @@ export function ProfileView({ movies, user, token }) {
                             //***[a-zA-Z]{2,} allows two or more characters of uppercase or lowercase after the dot, representing the domain extension.
                             pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                             title="Please enter a valid email address" />
-                        <label>Birthday </label>
+                        <label className="label">Birthday </label>
                         <input className="inputField"
                             type='date'
                             name='birthday'
                             defaultValue=''
                             onChange={(e) => setBirthday(e.target.value)} />
-
+<div>
                         {/* BUTTON to UPDATE user information */}
                         <Button variant="primary" type="submit" className="update-button">
                             Update
                         </Button>
+                        </div>
                     </Form>
                 </Col>
 
