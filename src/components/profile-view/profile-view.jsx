@@ -14,7 +14,7 @@ import './profile-view.scss';
 
 import axios from 'axios';
 
-export function ProfileView({ movies, user, token }) {
+export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
     //***Use to initiate all the field of the update form to empty as first.
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -128,6 +128,7 @@ export function ProfileView({ movies, user, token }) {
         })
             .then((response) => {
                 if (response.ok) {
+                    updateFavoriteMovies(movieId, false);
                 } else {
                     alert("Error - Movie has not been deleted from favorite");
                 }

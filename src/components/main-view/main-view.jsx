@@ -29,6 +29,23 @@ export const MainView = () => {
     const [token, setToken] = useState(null);
     const [movies, setMovies] = useState([]);
 
+    //***Function used to update the favorite movies list automatically without having to logout. The function is called in movie-view.jsx and profile-view.jsx.
+    const updateFavoriteMovies = (movieId, isFavorite) => {
+        if (isFavorite) {
+          // Add the movieId to the list of favorite movies
+          setUser((prevUser) => ({
+            ...prevUser,
+            FavoriteMovies: [...prevUser.FavoriteMovies, movieId],
+          }));
+        } else {
+          // Remove the movieId from the list of favorite movies
+          setUser((prevUser) => ({
+            ...prevUser,
+            FavoriteMovies: prevUser.FavoriteMovies.filter((id) => id !== movieId),
+          }));
+        }
+      };
+
     //***This useEffect is responsible for fetching movie data from the server when there is a valid token available (when the user is authenticated). After fetching the movie data, it transforms the API response into a format that the application can use and updates the movies state accordingly. The effect is triggered whenever the token state changes.
     useEffect(() => {
         //***Conditional logic that ensures that the effect is only executed if the token state is not null or undefined (such as when a user has logged in successfuly). If token is null or undefined (such as when a user it NOT logged in), the effect returns and nothing inside the effect is executed.
@@ -153,7 +170,7 @@ export const MainView = () => {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <Col>
-                                        <MovieView movies={movies} />
+                                        <MovieView movies={movies} updateFavoriteMovies={updateFavoriteMovies} />
                                     </Col>
                                 )}
                             </>
@@ -167,7 +184,7 @@ export const MainView = () => {
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <Col>
-                                        <ProfileView user={user} movies={movies} token={token} />
+                                        <ProfileView user={user} movies={movies} token={token} updateFavoriteMovies={updateFavoriteMovies}/>
                                     </Col>
                                 )}
                             </>

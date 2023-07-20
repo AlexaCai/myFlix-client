@@ -11,7 +11,7 @@ import Container from 'react-bootstrap/Container';
 
 import './movie-view.scss'; // Import the SCSS file
 
-export const MovieView = ({ movies }) => {
+export const MovieView = ({ movies, updateFavoriteMovies }) => {
   const { movieId } = useParams();
   const movie = movies.find((m) => m.id === movieId);
   const user = JSON.parse(localStorage.getItem("user"));
@@ -41,6 +41,7 @@ export const MovieView = ({ movies }) => {
       .then((response) => {
         if (response.ok) {
           setShowAddFavoriteModal(true); 
+          updateFavoriteMovies(movieId, true);
         } else {
           alert("Error - Movie has not been added to favorite");
         }
@@ -58,6 +59,7 @@ export const MovieView = ({ movies }) => {
     })
       .then((response) => {
         if (response.ok) {
+          updateFavoriteMovies(movieId, false);
         } else {
           alert("Error - Movie has not been deleted from favorite");
         }
