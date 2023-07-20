@@ -137,7 +137,6 @@ export function ProfileView({ movies, user, token }) {
     return (
         <Container>
             <Row className="justify-content-md-center styling-position">
-
                 {/* USER info display*/}
                 <Col sm={12} md={4} style={{ border: "1px solid blue" }}>
                     <br />
