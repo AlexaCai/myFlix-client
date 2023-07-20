@@ -132,7 +132,7 @@ export const MainView = () => {
                                 {user ? (
                                     <Navigate to="/" />
                                 ) : (
-                                    <Col md={5}>
+                                    <Col xs={10} sm={6} md={5} lg={4} xl={4} xxl={3} className="mx-auto">
                                         <LoginView onLoggedIn={(user, token) => {
                                             setUser(user);
                                             setToken(token);
