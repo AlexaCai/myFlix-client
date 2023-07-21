@@ -25,13 +25,13 @@
 }
 
 .addFavorite-button {
-  width: 25%;
-  margin: 25px 15px 15px 0;
+  width: 30%;
+  margin: 25px 0 0;
 }
 
 .deleteFavorite-button {
-  width: 33%;
-  margin: 25px 15px 15px 0;
+  width: 40%;
+  margin: 25px 0 0;
 }
 
 .back-button {
