@@ -14,7 +14,7 @@ import Container from 'react-bootstrap/Container';
 //***Import the movie-view.scss to allow modiication to the React Bootstrap UI design.
 import './movie-view.scss';
 
-//***''const MoveView'' is functional component, ''MovieView'' being it's name. It is defined as an arrow function with three parameter, indicating it receives three props.
+//***''const MovieView'' is functional component, ''MovieView'' being it's name. It is defined as an arrow function with three parameters, indicating it receives three props.
 export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
 
   //***This line uses the useParams hook from React Router. The useParams hook allows the component to access the parameters present in the URL. In this case, it is extracting the movieId parameter from the URL, which is a unique identifier for the specific movie being viewed.
