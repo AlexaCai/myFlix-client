@@ -47696,7 +47696,7 @@ const SignupView = ()=>{
             }
         }).then((response)=>{
             if (response.ok) {
-                setResponseMessage("You're on board! Your registration was successful, you will be redirected to the login page");
+                setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page");
                 setIsSignupSuccessful(true);
             } else if (response.status === 409) response.text().then((text)=>{
                 // Display the plain text response.
@@ -48755,7 +48755,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Header, {
                         closeButton: true,
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Title, {
-                            children: "Remove Movie from favorites"
+                            children: "Remove from favorites"
                         }, void 0, false, {
                             fileName: "src/components/profile-view/profile-view.jsx",
                             lineNumber: 297,
@@ -48776,7 +48776,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                variant: "secondary",
+                                variant: "outline-success",
                                 onClick: handleCloseDeleteFavoriteModal,
                                 children: "Cancel"
                             }, void 0, false, {
@@ -48785,7 +48785,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                variant: "primary",
+                                variant: "success",
                                 onClick: (event)=>{
                                     deleteFavoriteMovie(event, selectedMovieId);
                                     handleCloseDeleteFavoriteModal();
