@@ -2,6 +2,10 @@
     margin-bottom: 20px;
   }
 
+  .TitleDisplay {
+    border-bottom: 1px solid black;
+  }
+
 .LoginButtonContainer {
     display: flex;
     justify-content: center;
@@ -13,5 +17,6 @@
 }
 
 .form-container {
+  border-color: 1px solid black;
   height: 100vh; /* This ensures the container takes the full viewport height */
 }

@@ -48,6 +48,10 @@
   margin-bottom: 20px;
 }
 
+.TitleDisplay {
+  border-bottom: 1px solid #000;
+}
+
 .LoginButtonContainer {
   justify-content: center;
   display: flex;
@@ -59,6 +63,7 @@
 }
 
 .form-container {
+  border-color: 1px solid black;
   height: 100vh;
 }
 

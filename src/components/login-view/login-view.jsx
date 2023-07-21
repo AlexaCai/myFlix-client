@@ -67,19 +67,20 @@ export const LoginView = ({ onLoggedIn }) => {
                 alert("Something went wrong");
             });
     };
-    
+
 
     //***''return'' includes all the elements that will be returned as the output on the UI of the Log in page (LoginView component). 
     //***These elements are designed using React Bootstrap.
     return (
         //***This line defines a form using the <Form> component from React Bootstrap. 
         //***When the form is submitted (so when a user click on the ''Sign up'' button being a type="Submit" below), the ''handleSubmit'' function is call from the ''onSubmit'' form event. The handleSubmit function is therefore executed, which performs the necessary logic (it prepares the data and makes the POST request to the server to login the new user).       
-        <Form onSubmit={handleSubmit} style={{ border: "1px solid red" }} className="form-container">
+        <Form onSubmit={handleSubmit} className="form-container">
 
             {/* Form title */}
             <div className="TitleDisplay">
                 <h3>Welcome back!</h3>
                 <h6>Ready for your next marathon?</h6>
+                <br />
             </div>
 
             {/* Block of code for the username input field */}
