@@ -11,10 +11,9 @@ import Container from 'react-bootstrap/Container';
 
 import './movie-view.scss'; // Import the SCSS file
 
-export const MovieView = ({ movies, updateFavoriteMovies }) => {
+export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
   const { movieId } = useParams();
   const movie = movies.find((m) => m.id === movieId);
-  const user = JSON.parse(localStorage.getItem("user"));
   const token = localStorage.getItem("token");
 
   //***Bootstrap const for REMOVE MOVIE from favorite modal (after a user click the update button).
@@ -28,6 +27,12 @@ export const MovieView = ({ movies, updateFavoriteMovies }) => {
   const handleShowDeleteFavoriteModal = () => setShowDeleteFavoriteModal(true);
   
   const [selectedMovieId, setSelectedMovieId] = useState(null);
+
+  //***Check if the movie is in the user's favorite movies array or not (used to display the right buttons ''add to favorite'' or ''remove from favorite'').
+  const isMovieInFavorites = user.FavoriteMovies.includes(movieId);
+
+  const test = user
+  console.log(user)
 
   const addFavoriteMovie = (event, movieId) => {
     event.preventDefault();
@@ -77,7 +82,7 @@ export const MovieView = ({ movies, updateFavoriteMovies }) => {
         <Col md={12} lg={6} className="text-container" style={{ border: "1px solid blue" }}>
           <div className="text-position">
             <div className="titles">
-              <span className="text-position">Title </span>
+              <span className="text-position">Title TEST</span>
             </div>
             <div>
               <span>{movie.title}</span>
@@ -119,11 +124,19 @@ export const MovieView = ({ movies, updateFavoriteMovies }) => {
               <span>{movie.directorBirth}</span>
             </div>
           </div>
-          <Button className="addFavorite-button custom-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>Add to favorite</Button>
-          <Button className="deleteFavorite-button custom-button" onClick={(event) => {
-            setSelectedMovieId(movie.id);
-            handleShowDeleteFavoriteModal();
-          }}>Remove from favorite</Button>
+          {!isMovieInFavorites && (
+            <Button className="addFavorite-button custom-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>
+              Add to favorite
+            </Button>
+          )}
+          {isMovieInFavorites && (
+            <Button className="deleteFavorite-button custom-button" onClick={(event) => {
+              setSelectedMovieId(movie.id);
+              handleShowDeleteFavoriteModal();
+            }}>
+              Remove from favorite
+            </Button>
+          )}
           <div className="back-button custom-button">
             <Link to={`/`} className="back-button custom-button">
               <Button>Back</Button>
