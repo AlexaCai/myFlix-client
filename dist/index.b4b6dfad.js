@@ -47638,27 +47638,34 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$73d1.prelude(module);
 
 try {
-//***Import different React built-in function.
+//***Import different React built-in functions.
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "SignupView", ()=>SignupView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
-var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactRouterDom = require("react-router-dom");
-//***Import the different React Bootstrap components.
+//***Import different React Bootstrap components.
 var _button = require("react-bootstrap/Button");
 var _buttonDefault = parcelHelpers.interopDefault(_button);
 var _form = require("react-bootstrap/Form");
 var _formDefault = parcelHelpers.interopDefault(_form);
 var _modal = require("react-bootstrap/Modal");
 var _modalDefault = parcelHelpers.interopDefault(_modal);
-//***Import the signup-view.scss the allow modiication to the React Bootstrap UI design.
+//***Import the signup-view.scss the allow modification to the React Bootstrap UI design.
 var _signupViewScss = require("./signup-view.scss");
 var _s = $RefreshSig$();
 const SignupView = ()=>{
     _s();
-    //***Bootstrap const for modal popping up after a user click the signup button.
+    //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
+    const [username, setUsername] = (0, _react.useState)("");
+    const [password, setPassword] = (0, _react.useState)("");
+    const [email, setEmail] = (0, _react.useState)("");
+    const [birthday, setBirthday] = (0, _react.useState)("");
+    //***Logic to allow the Sign up page to be redirected to Log in page after successful Sign up.
+    const [isSignupSuccessful, setIsSignupSuccessful] = (0, _react.useState)(false);
+    const navigate = (0, _reactRouterDom.useNavigate)();
+    //***BOOTSTRAP elements for the modal popping up after a user click on the ''Sign up'' button.
     const [showModal, setShowModal] = (0, _react.useState)(false);
     const [responseMessage, setResponseMessage] = (0, _react.useState)("");
     const handleCloseModal = ()=>{
@@ -47666,19 +47673,11 @@ const SignupView = ()=>{
         setResponseMessage("");
         if (isSignupSuccessful) navigate("/login");
     };
-    //***const to allows the signup page to be redirected to login view after a successful signup.
-    const [isSignupSuccessful, setIsSignupSuccessful] = (0, _react.useState)(false);
-    const navigate = (0, _reactRouterDom.useNavigate)();
-    //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
-    const [username, setUsername] = (0, _react.useState)("");
-    const [password, setPassword] = (0, _react.useState)("");
-    const [email, setEmail] = (0, _react.useState)("");
-    const [birthday, setBirthday] = (0, _react.useState)("");
-    //***''const handleSubmit = (event) =>'' handles the form submission when a user signs up.
+    //***''const handleSubmit = (event) =>'' handles the form submission when a user clicks on the ''Sign up'' button.
     const handleSubmit = (event)=>{
-        //***This prevents the default behavior of the form which is to reload the entire page. Calling preventDefault() stops the form from performing its default action.
+        //***This prevents the default behavior of the form which is to reload the entire page. Calling preventDefault() stops the form from performing this default action.
         event.preventDefault();
-        //***The function creates a (data) object that contains the user's input values from the form fields (Username, Password, Email, and Birthday).
+        //***Creation of (data) object that contains the user's input values from the Sign up form fields (Username, Password, Email, and Birthday).
         const data = {
             Username: username,
             Password: password,
@@ -47694,31 +47693,29 @@ const SignupView = ()=>{
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((response)=>{
+        })//***Logic depending on the result of the request : successful, username or email already exsit, or error. When the answer is successful or when the username or the email is already used, a modal pops up to inform the user. If any error, a default alert pops up letting the user know there was a problem with his Sign up.
+        .then((response)=>{
             if (response.ok) {
                 setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page");
                 setIsSignupSuccessful(true);
             } else if (response.status === 409) response.text().then((text)=>{
-                // Display the plain text response.
                 setResponseMessage(text);
             }).catch((error)=>{
-                // If there is an error reading the response, show a generic "Signup failed" alert.
                 console.error("Error reading response data:", error);
                 setResponseMessage("Signup failed");
             });
-            else // For other error codes, show a generic "Signup failed" alert.
-            setResponseMessage("Signup failed");
+            else setResponseMessage("Signup failed");
             setShowModal(true);
         }).catch((error)=>{
             console.error("Error signing up user:", error);
             setResponseMessage("Signup failed");
-            setShowModal(true); // Show the modal with the generic "Signup failed" message
+            setShowModal(true);
         });
     };
-    //***''return'' indicates all the elements that will be returned as the output on the UI of the SignupView component. 
-    //***These returned elements are designed using React Bootstrap.
+    //***''return'' includes all the elements that will be returned as the output on the UI of the Sign up page (SignupView component). 
+    //***These elements are designed using React Bootstrap.
     return(//***This line defines a form using the <Form> component from React Bootstrap. 
-    //***When the form is submitted (so when a user click on the ''Sign up'' button being a type="Submit"), the ''handleSubmit'' function is call from the ''onSubmit'' form event. The handleSubmit function is therefore executed, which performs the necessary logic (as definied in the ''const handleSubmit = (event) => {'' block of code above) for handling the form submission. It prepares the data and makes the POST request to the server to register the new user in the database.
+    //***When the form is submitted (so when a user click on the ''Sign up'' button being a type="Submit" below), the ''handleSubmit'' function is call from the ''onSubmit'' form event. The handleSubmit function is therefore executed, which performs the necessary logic (it prepares the data and makes the POST request to the server to register the new user in the database).
     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default), {
         onSubmit: handleSubmit,
         style: {
@@ -47733,20 +47730,20 @@ const SignupView = ()=>{
                         children: "First time here?"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 94,
+                        lineNumber: 92,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h6", {
                         children: "Sign up now."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 95,
+                        lineNumber: 93,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 93,
+                lineNumber: 91,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47757,7 +47754,7 @@ const SignupView = ()=>{
                         children: "Username"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 99,
+                        lineNumber: 98,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -47777,7 +47774,7 @@ const SignupView = ()=>{
                         title: "Username must consist of alphanumeric characters"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 100,
+                        lineNumber: 99,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -47786,13 +47783,13 @@ const SignupView = ()=>{
                         children: "Username must be at least 5 characters long and contain only alphanumerical characters."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 117,
+                        lineNumber: 116,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 98,
+                lineNumber: 97,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47803,7 +47800,7 @@ const SignupView = ()=>{
                         children: "Password"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 124,
+                        lineNumber: 123,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -47813,7 +47810,7 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 125,
+                        lineNumber: 124,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -47822,13 +47819,13 @@ const SignupView = ()=>{
                         children: "Password can contain alphanumeric and non-alphanumeric characters."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 131,
+                        lineNumber: 130,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 123,
+                lineNumber: 122,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47839,7 +47836,7 @@ const SignupView = ()=>{
                         children: "Email"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 138,
+                        lineNumber: 137,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -47856,7 +47853,7 @@ const SignupView = ()=>{
                         title: "Please enter a valid email address"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 139,
+                        lineNumber: 138,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -47865,13 +47862,13 @@ const SignupView = ()=>{
                         children: "Email must be in the following format : abc@domain.abc."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 152,
+                        lineNumber: 151,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 137,
+                lineNumber: 136,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -47882,7 +47879,7 @@ const SignupView = ()=>{
                         children: "Birthday"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 159,
+                        lineNumber: 158,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -47891,7 +47888,7 @@ const SignupView = ()=>{
                         onChange: (e)=>setBirthday(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 160,
+                        lineNumber: 159,
                         columnNumber: 17
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Text, {
@@ -47900,13 +47897,13 @@ const SignupView = ()=>{
                         children: "Birthday is optional."
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 165,
+                        lineNumber: 164,
                         columnNumber: 17
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 158,
+                lineNumber: 157,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -47976,11 +47973,11 @@ const SignupView = ()=>{
         ]
     }, void 0, true, {
         fileName: "src/components/signup-view/signup-view.jsx",
-        lineNumber: 91,
+        lineNumber: 88,
         columnNumber: 9
     }, undefined));
 };
-_s(SignupView, "E+I5cSgAW3mdlZ3JgYM/PNLs2IU=", false, function() {
+_s(SignupView, "ULDbi9v8myVKMyBk40h7HRwNZWg=", false, function() {
     return [
         (0, _reactRouterDom.useNavigate)
     ];
@@ -48679,7 +48676,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             },
                             className: "d-flex justify-content-center align-items-center",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
-                                children: "Favorite Movies"
+                                children: "Favorite movies"
                             }, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
                                 lineNumber: 265,

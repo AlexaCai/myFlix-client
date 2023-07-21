@@ -1,20 +1,30 @@
-//***Import different React built-in function.
-import React from "react";
+//***Import different React built-in functions.
+import { React } from "react";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-//***Import the different React Bootstrap components.
+//***Import different React Bootstrap components.
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from 'react-bootstrap/Modal';
 
-//***Import the signup-view.scss the allow modiication to the React Bootstrap UI design.
+//***Import the signup-view.scss the allow modification to the React Bootstrap UI design.
 import './signup-view.scss';
 
-//*** ''const SignupView'' is functional component, ''SignupView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
+//***''const SignupView'' is a functional component, ''SignupView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
 export const SignupView = () => {
 
-    //***Bootstrap const for modal popping up after a user click the signup button.
+    //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [birthday, setBirthday] = useState("");
+
+    //***Logic to allow the Sign up page to be redirected to Log in page after successful Sign up.
+    const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
+    const navigate = useNavigate();
+
+    //***BOOTSTRAP elements for the modal popping up after a user click on the ''Sign up'' button.
     const [showModal, setShowModal] = useState(false);
     const [responseMessage, setResponseMessage] = useState("");
     const handleCloseModal = () => {
@@ -25,21 +35,11 @@ export const SignupView = () => {
         }
     };
 
-    //***const to allows the signup page to be redirected to login view after a successful signup.
-    const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
-    const navigate = useNavigate();
-
-    //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [email, setEmail] = useState("");
-    const [birthday, setBirthday] = useState("");
-
-    //***''const handleSubmit = (event) =>'' handles the form submission when a user signs up.
+    //***''const handleSubmit = (event) =>'' handles the form submission when a user clicks on the ''Sign up'' button.
     const handleSubmit = (event) => {
-        //***This prevents the default behavior of the form which is to reload the entire page. Calling preventDefault() stops the form from performing its default action.
+        //***This prevents the default behavior of the form which is to reload the entire page. Calling preventDefault() stops the form from performing this default action.
         event.preventDefault();
-        //***The function creates a (data) object that contains the user's input values from the form fields (Username, Password, Email, and Birthday).
+        //***Creation of (data) object that contains the user's input values from the Sign up form fields (Username, Password, Email, and Birthday).
         const data = {
             Username: username,
             Password: password,
@@ -56,21 +56,19 @@ export const SignupView = () => {
                 "Content-Type": "application/json"
             }
         })
+        //***Logic depending on the result of the request : successful, username or email already exsit, or error. When the answer is successful or when the username or the email is already used, a modal pops up to inform the user. If any error, a default alert pops up letting the user know there was a problem with his Sign up.
             .then((response) => {
                 if (response.ok) {
                     setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page");
                     setIsSignupSuccessful(true);
                 } else if (response.status === 409) {
                     response.text().then((text) => {
-                        // Display the plain text response.
                         setResponseMessage(text);
                     }).catch((error) => {
-                        // If there is an error reading the response, show a generic "Signup failed" alert.
                         console.error("Error reading response data:", error);
                         setResponseMessage("Signup failed");
                     });
                 } else {
-                    // For other error codes, show a generic "Signup failed" alert.
                     setResponseMessage("Signup failed");
                 }
                 setShowModal(true);
@@ -78,22 +76,23 @@ export const SignupView = () => {
             .catch((error) => {
                 console.error("Error signing up user:", error);
                 setResponseMessage("Signup failed");
-                setShowModal(true); // Show the modal with the generic "Signup failed" message
+                setShowModal(true);
             });
     };
 
-
-    //***''return'' indicates all the elements that will be returned as the output on the UI of the SignupView component. 
-    //***These returned elements are designed using React Bootstrap.
+    //***''return'' includes all the elements that will be returned as the output on the UI of the Sign up page (SignupView component). 
+    //***These elements are designed using React Bootstrap.
     return (
         //***This line defines a form using the <Form> component from React Bootstrap. 
-        //***When the form is submitted (so when a user click on the ''Sign up'' button being a type="Submit"), the ''handleSubmit'' function is call from the ''onSubmit'' form event. The handleSubmit function is therefore executed, which performs the necessary logic (as definied in the ''const handleSubmit = (event) => {'' block of code above) for handling the form submission. It prepares the data and makes the POST request to the server to register the new user in the database.
-        <Form onSubmit={handleSubmit} style={{ border: "1px solid blue" }}  className="Styling">
+        //***When the form is submitted (so when a user click on the ''Sign up'' button being a type="Submit" below), the ''handleSubmit'' function is call from the ''onSubmit'' form event. The handleSubmit function is therefore executed, which performs the necessary logic (it prepares the data and makes the POST request to the server to register the new user in the database).
+        <Form onSubmit={handleSubmit} style={{ border: "1px solid blue" }} className="Styling">
+
             {/* Form title */}
             <div className="TitleDisplay">
                 <h3>First time here?</h3>
                 <h6>Sign up now.</h6>
             </div>
+
             {/* Block of code for the username input field */}
             <Form.Group controlId="formUsername" className="formGroupWithMargin">
                 <Form.Label>Username</Form.Label>
@@ -167,13 +166,14 @@ export const SignupView = () => {
                 </Form.Text>
             </Form.Group>
 
+            {/* Button to confirm and send the Sign up form */}
             <div className="SignupButtonContainer">
                 {/*The type="submit" attribute in the <Button> element is crucial for the onSubmit={handleSubmit} to work properly. Without it, clicking the button won't trigger the form submission, and the handleSubmit function won't be called.*/}
                 <Button variant="success" type="submit">
                     Sign up
                 </Button>
 
-                {/* Modal to display the API response message */}
+                {/* Modal displaying response message after the request as been sent upon clicking on Sign Up button */}
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Sign up status</Modal.Title>
