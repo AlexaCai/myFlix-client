@@ -262,7 +262,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
             <>
                 <Row>
                     <Col style={{ border: "1px solid blue" }} className="d-flex justify-content-center align-items-center">
-                        <h4>Favorite Movies</h4>
+                        <h4>Favorite movies</h4>
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
