@@ -67,6 +67,7 @@ export const LoginView = ({ onLoggedIn }) => {
                 alert("Something went wrong");
             });
     };
+    
 
     //***''return'' includes all the elements that will be returned as the output on the UI of the Log in page (LoginView component). 
     //***These elements are designed using React Bootstrap.

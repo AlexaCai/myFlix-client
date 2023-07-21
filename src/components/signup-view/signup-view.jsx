@@ -79,6 +79,7 @@ export const SignupView = () => {
                 setShowModal(true);
             });
     };
+    
 
     //***''return'' includes all the elements that will be returned as the output on the UI of the Sign up page (SignupView component). 
     //***These elements are designed using React Bootstrap.
