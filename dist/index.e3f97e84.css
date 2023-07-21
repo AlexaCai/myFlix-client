@@ -102,6 +102,20 @@
   margin-bottom: 20px;
 }
 
+.bordersUserInfo {
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+}
+
+.bordersUserUpdate {
+  border-bottom: 1px solid #000;
+}
+
+.bordersUserDelete {
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #000;
+}
+
 .label {
   width: 100%;
 }
@@ -124,6 +138,22 @@
   text-align: center;
   margin-top: 15px;
   margin-bottom: 25px;
+}
+
+@media (width <= 991.98px) {
+  .bordersUserInfo {
+    border-bottom: 1px solid #000;
+    border-right: none;
+  }
+
+  .bordersUserUpdate {
+    border-bottom: 1px solid #000;
+  }
+
+  .bordersUserDelete {
+    border-bottom: 1px solid #000;
+    border-left: none;
+  }
 }
 
 :root, [data-bs-theme="light"] {

@@ -3,6 +3,20 @@
     margin-bottom: 20px;
 }
 
+.bordersUserInfo {
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.bordersUserUpdate {
+    border-bottom: 1px solid black;
+}
+
+.bordersUserDelete {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+}
+
 .label {
     width: 100%;
 }
@@ -21,8 +35,24 @@
     margin-bottom: 25px;
 }
 
-.button-container { 
+.button-container {
     text-align: center;
     margin-top: 15px;
-    margin-bottom: 25px; 
+    margin-bottom: 25px;
 }
+
+@media (max-width: 991.98px) {
+    .bordersUserInfo {
+        border-bottom: 1px solid black;
+        border-right: none;
+    }
+    
+    .bordersUserUpdate {
+        border-bottom: 1px solid black;
+    }
+    
+    .bordersUserDelete {
+        border-bottom: 1px solid black;
+        border-left: none;
+    }
+  }

@@ -48258,9 +48258,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                         md: 12,
                         lg: 4,
-                        style: {
-                            border: "1px solid blue"
-                        },
+                        className: "bordersUserInfo",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
@@ -48342,9 +48340,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                         md: 12,
                         lg: 4,
-                        style: {
-                            border: "1px solid blue"
-                        },
+                        className: "bordersUserUpdate",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
                             className: "profile-form",
                             onSubmit: handleUpdate,
@@ -48569,9 +48565,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                         md: 12,
                         lg: 4,
-                        style: {
-                            border: "1px solid blue"
-                        },
+                        className: "bordersUserDelete",
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
@@ -48688,9 +48682,6 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
-                            style: {
-                                border: "1px solid blue"
-                            },
                             className: "d-flex justify-content-center align-items-center",
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h4", {
                                 children: "Favorite movies"
