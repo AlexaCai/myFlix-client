@@ -180,7 +180,7 @@ export const SignupView = () => {
                     </Modal.Header>
                     <Modal.Body>{responseMessage}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={handleCloseModal}>
+                        <Button variant="success" onClick={handleCloseModal}>
                             Close
                         </Button>
                     </Modal.Footer>

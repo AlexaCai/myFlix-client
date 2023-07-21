@@ -47948,7 +47948,7 @@ const SignupView = ()=>{
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Footer, {
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                                    variant: "primary",
+                                    variant: "success",
                                     onClick: handleCloseModal,
                                     children: "Close"
                                 }, void 0, false, {
