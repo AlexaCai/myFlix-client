@@ -46960,7 +46960,7 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                                         className: "titles",
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
                                             className: "text-position",
-                                            children: "Title TEST"
+                                            children: "Title"
                                         }, void 0, false, {
                                             fileName: "src/components/movie-view/movie-view.jsx",
                                             lineNumber: 88,
@@ -47153,6 +47153,7 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                                 columnNumber: 11
                             }, undefined),
                             !isMovieInFavorites && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                variant: "success",
                                 className: "addFavorite-button custom-button",
                                 onClick: (event)=>addFavoriteMovie(event, movie.id),
                                 children: "Add to favorite"
@@ -47162,6 +47163,7 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                                 columnNumber: 13
                             }, undefined),
                             isMovieInFavorites && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                variant: "success",
                                 className: "deleteFavorite-button custom-button",
                                 onClick: (event)=>{
                                     setSelectedMovieId(movie.id);
@@ -47179,6 +47181,7 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                                     to: `/`,
                                     className: "back-button custom-button",
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                        variant: "success",
                                         onClick: ()=>navigate(-1),
                                         children: "Back"
                                     }, void 0, false, {
@@ -47235,7 +47238,7 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                            variant: "primary",
+                            variant: "success",
                             onClick: handleCloseAddFavoriteModal,
                             children: "Close"
                         }, void 0, false, {
@@ -47282,7 +47285,7 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                variant: "secondary",
+                                variant: "outline-success",
                                 onClick: handleCloseDeleteFavoriteModal,
                                 children: "Cancel"
                             }, void 0, false, {
@@ -47291,7 +47294,7 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                variant: "primary",
+                                variant: "success",
                                 onClick: (event)=>{
                                     deleteFavoriteMovie(event, selectedMovieId);
                                     handleCloseDeleteFavoriteModal();
@@ -47528,7 +47531,7 @@ const LoginView = ({ onLoggedIn })=>{
                 className: "LoginButtonContainer",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                        variant: "primary",
+                        variant: "success",
                         type: "submit",
                         className: "LoginButton",
                         children: "Log in"
@@ -47910,7 +47913,7 @@ const SignupView = ()=>{
                 className: "SignupButtonContainer",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
-                        variant: "primary",
+                        variant: "success",
                         type: "submit",
                         children: "Sign up"
                     }, void 0, false, {
@@ -47925,7 +47928,7 @@ const SignupView = ()=>{
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Header, {
                                 closeButton: true,
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _modalDefault.default).Title, {
-                                    children: "Signup status"
+                                    children: "Sign up status"
                                 }, void 0, false, {
                                     fileName: "src/components/signup-view/signup-view.jsx",
                                     lineNumber: 179,
@@ -48005,26 +48008,26 @@ parcelHelpers.export(exports, "NavigationBar", ()=>NavigationBar);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
+var _navigationBarScss = require("./navigation-bar.scss"); // Import the SCSS file
 const NavigationBar = ({ user, onLoggedOut })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
-        bg: "light",
         expand: "lg",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
                     as: (0, _reactRouterDom.Link),
                     to: "/",
-                    children: "myFlix App"
+                    children: "myFlix"
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 11,
+                    lineNumber: 13,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                     "aria-controls": "basic-navbar-nav"
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 14,
+                    lineNumber: 16,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -48037,19 +48040,19 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                         as: (0, _reactRouterDom.Link),
                                         to: "/login",
-                                        children: "Login"
+                                        children: "Log in"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 19,
+                                        lineNumber: 21,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                         as: (0, _reactRouterDom.Link),
                                         to: "/signup",
-                                        children: "Signup"
+                                        children: "Sign up"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 22,
+                                        lineNumber: 24,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
@@ -48062,7 +48065,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                         children: "Home"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 29,
+                                        lineNumber: 31,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -48071,7 +48074,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                         children: "Profile"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 32,
+                                        lineNumber: 34,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -48079,7 +48082,7 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                                         children: "Logout"
                                     }, void 0, false, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 35,
+                                        lineNumber: 37,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
@@ -48087,23 +48090,23 @@ const NavigationBar = ({ user, onLoggedOut })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 16,
+                        lineNumber: 18,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 15,
+                    lineNumber: 17,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-            lineNumber: 10,
+            lineNumber: 12,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-        lineNumber: 9,
+        lineNumber: 11,
         columnNumber: 5
     }, undefined);
 };
@@ -48116,7 +48119,7 @@ $RefreshReg$(_c, "NavigationBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf"}],"2vVqf":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","@parcel/transformer-js/src/esmodule-helpers.js":"2dKan","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9b3Tf","./navigation-bar.scss":"dnXvl"}],"dnXvl":[function() {},{}],"2vVqf":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3c12 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -48267,7 +48270,13 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                 children: [
                                     "User: ",
-                                    user.Username
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: user.Username
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 145,
+                                        columnNumber: 30
+                                    }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
@@ -48277,7 +48286,13 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                 children: [
                                     "Email: ",
-                                    user.Email
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("strong", {
+                                        children: user.Email
+                                    }, void 0, false, {
+                                        fileName: "src/components/profile-view/profile-view.jsx",
+                                        lineNumber: 146,
+                                        columnNumber: 31
+                                    }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
@@ -48297,7 +48312,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                                         lineNumber: 149,
                                         columnNumber: 25
                                     }, this),
-                                    "If you only want to change some information, enter your current information you want to keep in the corresponding field (e.g. username) along with the information you want to change in the other field(s)."
+                                    "If you only want to change some information, enter your current information you want to keep in the corresponding field (e.g. username) along with the information you want to change in the other field(s). Following a successful update, you will be redirected to the log in page."
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/profile-view/profile-view.jsx",
@@ -48420,7 +48435,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                                 }, this),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        variant: "primary",
+                                        variant: "success",
                                         type: "submit",
                                         className: "update-button",
                                         children: "Update"
@@ -48472,7 +48487,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    variant: "primary",
+                                    variant: "success",
                                     onClick: handleCloseConfirmationModal,
                                     children: "Close"
                                 }, void 0, false, {
@@ -48518,7 +48533,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                    variant: "primary",
+                                    variant: "success",
                                     onClick: handleCloseErrorModal,
                                     children: "Close"
                                 }, void 0, false, {
@@ -48577,7 +48592,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                variant: "primary",
+                                variant: "success",
                                 className: "delete-button",
                                 onClick: handleShow,
                                 children: "Delete"
@@ -48620,7 +48635,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
                                 children: [
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        variant: "secondary",
+                                        variant: "outline-success",
                                         onClick: handleClose,
                                         children: "Cancel"
                                     }, void 0, false, {
@@ -48629,7 +48644,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                        variant: "primary",
+                                        variant: "success",
                                         onClick: handleDelete,
                                         children: "Delete"
                                     }, void 0, false, {
@@ -48698,6 +48713,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                         className: "button-container",
                                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                            variant: "success",
                                             onClick: (event)=>{
                                                 setSelectedMovieId(movie.id);
                                                 handleShowDeleteFavoriteModal();

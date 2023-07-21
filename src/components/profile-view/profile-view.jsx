@@ -142,12 +142,12 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                 <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
                     <br />
                     <h4>User info</h4>
-                    <p>User: {user.Username}</p>
-                    <p>Email: {user.Email}</p>
+                    <p>User: <strong>{user.Username}</strong></p>
+                    <p>Email: <strong>{user.Email}</strong></p>
                     <p>If you wish to update your information, please fill in the update form. All fields must be completed.
                         <br />
                         <br />
-                        If you only want to change some information, enter your current information you want to keep in the corresponding field (e.g. username) along with the information you want to change in the other field(s).</p>
+                        If you only want to change some information, enter your current information you want to keep in the corresponding field (e.g. username) along with the information you want to change in the other field(s). Following a successful update, you will be redirected to the log in page.</p>
                 </Col>
 
                 {/* FORM to UPDATE user information */}
@@ -191,7 +191,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             onChange={(e) => setBirthday(e.target.value)} />
 <div>
                         {/* BUTTON to UPDATE user information */}
-                        <Button variant="primary" type="submit" className="update-button">
+                        <Button variant="success" type="submit" className="update-button">
                             Update
                         </Button>
                         </div>
@@ -205,7 +205,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     </Modal.Header>
                     <Modal.Body>You will be redirected to the login page</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={handleCloseConfirmationModal}>
+                        <Button variant="success" onClick={handleCloseConfirmationModal}>
                             Close
                         </Button>
                     </Modal.Footer>
@@ -218,7 +218,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     </Modal.Header>
                     <Modal.Body>{responseMessage}</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary" onClick={handleCloseErrorModal}>
+                        <Button variant="success" onClick={handleCloseErrorModal}>
                             Close
                         </Button>
                     </Modal.Footer>
@@ -233,7 +233,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                         <br />
                         <br />
                         By deleting your account, your data will be permanently deleted, and you will have to create a new account if you wish to return.</p>
-                    <Button variant="primary" className="delete-button" onClick={handleShow}>
+                    <Button variant="success" className="delete-button" onClick={handleShow}>
                         Delete
                     </Button>
                 </Col>
@@ -246,10 +246,10 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     </Modal.Header>
                     <Modal.Body>This action is irreversible, are you sure you want to continue?</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button variant="outline-success" onClick={handleClose}>
                             Cancel
                         </Button>
-                        <Button variant="primary" onClick={handleDelete}>
+                        <Button variant="success" onClick={handleDelete}>
                             Delete
                         </Button>
                     </Modal.Footer>
@@ -272,7 +272,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             >
                                 <MovieCard movie={movie} />
                                 <div className="button-container">
-                                    <Button
+                                    <Button variant="success"
                                         onClick={(event) => {
                                             setSelectedMovieId(movie.id);
                                             handleShowDeleteFavoriteModal();

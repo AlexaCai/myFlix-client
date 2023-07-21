@@ -85,7 +85,7 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
         <Col md={12} lg={6} className="text-container" style={{ border: "1px solid blue" }}>
           <div className="text-position">
             <div className="titles">
-              <span className="text-position">Title TEST</span>
+              <span className="text-position">Title</span>
             </div>
             <div>
               <span>{movie.title}</span>
@@ -128,12 +128,12 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
             </div>
           </div>
           {!isMovieInFavorites && (
-            <Button className="addFavorite-button custom-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>
+            <Button variant="success" className="addFavorite-button custom-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>
               Add to favorite
             </Button>
           )}
           {isMovieInFavorites && (
-            <Button className="deleteFavorite-button custom-button" onClick={(event) => {
+            <Button variant="success" className="deleteFavorite-button custom-button" onClick={(event) => {
               setSelectedMovieId(movie.id);
               handleShowDeleteFavoriteModal();
             }}>
@@ -142,7 +142,7 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
           )}
           <div className="back-button custom-button">
             <Link to={`/`} className="back-button custom-button">
-            <Button onClick={() => navigate(-1)}>Back</Button>
+            <Button variant="success" onClick={() => navigate(-1)}>Back</Button>
             </Link>
           </div>
 
@@ -155,7 +155,7 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
         </Modal.Header>
         <Modal.Body>You can view your list of favorite movies in your profile page.</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleCloseAddFavoriteModal}>
+          <Button variant="success" onClick={handleCloseAddFavoriteModal}>
             Close
           </Button>
         </Modal.Footer>
@@ -168,10 +168,10 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
         </Modal.Header>
         <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
+          <Button variant="outline-success" onClick={handleCloseDeleteFavoriteModal}>
             Cancel
           </Button>
-          <Button variant="primary"
+          <Button variant="success"
             onClick={(event) => {
               deleteFavoriteMovie(event, selectedMovieId);
               handleCloseDeleteFavoriteModal();

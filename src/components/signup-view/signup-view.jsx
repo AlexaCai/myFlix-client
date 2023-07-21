@@ -169,14 +169,14 @@ export const SignupView = () => {
 
             <div className="SignupButtonContainer">
                 {/*The type="submit" attribute in the <Button> element is crucial for the onSubmit={handleSubmit} to work properly. Without it, clicking the button won't trigger the form submission, and the handleSubmit function won't be called.*/}
-                <Button variant="primary" type="submit">
+                <Button variant="success" type="submit">
                     Sign up
                 </Button>
 
                 {/* Modal to display the API response message */}
                 <Modal show={showModal} onHide={handleCloseModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Signup status</Modal.Title>
+                        <Modal.Title>Sign up status</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>{responseMessage}</Modal.Body>
                     <Modal.Footer>

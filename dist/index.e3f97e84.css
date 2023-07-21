@@ -25,13 +25,13 @@
 }
 
 .addFavorite-button {
-  width: 50%;
+  width: 25%;
   margin: 25px 15px 15px 0;
 }
 
 .deleteFavorite-button {
-  width: 50%;
-  margin: 15px 15px 15px 0;
+  width: 33%;
+  margin: 25px 15px 15px 0;
 }
 
 .back-button {
@@ -77,6 +77,19 @@
 
 .Styling {
   height: 100vh;
+}
+
+.navbar {
+  background-color: #28a74642;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+  color: #000000be;
+  font-size: 20px;
 }
 
 .styling-position {
@@ -13297,7 +13310,7 @@ textarea.form-control-lg {
 }
 
 .styling {
-  background-color: #dadbdb;
+  background-color: #ebebeb;
   flex-direction: column;
   min-height: 100vh;
   display: flex;
