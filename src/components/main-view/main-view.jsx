@@ -213,7 +213,7 @@ export const MainView = () => {
                                 ) : (
                                     <>
                                         {movies.map((movie) => (
-                                            <Col xs={12} md={6} lg="3" style={{ border: "1px solid blue" }}>
+                                            <Col xs={12} md={6} lg="3">
 
                                                 <MovieCard movie={movie} />
                                             </Col>
