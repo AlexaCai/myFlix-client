@@ -58,7 +58,7 @@ export const SignupView = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    setResponseMessage("You're on board! Your registration was successful, you will be redirected to the login page");
+                    setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page");
                     setIsSignupSuccessful(true);
                 } else if (response.status === 409) {
                     response.text().then((text) => {
