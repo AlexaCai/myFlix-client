@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 //***Import different React Bootstrap components.
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from 'react-bootstrap/Modal';
+import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
-//***Import the signup-view.scss the allow modification to the React Bootstrap UI design.
+//***Import the signup-view.scss to allow modification to the React Bootstrap UI design.
 import './signup-view.scss';
 
 //***''const SignupView'' is a functional component, ''SignupView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
@@ -37,7 +37,7 @@ export const SignupView = () => {
 
     //***''const handleSubmit = (event) =>'' handles the form submission when a user clicks on the ''Sign up'' button.
     const handleSubmit = (event) => {
-        //***This prevents the default behavior of the form which is to reload the entire page. Calling preventDefault() stops the form from performing this default action.
+        //***''event.preventDefault'' prevents the default behavior of the form when submitted, which is to reload the entire page (when a form is submitted in a web app, it typically triggers a page refresh).
         event.preventDefault();
         //***Creation of (data) object that contains the user's input values from the Sign up form fields (Username, Password, Email, and Birthday).
         const data = {
@@ -46,7 +46,7 @@ export const SignupView = () => {
             Email: email,
             Birthday: birthday
         };
-        //***The fetch then performs a POST request to the specified URL, to registered the new user.
+        //***A fetch request is made to the specified URL below with a POST method. The request body is the (data) object from above with the four properties.
         fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users", {
             //***The POST request includes the user data in the request body, which is converted to JSON format using JSON.stringify(data).
             method: "POST",
