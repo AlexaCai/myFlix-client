@@ -80,7 +80,7 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
   };
 
 
-  //***''return'' includes all the elements that will be returned as the output on the UI of the Log in page (MovieView component). 
+  //***''return'' includes all the elements that will be returned as the output on the UI of the movie view page (MovieView component). 
   //***These elements are designed using React Bootstrap.
   return (
     <Container>
