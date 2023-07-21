@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { useState } from "react";
 
 //***Import the different React Bootstrap components.
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
@@ -30,6 +30,9 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
 
   //***Check if the movie is in the user's favorite movies array or not (used to display the right buttons ''add to favorite'' or ''remove from favorite'').
   const isMovieInFavorites = user.FavoriteMovies.includes(movieId);
+
+  //***Used to navigate back to the previous page (used in the profile view, so when a user click on one of his favorite movie to see detail and then click back, user is brought back to profile view, and not to home).
+  const navigate = useNavigate();
 
   const test = user
   console.log(user)
@@ -139,7 +142,7 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
           )}
           <div className="back-button custom-button">
             <Link to={`/`} className="back-button custom-button">
-              <Button>Back</Button>
+            <Button onClick={() => navigate(-1)}>Back</Button>
             </Link>
           </div>
 
