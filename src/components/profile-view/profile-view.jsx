@@ -1,58 +1,64 @@
 //***Import different React built-in function.
-import React from "react";
+import { React } from "react";
 import { useState } from "react";
 
+//***Import another component of the app.
 import { MovieCard } from "../movie-card/movie-card";
 
-//***Import the different React Bootstrap components.
+//***Import different React Bootstrap components.
 import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
+
+//***Import the profile-view.scss to allow modiication to the React Bootstrap UI design.
 import './profile-view.scss';
 
-import axios from 'axios';
-
+//***''const ProfileView'' is functional component, ''ProfileView'' being it's name. It is defined as an arrow function with four parameters, indicating it receives four props.
 export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
-    //***Use to initiate all the field of the update form to empty as first.
+
+    //***For the USER UPDATE form - use to initiate all the fields of the form to empty at first.
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    //***Bootstrap const for UPDATE user modal (after a user click the update button).
+    //***Logic to log out a user after updating his information, and bring the user back to the log in page.
+    const handleCloseConfirmationModal = () => {
+        setShowConfirmationModal(false);
+        localStorage.removeItem("userToken");
+        window.location.href = "/login";
+    };
+
+    //***BOOTSTRAP elements for the UPDATE user modals (after a user click the ''update'' button).
     const [responseMessage, setResponseMessage] = useState("");
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
-    const [isUpdateConfirmed, setIsUpdateConfirmed] = useState(false);
-    const handleCloseConfirmationModal = () => {
-        setShowConfirmationModal(false);
-        setIsUpdateConfirmed(false);
-        +        localStorage.removeItem("userToken");
-        window.location.href = "/login";
-    };
     const handleCloseErrorModal = () => {
         setShowErrorModal(false);
         setResponseMessage("");
     };
 
-    //***Bootstrap const for DELETE user modal (after a user click the delete button).
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    //***BOOTSTRAP elements for DELETE user modal (after a user click the delete button).
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const handleDeleteCloseModal = () => setShowDeleteModal(false);
+    const handleShowDeleteModal = () => setShowDeleteModal(true);
 
-    //***Use to display movie added in the favorite movie list.
+    //***Elements for favorite movies list.
+    //***user.FavoriteMovies is an array that contains the IDs of the movies that the user has marked as favorites. Each element in this array represents a movie ID. The .map() method is used to iterate over each element (movie ID) in the user.FavoriteMovies array and create a new array.
     let favoriteMovies = user.FavoriteMovies.map((favoriteMovieId) =>
+        //***For each favoriteMovieId, the .find() method is used to search the movies array for a movie that has an id matching the favoriteMovieId. The .find() method returns the first element that match (in this case, a movie whose ID matches favoriteMovieId). The resulting favoriteMovies array contains the movie objects that the user has marked as favorites, which can be used to display their favorite movies in the UI.
         movies.find((movie) => movie.id === favoriteMovieId));
 
-    //***Bootstrap const for REMOVE MOVIE from favorite modal (after a user click the update button).
-    const [showDeleteFavoriteModal, setShowDeleteFavoriteModal] = useState(false);
-    const handleCloseDeleteFavoriteModal = () => setShowDeleteFavoriteModal(false);
-    const handleShowDeleteFavoriteModal = () => setShowDeleteFavoriteModal(true);
+    //***BOOTSTRAP elements for REMOVE movie from favorite modal (after a user click the update button).
+    const [showRemoveFavoriteModal, setShowRemoveFavoriteModal] = useState(false);
+    const handleCloseRemoveFavoriteModal = () => setShowRemoveFavoriteModal(false);
+    const handleShowRemoveFavoriteModal = () => setShowRemoveFavoriteModal(true);
     const [selectedMovieId, setSelectedMovieId] = useState(null);
 
-    //***Logic to allow user update his information.
+
+    //***Logic to allow the user to update his information.
     const handleUpdate = (event) => {
         event.preventDefault();
         const userData = {
@@ -94,7 +100,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
             });
     };
 
-    //***Logic to allow user delete his information.
+    //***Logic to allow the user to delete his information.
     const handleDelete = () => {
         fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}`, {
             method: "DELETE",
@@ -116,7 +122,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
             });
     };
 
-    //***Logic to allow user update remove movie from his favorite list of movies.
+    //***Logic to allow the user to remove movies from his favorite list of movies.
     const deleteFavoriteMovie = (event, movieId) => {
         event.preventDefault();
         fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
@@ -135,10 +141,14 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
             });
     };
 
+
+    //***''return'' includes all the elements that will be returned as the output on the UI of the profile view page (ProfileView component). 
+    //***These elements are designed using React Bootstrap.
     return (
         <Container>
+
+            {/* USER INFO display*/}
             <Row className="justify-content-md-center styling-position">
-                {/* USER info display*/}
                 <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
                     <br />
                     <h4>User info</h4>
@@ -147,7 +157,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     <p>If you wish to update your information, please fill in the update form. All fields must be completed.
                         <br />
                         <br />
-                        If you only want to change some information, enter your current information you want to keep in the corresponding field (e.g. username) along with the information you want to change in the other field(s). Following a successful update, you will be redirected to the log in page.</p>
+                        If you only want to change some information, enter your current information you want to keep in the corresponding field (e.g. username) along with the information you want to change in the other field(s). <strong>Following successful update, you will be redirected to the log in page.</strong></p>
                 </Col>
 
                 {/* FORM to UPDATE user information */}
@@ -189,11 +199,11 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             name='birthday'
                             defaultValue=''
                             onChange={(e) => setBirthday(e.target.value)} />
-<div>
-                        {/* BUTTON to UPDATE user information */}
-                        <Button variant="success" type="submit" className="update-button">
-                            Update
-                        </Button>
+                        <div>
+                            {/* BUTTON to UPDATE user information */}
+                            <Button variant="success" type="submit" className="update-button">
+                                Update
+                            </Button>
                         </div>
                     </Form>
                 </Col>
@@ -201,7 +211,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                 {/* MODAL to CONFIRM user UPDATE sucess */}
                 <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Update succesful!</Modal.Title>
+                        <Modal.Title>Update successful!</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>You will be redirected to the login page</Modal.Body>
                     <Modal.Footer>
@@ -233,20 +243,20 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                         <br />
                         <br />
                         By deleting your account, your data will be permanently deleted, and you will have to create a new account if you wish to return.</p>
-                    <Button variant="success" className="delete-button" onClick={handleShow}>
+                    <Button variant="success" className="delete-button" onClick={handleShowDeleteModal}>
                         Delete
                     </Button>
                 </Col>
 
 
                 {/* MODAL to CONFIRM DELETE operation */}
-                <Modal show={show} onHide={handleClose}>
+                <Modal show={showDeleteModal} onHide={handleDeleteCloseModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>You are about to delete your account</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>This action is irreversible, are you sure you want to continue?</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="outline-success" onClick={handleClose}>
+                        <Button variant="outline-success" onClick={handleDeleteCloseModal}>
                             Cancel
                         </Button>
                         <Button variant="success" onClick={handleDelete}>
@@ -255,7 +265,6 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                     </Modal.Footer>
                 </Modal>
             </Row>
-
 
 
             {/* LOGIC to display each FAVORITE MOVIES being in the user's favorite movie list */}
@@ -275,7 +284,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                                     <Button variant="success"
                                         onClick={(event) => {
                                             setSelectedMovieId(movie.id);
-                                            handleShowDeleteFavoriteModal();
+                                            handleShowRemoveFavoriteModal();
                                         }}
                                     >
                                         Remove from favorite
@@ -290,21 +299,20 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
             </>
 
 
-
-            {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */}
-            <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
+            {/* MODAL to ask user for CONFIRMATION when clicking on ''remove from favorite'' button (to remove a movie from list of favorite) */}
+            <Modal show={showRemoveFavoriteModal} onHide={handleCloseRemoveFavoriteModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Remove from favorites</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="outline-success" onClick={handleCloseDeleteFavoriteModal}>
+                    <Button variant="outline-success" onClick={handleCloseRemoveFavoriteModal}>
                         Cancel
                     </Button>
                     <Button variant="success"
                         onClick={(event) => {
                             deleteFavoriteMovie(event, selectedMovieId);
-                            handleCloseDeleteFavoriteModal();
+                            handleCloseRemoveFavoriteModal();
                         }}>
                         Confirm
                     </Button>
