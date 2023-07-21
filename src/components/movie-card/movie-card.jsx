@@ -1,16 +1,19 @@
 //***Import different React built-in function.
-import React from "react";
-import PropTypes from "prop-types";
+import { React } from "react";
+import { PropTypes } from "prop-types";
 
-//***Import the different React Bootstrap components.
+//***Import different React Bootstrap components.
 import { Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+//***Import the movie-card.scss to allow modification to the React Bootstrap UI design.
 import './movie-card.scss'; // Import the SCSS file
 
+//***''const MoveCard'' is functional component, ''MovieCard'' being it's name. It is defined as an arrow function with one parameter, indicating it receives { movie } props.
 export const MovieCard = ({ movie }) => {
   return (
+    //***The Card component in React Bootstrap is a customizable UI component that provides a container for displaying related information in a structured format.
     <Card className="TopMargin">
       <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
       <Card.Img variant="top" src={movie.image} />
@@ -28,9 +31,9 @@ export const MovieCard = ({ movie }) => {
 
 //***Definition of all the props constraints for the MovieCard. The following block of code set the static PropTypes property on MovieCard to an object that contains special values provided as utilities by prop-types. These values help specify what the MovieCard props should look like.
 MovieCard.propTypes = {
-  //***The props object must include a movie object (shape({...}) means that it’s an object).
+  //***The props object must include a movie object ( shape({...}) means that it’s an object).
   movie: PropTypes.shape({
-    //***Movie prop (object) must contain a title and an image (because of the .isRequiered at the end of each field). When a field is present but doesnt have ''isRequiered'' at the end, it MAY be passed in the prop (or not).
+    //***Movie prop (object) must contain a title and an image (because of the .isRequiered at the end of each field).
     image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   }).isRequired
