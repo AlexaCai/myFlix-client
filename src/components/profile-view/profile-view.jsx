@@ -149,7 +149,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
 
             {/* USER INFO display*/}
             <Row className="justify-content-md-center styling-position">
-                <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
+                <Col md={12} lg={4} className="bordersUserInfo">
                     <br />
                     <h4>User info</h4>
                     <p>User: <strong>{user.Username}</strong></p>
@@ -161,7 +161,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                 </Col>
 
                 {/* FORM to UPDATE user information */}
-                <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
+                <Col md={12} lg={4} className="bordersUserUpdate">
                     <Form className='profile-form' onSubmit={handleUpdate}>
                         <br />
                         <h4>Update info</h4>
@@ -236,7 +236,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
 
 
                 {/* BUTTON for user to DELETE account */}
-                <Col md={12} lg={4} style={{ border: "1px solid blue" }}>
+                <Col md={12} lg={4} className="bordersUserDelete">
                     <br />
                     <h4>Delete account</h4>
                     <p>Want to leave us?
@@ -270,7 +270,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
             {/* LOGIC to display each FAVORITE MOVIES being in the user's favorite movie list */}
             <>
                 <Row>
-                    <Col style={{ border: "1px solid blue" }} className="d-flex justify-content-center align-items-center">
+                    <Col className="d-flex justify-content-center align-items-center">
                         <h4>Favorite movies</h4>
                     </Col>
                 </Row>
