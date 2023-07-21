@@ -294,14 +294,14 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
             {/* MODAL to ask user for CONFIRMATION when REMOVING movie from list of favorite */}
             <Modal show={showDeleteFavoriteModal} onHide={handleCloseDeleteFavoriteModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Remove Movie from favorites</Modal.Title>
+                    <Modal.Title>Remove from favorites</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>Are you sure you want to remove this movie from your favorites?</Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleCloseDeleteFavoriteModal}>
+                    <Button variant="outline-success" onClick={handleCloseDeleteFavoriteModal}>
                         Cancel
                     </Button>
-                    <Button variant="primary"
+                    <Button variant="success"
                         onClick={(event) => {
                             deleteFavoriteMovie(event, selectedMovieId);
                             handleCloseDeleteFavoriteModal();
