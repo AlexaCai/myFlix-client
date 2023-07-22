@@ -1,0 +1,35 @@
+.image-position {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.text-position {
+    margin-top: 20px;
+}
+
+.titles {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.addFavorite-button {
+    margin: 25px 0px 0px 0px;
+    width: 30%;
+}
+
+.deleteFavorite-button {
+    margin: 25px 0px 0px 0px;
+    width: 40%;
+}
+
+.back-button {
+    margin-top: 15px;
+}
+
+@media (max-width: 991.98px) {
+    .text-container {
+      text-align: center; /* Center the text */
+    }
+  }

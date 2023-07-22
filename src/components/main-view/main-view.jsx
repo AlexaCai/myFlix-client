@@ -1,76 +1,80 @@
-//***''useState'' is a React built-in function that allows to add state to a functional component.
+//***Import different React built-in function.
 import { useState } from "react";
-
-//***''useEffect'' is a React built-in function that allows to perform side effects in functional components (such as fetching data).
 import { useEffect } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-//***Import the ''MovieCard'' child component into the current file/component ''MainView'' so that it can use it here.
+//***Import the different components of the app.
 import { MovieCard } from "../movie-card/movie-card";
-
-//***Import the ''MovieView'' child component into the current file/component ''MainView'' so that it can use it here.
 import { MovieView } from "../movie-view/movie-view";
-
-//***Import the ''LoginView'' child component into the current file/component ''MainView'' so that it can use it here.
 import { LoginView } from "../login-view/login-view";
-
-//***Import the ''SignupView'' child component into the current file/component ''MainView'' so that it can use it here.
 import { SignupView } from "../signup-view/signup-view";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 
-//***Import the Row Bootstrap component for Bootstrap grid UI design.
-import Row from "react-bootstrap/Row";
+//***Import different React Bootstrap components.
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
-//***Import the Col Bootstrap component for Bootstrap grid UI design.
-import Col from 'react-bootstrap/Col';
-
-//***Import the Button Bootstrap component for log in form UI design.
-import Button from "react-bootstrap/Button";
-
-//***Import specific components and utilities from the react-router-dom library in React applications.
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-//***''export'' keyword exposes the ''MainView'' component making it available for use by other components, modules, and files (possible to import in other files).
-//***''const MainView'' (and the following codes) creates the ''MainView'' component. The lines after ''const MainView'' is the function assigned to ''MainView'' that returns the visual representation of the component (the function renders what is displayed on the screen).
+//***''const MainView'' is functional component, ''MainView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
 export const MainView = () => {
 
-    //***Used to retrieve the user values from the browser's ''localStorage''. localStorage is a web API that allows to store data in the browser. In this case, it's used to store the user object received from the server during the login process. With this, its possible to maintain the user's login state even if the page is refreshed or reopened.
+    //***''storedUser'' is declared to store the user data from the browser's localStorage (reminder: the user data have been stored previsouly in localStorage following a successful log in - see login-view.jsx). Since the data stored in localStorage is in string format, JSON.parse is used to convert it into a JavaScript object, then ''localStorage.getItem("user")'' is used to retrieve the value stored under the key "user" in the browser's localStorage. This allows to access the properties of the user object.
     const storedUser = JSON.parse(localStorage.getItem("user"));
-
-    //***Idem to the code definition above.
+    //***''storedToken'' is declared to store the token from the browser's localStorage (reminder: the token data have been stored previsouly in localStorage following a successful log in - see login-view.jsx). ''localStorage.getItem("token")'' is used to retrieve the value stored under the key "token" in the browser's localStorage.
     const storedToken = localStorage.getItem("token");
-
-    //***Way to identify whether a user has logged in or not. The ''useState(null);'' tells the app that user is not logged in at first. However, if a user were to log in (as written in the block of codes following if (!user) below), the ''setUser'' would be called and update the ''user'' value based on the user input during loggin in. The ''user'' value not being be equal to ''null'' anymore, the app would thus renders the normal view with all the movie info (''MainView'' with ''MovieCard'' in it, and ''MovieView'' once a MovieCard is being clicked on), if the token has been passed along as well.
+    //***This state holds the information about the currently logged-in user.
     const [user, setUser] = useState(null);
-
-    //***The ''useState(null);'' tells the app that there is no token at first. However, if a user were to log in (as written in the block of codes following if (!user) below), the ''setToken'' would be called and update the ''token'' value with the token generated automatically during user log in. The ''token'' value not being be equal to ''null'' anymore, the app would thus renders the normal view with all the movie info (''MainView'' with ''MovieCard'' in it, and ''MovieView'' once a MovieCard is being clicked on).
+    //***This state stores the authentication token received from the server upon successful login.
     const [token, setToken] = useState(null);
-
-    //***'Wihtin the ''useState([])'' array are the objects of the ''movies'' variable. This object (movies) come from the fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies"). The ''setMovies'' function updates the movies state with the fetched movie data whe called.
+    //***This state holds an array of movie objects fetched from the server.
     const [movies, setMovies] = useState([]);
 
-    //***Way to identify whether there was a user click on a ''MovieCard'' or not. The ''useState(null);'' tells the app that no movie cards is clicked at first. However, if a user were to click on a movie card, the app would need to update the selectedMovie state to refer to the movie object that was clicked, thus inducing the app to render that movie’s details using the ''MovieView'' component.
-    const [selectedMovie, setSelectedMovie] = useState(null);
 
-    //***This useEffect fetches movies from the API /movies endpoint when the token state changes (so when its not ''null'' anymore, meaning a request have been sent with an valid token by a user, authorizing the server to give back the response with the movies info).
-    useEffect(() => {
-        if (!token) {
-            //***If the token is ''null'' (no token), the function does not execute the API call. This means that the fetch call will not be executed. This ensure that the API call is only made when a valid token is present.
-            return;
+    //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
+    const updateFavoriteMovies = (movieId, isFavorite) => {
+        //***Checks if isFavorite is true. If the movie is being marked as a favorite, the code inside this block will be executed.
+        if (isFavorite) {
+            //***setUser is a function from the useState hook that allows updating the user state declared earlier. It is used here to update the list of favorite movies for the currently logged-in user. It takes a callback function as an argument (prevUser), and this callback function receives the previous state of the user as its argument. 
+            setUser((prevUser) => ({
+                //***The spread operator ... is used here to create a copy of the prevUser object. This copy means that it creates a new object with the same properties as prevUser.
+                ...prevUser,
+                //***This line updates the FavoriteMovies property of the new object created by the spread operator. The spread operator ...prevUser.FavoriteMovies is used to create a new array that contains all the elements from the previous FavoriteMovies array of prevUser. This is necessary to preserve any existing favorite movies before adding the new movieId. Then ''movieId'' appends the new movieId add to the favorite to the end of the newly created FavoriteMovies array, that still contains the previous movies inside the favorite list of movies.
+                FavoriteMovies: [...prevUser.FavoriteMovies, movieId],
+            }));
         } else {
-            //***If the token has another value than ''null'', the code makes a fetch request to the specified URL "https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies" and includes the Authorization header with the Bearer token to authenticate the request.
+            //***When isFavorite is false, it means the user want to remove a movie from his favorite list of movies. 
+            setUser((prevUser) => ({
+                ...prevUser,
+                //***prevUser.FavoriteMovies represents the array of favorite movie IDs that the user currently has. The filter method is called on this array and creates a new array that only contains the elements for which the provided function (the arrow function (id) => id !== movieId) returns true. In this case, the arrow function checks each id in the FavoriteMovies array. If the id is not equal to movieId, it means it's not the movie we want to remove, so it returns true, and the id is kept in the new array. However, if the id is equal to movieId, it means it's the movie we want to remove, so it returns false, and the id is excluded from the new array. The result is a new array of favorite movies without the movie with movieId.
+                FavoriteMovies: prevUser.FavoriteMovies.filter((id) => id !== movieId),
+            }));
+        }
+    };
+
+
+    //***This useEffect is responsible for fetching movie data from the server when there is a valid token available (when the user is authenticated and logged in). After fetching the movie data, it transforms the API response into a format that the application can use and updates the movies state accordingly. The effect is triggered whenever the token state changes.
+    useEffect(() => {
+        //***Conditional logic that ensures that the useEffect is only executed if the token state is not null or undefined (when a user has logged in successfuly). If token is null or undefined (when a user has not logged in), the effect returns and nothing inside the useEffect is executed.
+        if (!token) {
+            return;
+            //***If a token is present, the following ''else'' logic goes on.
+        } else {
+            //***Send a request to the specified URL to fetch movie data. It includes the Authorization header with the Bearer token value to authenticate the request, which is necessary, otherwise the server would send back ''unauthorized'' because of the backend configuration that requires a token to access movie data.
             fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies", {
-                //***headers is an object that contains the request headers to be sent with the fetch request. Headers are used to provide additional information about the request or to include specific authorization credentials (such as here - as the headers object is being used to include an authorization token in the request header).
+                //***Send along the request to the URL the authorization token to access the movies data in the database.
                 headers: { Authorization: `Bearer ${token}` }
             })
-                //***.then() is chained to the fetch call, and it takes the response object received from the fetch() request as its parameter. ''response.json())'' is used to transformed the response from the server to JSON format.
+                //***Converts the response received back from the API to a JavaScript object using the json() method.
                 .then((response) => response.json())
-                //***.then() is chained to the previous one. It receives the parsed JSON data as (data). The data is processed here to extract relevant information from each movie.
+                //***After parsing to JSON the response data, the data received from the API is processed.
                 .then((data) => {
                     console.log(data);
-                    //***.map() method transforms each element of the data array (so the ''movies'' array in const [movies, setMovies] = useState([])) into a new object with specific properties. The .map() method is used to iterate over each element (movie) in the data array received from the fetch request URL. For each movie in the data array, a new object is create with the costum properties defined below.
+                    //***This maps over the data received from the API and transforms each movie object into a new object with selected properties (id, image, title, description, genre, genreDescription, director, directorBio, directorBirth).
                     const moviesFromApi = data.map((movie) => {
-                        //***Properties for each new object (movie) created by .map(). Once the movie data have been transformed using the properties within the .map() method, its possible to pass those properties as attributes to child components, such as MovieCard and MovieView, and use them to display the wanted for each component. 
                         return {
-                            //***The name of each key (ex: directorBio) here is used to access the information the value contains in other components (MovieCard and MovieView). To display the director's bio information of a movie for exemple, {movie.directorBio} has been added in the MovieView component.
                             id: movie._id,
                             image: movie.ImagePath,
                             title: movie.Title,
@@ -82,93 +86,145 @@ export const MainView = () => {
                             directorBirth: movie.Director.Birth
                         };
                     });
-                    //***setMovies(moviesFromApi) is used to update the movies variable state in ''const [movies, setMovies] = useState([]);'', which in turn updates the movies array (useState([])), adding into it the movies that have been fetched by fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/movies").
+                    console.log(moviesFromApi);
+                    //***Updates the movies state from ''const [movies, setMovies] = useState([]);'' with the transformed movie data obtained from the API.
                     setMovies(moviesFromApi);
+                })
+                //***Catches any errors that might occur during the fetch operation and log an error message to the console.
+                .catch((error) => {
+                    console.error("Error fetching movies:", error);
                 });
         };
-        //***[token] is a dependency array passed as the second argument to the useEffect, so the useEffect will be re-executed whenever the value of token changes.
+        //***[token] is a dependency array that controls when the useEffect should be executed. It specifies that the effect should be executed whenever the value of the token variable changes. If token remains the same between renders, the effect will not be executed repeatedly, preventing unnecessary network requests. By including [token] as a dependency, the useEffect is optimized to run only when token changes.
     }, [token]);
 
-    //***These returned elements are designed using React Bootstrap. The MainView component only has one return statement that has a ''Row'' as the root element. The nested elements are conditionally rendered using the ternary operator ?:. 
-    //***conditional (ternary) operator takes three operands: a condition followed by a question mark (?), then an expression to execute if the condition is truthy followed by a colon (:), and finally the expression to execute if the condition is falsy. This operator is frequently used as an alternative to an if...else statement. Format = condition ? exprIfTrue : exprIfFalse.
-    //***The following ''return'' is using conditional rendering to determine which content should be displayed on the user UI based on different conditions. 
+
+    //***This useEffect is responsible for fetching all user data from the server when there is a valid token available (when the user is authenticated). Then, it searches for the user object that corresponds to the currently logged-in user by comparing the ''storedUser'' object's ''Username'' with the ''Username'' properties of all user objects in received from the API. Once it identifies the logged-in user's data in the array from the API, it updates the user state with that specific user's data, allowing the app to have access to the logged-in user's data throughout the component and enables rendering specific views to the currently logged-in user. The useEffect is triggered whenever the token state changes.
+    useEffect(() => {
+        if (!token) {
+            return;
+        } else {
+            fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    //***''const loggedInUser = ...'' uses the find method on the data array (the parsed API response) to search for a user whose Username property matches the Username property of the storedUser object. The storedUser object is obtained from the localStorage as defined earlier in this file.
+                    const loggedInUser = data.find((user) => user.Username === storedUser.Username);
+                    //***''setUser(loggedInUser);'' updates the User state from ''const [user, setUser] = useState(null);'' with the logged-in user data obtained from the API response. It uses the setUser function from the useState hook to update the User state.
+                    //***By updating the User state, the component now has access to the data of the currently logged-in user, and it can display the user's information and control the rendering of different parts of the app accordingly.
+                    setUser(loggedInUser);
+                })
+                .catch((error) => {
+                    console.error("Error fetching user:", error);
+                });
+        }
+    }, [token]);
+
+    //***''return'' includes all the elements that will be returned as the output on the UI of the main view page (MainView component). 
+    //***These elements are designed using React Bootstrap.
     return (
-        //***<Row> is being used as a container component to structure the layout of the content inside the return statement. It helps to align and position the child components (''LoginView'', ''SignupView'', etc.) within a React Bootstrap row-based grid system. className="justify-content-md-center row" is used to center the columns within a row using Bootstrap utility classes.
-        //***{!user ? condition checks if the user variable is falsy (''null'' as its first state when no user is logged in). If user is falsy (''null''), it renders the content inside the first parentheses, which includes a LoginView component and a SignupView component. If user is truthy (a user is logged in), it moves to the next condition ) : selectedMovie ? (.
-        <Row className="justify-content-md-center row">
-            {!user ? (
-                //***<Col md={5}> specifies the columns that LoginView and SignupView have (out of max 12 col). Since ''md'' breakpoint is used, if the screen width is less than 768px, each column will take the full width no matter how many shares it’s been assigned. If the screen width is greater than or equal to 768px, the two components will take 5/12 of the available width of the container/row.
-                <Col md={5} style={{ border: "1px solid black" }}>
-                    <LoginView
-                        //***By passing the ''onLoggedIn'' prop with the callback function ''(user, token) => => {setUser (user); setToken(token); }}'' to the ''LoginView'' component, ''MainView'' component establishes a communication channel to receive the logged-in user data from ''LoginView'. This enables the login process within the ''LoginView'' component to update the user and token state variables in the MainView component (current file) (so making them not ''null'' anymore), thus providing access to all the logged-in user's movie data.
-                        onLoggedIn={(user, token) => {
-                            setUser(user);
-                            setToken(token);
-                        }}
+        //***<BrowserRouter> is component from the react-router-dom library. It provides the routing functionality for the application, allowing different components to be rendered based on the current URL path.
+        <BrowserRouter>
+            <NavigationBar
+                //***{user} is a prop called ''user'' and is passed to the NavigationBar component. The value of {user} is the current user value/state from ''const [user, setUser]'' , which at this point is an object containing the information about the logged-in user.
+                user={user}
+                //***{onLoggedOut} is another prop passed to the NavigationBar component. It is a function that is executed when the user clicks on a "Log out"  button (as defined on navigation-bar.jsx) to log out. In this case, the function sets the user state to null, which log out the user from the web app.
+                onLoggedOut={() => {
+                    setUser(null);
+                }}
+            />
+            <Row className="justify-content-md-center">
+                {/* <Routes> is used as a container for multiple <Route> components, and it defines the different routes that can be accessed in the application. */}
+                <Routes>
+                    {/* Route component has a path prop set to "/signup" so that this route will be active when the URL matches "/signup". */}
+                    <Route
+                        path="/signup"
+                        /* Element prop of the Route is set to a JSX expression that will be rendered when the route is active (here are two other components passed to display views, instead of plain JSX content). Inside the element prop, there's a conditional statement. */
+                        element={
+                            <>
+                                {user ? (
+                                    <Navigate to="/" />
+                                ) : (
+                                    <Col xs={9} sm={7} md={5} lg={4} xl={4} xxl={3} className="mx-auto">
+                                        <SignupView />
+                                    </Col>
+                                )}
+                            </>
+
+                        }
                     />
-                    <SignupView />
-                </Col>
-                //***) : selectedMovie ? ( condition checks if the selectedMovie variable is truthy (so if his state is not ''null'' anymore after a user clicked on a MovieCard and so updated the selectdMovie variable via setSelectMovie). If selectedMovie is truthy (not ''null''), it renders the content inside the second parentheses, which includes a MovieView component displaying the details of the selected movie, a div containing a logout button, and a logout button. If selectedMovie is falsy (''null''), it moves to the next condition ) : movies.length === 0 ? (.
-            ) : selectedMovie ? (
-                //***<Col md={8}> specifies the columns that MovieView has (out of max 12 col). Since ''md'' breakpoint is used, if the screen width is less than 768px, each column will take the full width no matter how many shares it’s been assigned. If the screen width is greater than or equal to 768px, MovieView will take 8/12 of the available width of the container/row.
-                //***When a movie is clicked on, ''MovieView movie={selectedMovie}'' is activated and the movie details are shown in the UI.
-                //***The code ''onBackClick={() => setSelectedMovie(null)}'' adds to the ''onBackClick'' (from the ''MovieView'' component file) the logic that sets the ''selectedMovie'' variable back to its initial state value (null) when the button ''back'' is clicked (the ''back'' button being defined in MovieView). This make the MovieView window with more details closes and bring the interface back to the MainView with the MovieCard.
-                //***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
-                <Col md={8} style={{ border: "1px solid black" }}>
-                    <MovieView
-                        movie={selectedMovie}
-                        onBackClick={() => setSelectedMovie(null)}
+                    <Route
+                        path="/login"
+                        element={
+                            <>
+                                {user ? (
+                                    <Navigate to="/" />
+                                ) : (
+                                    <Col xs={10} sm={6} md={5} lg={4} xl={4} xxl={3} className="mx-auto">
+                                        <LoginView onLoggedIn={(user, token) => {
+                                            setUser(user);
+                                            setToken(token);
+                                        }} />
+                                    </Col>
+                                )}
+                            </>
+
+                        }
                     />
-                    <Button variant="primary" type="submit"
-                        onClick={() => {
-                            setUser(null);
-                            setToken(null);
-                            localStorage.clear();
-                        }}
-                    >
-                        Logout
-                    </Button>
-                </Col>
-                //***) : movies.length === 0 ? ( condition checks if the movies array is empty. If the movies array is empty, it renders the message "The list is empty!". If the movies array is not empty, it moves to the final condition.
-            ) : movies.length === 0 ? (
-                <div>The list is empty!</div>
-                //***This is the default condition when the previous conditions (selectedMovie ? and movies.length === 0 ?) werent met. It renders the content inside the final parentheses, which includes a div containing a list of MovieCard components rendered using movies.map(). Each MovieCard component represents a movie from the movies array. Additionally, it includes a logout button.
-            ) : (
-                //***The .map() method in the code below maps each element in the movies array to a piece of UI. So, after its execution, there will be one <MovieCard /> for each movie fetch() from the /movies API.
-                //***Addition of a ''logout'' button with an ''onClick'' handler, which resets the user state variable to null (and so brings the UI back to the login page).
-                <>
-                    <Row className="justify-content-md-center row">
-                        {movies.map((movie) => (
-                            //***<Col md={3} specifies the columns that LoginView and SignupView have (out of max 12 col). Since ''md'' breakpoint is used, if the screen width is less than 768px, each column will take the full width no matter how many shares it’s been assigned. If the screen width is greater than or equal to 768px, the two components will take 5/12 of the available width of the container/row.
-                            //***<Col className="mb-5" margin bottom on each card, while ''mb'' stands for ''margin bottom'' and ''x'' is the number representing the size of the space.
-                            //***The key serves as a unique identifier for each item in a list of components (here, each movie of the .map() array). When rendering a list of components dynamically using map, React uses the key prop to efficiently rendered and updated process for lists of components.
-                            <Col key={movie._id} md={3} className="mb-5" style={{ border: "2px solid green" }}>
-                                <MovieCard
-                                    //***The ''movie'' object from each iteration of the map() function (so each movie object in the useState array in this file) is passed inside the child component <MovieCard />. This is done by adding a custom attribute before /> and setting its value to ''movie'' (movie={movie}) (movies data are passed to the MovieCard component as props).
-                                    //***''movie'' is the name of the prop being passed to the MovieCard component, while {movie} is the data being passed to the MovieCard component. It's the movie object that is received from the .map() function. Each MovieCard component receive a different movie object, representing a specific movie from the movies array.    
-                                    movie={movie}
-                                    //***Listening for click events by using a special attribute ''onClick''. This attribute accepts a function, and this function will be the callback once the element is clicked (the function contains the logic to be executed whenever a click is registered).
-                                    //***Here a function as a prop called ''onMovieClick'' is presents. It has one parameter that represents the movie to be set to selectedMovie state. When a movie card is clicked, the selectedMovie value is updated with the movie clicked on, using seSelectedMovie. To make this work, its also important to make sure that the ''onMovieClick'' prop is extracted in the movie-card.jsx.
-                                    onMovieClick={(newSelectedMovie) => {
-                                        setSelectedMovie(newSelectedMovie);
-                                    }}
-                                />
-                            </Col>
-                        ))}
-                    </Row>
-                    <Row className="justify-content-md-center row">
-                    <Button variant="primary" type="submit" style={{ width: "10%" }}
-                            onClick={() => {
-                                setUser(null);
-                                setToken(null);
-                                localStorage.clear();
-                            }}
-                        >
-                            Logout
-                        </Button>
-                    </Row>
-                </>
-            )}
-        </Row>
+                    <Route
+                        path="/movies/:movieId"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : movies.length === 0 ? (
+                                    <Col>The list is empty!</Col>
+                                ) : (
+                                    <Col>
+                                        <MovieView user={user} movies={movies} updateFavoriteMovies={updateFavoriteMovies} referrer="/" />
+                                    </Col>
+                                )}
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/users/:Username"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <Col>
+                                        <ProfileView user={user} movies={movies} token={token} updateFavoriteMovies={updateFavoriteMovies} />
+                                    </Col>
+                                )}
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : movies.length === 0 ? (
+                                    <Col>The list is empty!</Col>
+                                ) : (
+                                    <>
+                                        {movies.map((movie) => (
+                                            <Col xs={12} md={6} lg="3">
+
+                                                <MovieCard movie={movie} />
+                                            </Col>
+                                        ))}
+                                    </>
+                                )}
+                            </>
+                        }
+                    />
+                </Routes>
+            </Row>
+        </BrowserRouter>
     );
-}
+};

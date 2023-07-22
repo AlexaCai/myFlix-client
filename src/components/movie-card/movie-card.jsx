@@ -1,32 +1,43 @@
-//***Import the PropTypes.
-import PropTypes from "prop-types";
+//***Import different React built-in function.
+import { React } from "react";
+import { PropTypes } from "prop-types";
 
-//***''export'' keyword exposes the ''MovieCard'' component making it available for use by other components, modules, and files - possible to import in other files.
-//***''const MovieCard'' (and the following codes) creates the MovieCard component. The function assigned to MovieCard returns the visual representation of the component (the function renders what is displayed on the screen). Inside this function is JSX.
-//***The ''onMovieClick'' inside ({ movie, onMovieClick }) is a prop from main-view.jsx being extracted here using object destructuring.
-export const MovieCard = ({ movie, onMovieClick }) => {
+//***Import different React Bootstrap components.
+import { Card } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+//***Import the movie-card.scss to allow modification to the React Bootstrap UI design.
+import './movie-card.scss'; // Import the SCSS file
+
+//***''const MoveCard'' is functional component, ''MovieCard'' being it's name. It is defined as an arrow function with one parameter, indicating it receives { movie } props.
+export const MovieCard = ({ movie }) => {
+
+  //***''return'' includes all the elements that will be returned as the output on the UI of the main view page (MainView component). 
+  //***These elements are designed using React Bootstrap.
   return (
-    //***className="h-100" applies a height of 100% on the elements (here the movie cards). This allow each movie card to have the same height on the UI display, whatever their content is. Otherwise, cards with less content might seem to not have the same height as the cards with more content, and that's because the some columns with less content can sometimes not use the full height of its containing colum.
-    <div className="h-100"
-      //***A callback function is passed to onClick, then the logic (onMovieClick(movie);) that needed to execute once a click event is registered is added.
-      //***<img src={movie.image} and {movie.title} specify what will be rendered on the UI for the MovieCard component (in this case, the image of eacch movie as well as their title).
-      onClick={() => {
-        onMovieClick(movie);
-      }}
-    >
-      <img src={movie.image} style={{ maxWidth: "100%" }}/>
-      {movie.title}</div>
+    //***The Card component in React Bootstrap is a customizable UI component that provides a container for displaying related information in a structured format.
+    <Card className="TopMargin">
+      <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+        <Card.Img variant="top" src={movie.image} />
+      </Link>
+      <Card.Body className="card-body-wrapper"> {/* Use the CSS class */}
+        <Card.Title>{movie.title}</Card.Title> {/* Use the CSS class */}
+        <Card.Text>{movie.genre}</Card.Text> {/* Use the CSS class */}
+        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+          <Button variant="link">See details</Button>
+        </Link>
+      </Card.Body>
+    </Card>
   );
 };
 
 //***Definition of all the props constraints for the MovieCard. The following block of code set the static PropTypes property on MovieCard to an object that contains special values provided as utilities by prop-types. These values help specify what the MovieCard props should look like.
 MovieCard.propTypes = {
-  //***The props object must include a movie object (shape({...}) means that it’s an object).
+  //***The props object must include a movie object ( shape({...}) means that it’s an object).
   movie: PropTypes.shape({
-    //***Movie prop (object) must contain a title and an image (because of the .isRequiered at the end of each field). When a field is present but doesnt have ''isRequiered'' at the end, it MAY be passed in the prop (or not).
+    //***Movie prop (object) must contain a title and an image (because of the .isRequiered at the end of each field).
     image: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
-  }).isRequired,
-  //***The props object must contain onMovieClick and it must be a function (this onMovieClick function is present in the main-view.jsx where the MovieCard is return).
-  onMovieClick: PropTypes.func.isRequired
+  }).isRequired
 };

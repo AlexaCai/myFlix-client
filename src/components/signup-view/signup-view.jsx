@@ -1,40 +1,54 @@
-//***Import React module and allows to use React's functionalities and components.
-import React from "react";
-
-//***''useState'' is a React built-in function that allows to add state to a functional component.
+//***Import different React built-in functions.
+import { React } from "react";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
-//***Import the Button Bootstrap component for signup form UI design.
-import Button from "react-bootstrap/Button";
+//***Import different React Bootstrap components.
+import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
-//***Import the Form Bootstrap component for signup form UI design.
-import Form from "react-bootstrap/Form";
-
-//***Import the signup-view.scss the allow modiication to the React Bootstrap UI design.
+//***Import the signup-view.scss to allow modification to the React Bootstrap UI design.
 import './signup-view.scss';
 
-//***''const SignupView'' (and the following codes) creates the SignupView component. The function assigned to SignupView returns the visual representation of the component (the function renders what is displayed on the screen).
+//***''const SignupView'' is a functional component, ''SignupView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
 export const SignupView = () => {
+
     //***Initiate the first value for each sign up field as ''null''. A function allowing the update of this first null value for each field is added inside each const (ex: setUsername, setPassword...).
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
-    //***''const handleSubmit = (event) =>'' handles the form submission when a user signs up.
+    //***Logic to allow the Sign up page to be redirected to Log in page after successful Sign up.
+    const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
+    const navigate = useNavigate();
+
+    //***BOOTSTRAP elements for the modal popping up after a user click on the ''Sign up'' button.
+    const [showModal, setShowModal] = useState(false);
+    const [responseMessage, setResponseMessage] = useState("");
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setResponseMessage("");
+        if (isSignupSuccessful) {
+            navigate('/login');
+        }
+    };
+
+    //***''const handleSubmit = (event) =>'' handles the form submission when a user clicks on the ''Sign up'' button.
     const handleSubmit = (event) => {
-        //***This prevents the default behavior of the form which is to reload the entire page. Calling preventDefault() stops the form from performing its default action.
+        //***''event.preventDefault'' prevents the default behavior of the form when submitted, which is to reload the entire page (when a form is submitted in a web app, it typically triggers a page refresh).
         event.preventDefault();
-        //***The function creates a (data) object that contains the user's input values from the form fields (Username, Password, Email, and Birthday).
+        //***Creation of (data) object that contains the user's input values from the Sign up form fields (Username, Password, Email, and Birthday).
         const data = {
             Username: username,
             Password: password,
             Email: email,
             Birthday: birthday
         };
-        //***The function performs a POST request to the specified URL, to registered the new user.
+        //***A fetch request is made to the specified URL below with a POST method. The request body is the (data) object from above with the four properties.
         fetch("https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users", {
-            //***POST request includes the user data in the request body, which is converted to JSON format using JSON.stringify(data).
+            //***The POST request includes the user data in the request body, which is converted to JSON format using JSON.stringify(data).
             method: "POST",
             body: JSON.stringify(data),
             //***Specifies that the request body is in JSON format ("Content-Type": "application/json").
@@ -42,34 +56,50 @@ export const SignupView = () => {
                 "Content-Type": "application/json"
             }
         })
-            //.then() method is chained to the fetch request to handle the response.
+        //***Logic depending on the result of the request : successful, username or email already exsit, or error. When the answer is successful or when the username or the email is already used, a modal pops up to inform the user. If any error, a default alert pops up letting the user know there was a problem with his Sign up.
             .then((response) => {
-                //***If the response is positive, indicating a successful registration, an alert message is displayed saying "Signup successful" and the page is reloaded.
                 if (response.ok) {
-                    alert("Signup successful");
-                    window.location.reload();
-                }
-                else if (response.status === 409) {
-                    alert("Username already exists");
-                    //***If the response is negative, indicating a failed registration, an alert message is displayed saying "Signup failed".
+                    setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page");
+                    setIsSignupSuccessful(true);
+                } else if (response.status === 409) {
+                    response.text().then((text) => {
+                        setResponseMessage(text);
+                    }).catch((error) => {
+                        console.error("Error reading response data:", error);
+                        setResponseMessage("Signup failed");
+                    });
                 } else {
-                    alert("Signup failed");
+                    setResponseMessage("Signup failed");
                 }
+                setShowModal(true);
+            })
+            .catch((error) => {
+                console.error("Error signing up user:", error);
+                setResponseMessage("Signup failed");
+                setShowModal(true);
             });
     };
 
-    //***''return'' indicates the elements that will be returned as the output of the SignupView component. 
-    //***These returned elements are designed using React Bootstrap.
+
+    //***''return'' includes all the elements that will be returned as the output on the UI of the Sign up page (SignupView component). 
+    //***These elements are designed using React Bootstrap.
     return (
-        //***When the form is submitted, the ''handleSubmit'' function is call from the ''onSubmit'' form event. When a form is submitted, the handleSubmit function is executed, which performs the necessary logic (as definied in the ''const handleSubmit = (event) => {'' block of code above) for handling the form submission, such as preparing the data and making the POST request to the server.
-        <Form onSubmit={handleSubmit} style={{ border: "1px solid blue" }}>
+        //***This line defines a form using the <Form> component from React Bootstrap. 
+        //***When the form is submitted (so when a user click on the ''Sign up'' button being a type="Submit" below), the ''handleSubmit'' function is call from the ''onSubmit'' form event. The handleSubmit function is therefore executed, which performs the necessary logic (it prepares the data and makes the POST request to the server to register the new user in the database).
+        <Form onSubmit={handleSubmit}>
+
+            {/* Form title */}
             <div className="TitleDisplay">
                 <h3>First time here?</h3>
                 <h6>Sign up now.</h6>
+                <br />
             </div>
+
+            {/* Block of code for the username input field */}
             <Form.Group controlId="formUsername" className="formGroupWithMargin">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
+                    //***Specifies the input as text.
                     type="text"
                     //***''value={username}'' binds the first value of the input field to the username state variable (which is empty at first as defined in const [username, setUsername] = useState("");).
                     value={username}
@@ -84,15 +114,16 @@ export const SignupView = () => {
                     //***Descriptive error message when the pattern on alphanumerical character is not matched.
                     title="Username must consist of alphanumeric characters"
                 />
+                {/* Indications below the input field to make sure the user write valide input */}
                 <Form.Text id="usernameCreation" muted>
                     Username must be at least 5 characters long and contain only alphanumerical characters.
                 </Form.Text>
             </Form.Group>
 
+            {/* Same logic as the username input field */}
             <Form.Group controlId="formPassword" className="formGroupWithMargin">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                    //***Same logic as or Username field above.
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -103,10 +134,10 @@ export const SignupView = () => {
                 </Form.Text>
             </Form.Group>
 
+            {/* Same logic as the username input field */}
             <Form.Group controlId="formEmail" className="formGroupWithMargin">
                 <Form.Label>Email</Form.Label>
                 <Form.Control
-                    //***Same logic as or Username field above.
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -124,10 +155,10 @@ export const SignupView = () => {
                 </Form.Text>
             </Form.Group>
 
+            {/* Same logic as the username input field */}
             <Form.Group controlId="formBirthday" className="formGroupWithMargin">
                 <Form.Label>Birthday</Form.Label>
                 <Form.Control
-                    //***Same logic as or Username field above.
                     type="date"
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
@@ -136,10 +167,26 @@ export const SignupView = () => {
                     Birthday is optional.
                 </Form.Text>
             </Form.Group>
+
+            {/* Button to confirm and send the Sign up form */}
             <div className="SignupButtonContainer">
-                <Button variant="primary" type="submit" className="SignupButton">
+                {/*The type="submit" attribute in the <Button> element is crucial for the onSubmit={handleSubmit} to work properly. Without it, clicking the button won't trigger the form submission, and the handleSubmit function won't be called.*/}
+                <Button variant="success" type="submit">
                     Sign up
                 </Button>
+
+                {/* Modal displaying response message after the request as been sent upon clicking on Sign Up button */}
+                <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Sign up status</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{responseMessage}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="success" onClick={handleCloseModal}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </div>
         </Form>
     );

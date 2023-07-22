@@ -1,10 +1,9 @@
-.TitleDisplay {
-    margin-bottom: 25px;
-    text-align: center;
-}
-
-.formGroupWithMargin {
+.formGroupStyling {
     margin-bottom: 20px;
+  }
+
+  .TitleDisplay {
+    border-bottom: 1px solid black;
   }
 
 .LoginButtonContainer {
@@ -13,6 +12,10 @@
   }
 
 .LoginButton {
-    margin-top: 25px;
+    margin-top: 20px;
     margin-bottom: 25px;
+}
+
+.form-container {
+  border-color: 1px solid black;
 }
