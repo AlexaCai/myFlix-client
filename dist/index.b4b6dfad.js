@@ -46930,9 +46930,6 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                         md: 12,
                         lg: 6,
-                        style: {
-                            border: "1px solid green"
-                        },
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                                 src: movie.image,
@@ -46956,9 +46953,6 @@ const MovieView = ({ movies, user, updateFavoriteMovies })=>{
                         md: 12,
                         lg: 6,
                         className: "text-container",
-                        style: {
-                            border: "1px solid blue"
-                        },
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                 className: "text-position",

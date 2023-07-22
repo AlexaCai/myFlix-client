@@ -87,12 +87,12 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
 
       {/* Block of code to display all movie info */}
       <Row>
-        <Col md={12} lg={6} style={{ border: "1px solid green" }}>
+        <Col md={12} lg={6}>
           <div>
             <img src={movie.image} className="image-position" />
           </div>
         </Col>
-        <Col md={12} lg={6} className="text-container" style={{ border: "1px solid blue" }}>
+        <Col md={12} lg={6} className="text-container">
           <div className="text-position">
             <div className="titles">
               <span className="text-position">Title</span>
