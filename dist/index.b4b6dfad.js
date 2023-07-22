@@ -47711,7 +47711,6 @@ const SignupView = ()=>{
     //***When the form is submitted (so when a user click on the ''Sign up'' button being a type="Submit" below), the ''handleSubmit'' function is call from the ''onSubmit'' form event. The handleSubmit function is therefore executed, which performs the necessary logic (it prepares the data and makes the POST request to the server to register the new user in the database).
     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
         onSubmit: handleSubmit,
-        className: "Styling",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "TitleDisplay",

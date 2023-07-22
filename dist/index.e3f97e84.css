@@ -64,7 +64,6 @@
 
 .form-container {
   border-color: 1px solid black;
-  height: 100vh;
 }
 
 .TitleDisplay {
@@ -73,15 +72,15 @@
   margin-bottom: 25px;
 }
 
+.formGroupWithMargin {
+  margin-bottom: 20px;
+}
+
 .SignupButtonContainer {
   justify-content: center;
   margin-top: 45px;
   margin-bottom: 25px;
   display: flex;
-}
-
-.Styling {
-  height: 100vh;
 }
 
 .navbar {

@@ -86,7 +86,7 @@ export const SignupView = () => {
     return (
         //***This line defines a form using the <Form> component from React Bootstrap. 
         //***When the form is submitted (so when a user click on the ''Sign up'' button being a type="Submit" below), the ''handleSubmit'' function is call from the ''onSubmit'' form event. The handleSubmit function is therefore executed, which performs the necessary logic (it prepares the data and makes the POST request to the server to register the new user in the database).
-        <Form onSubmit={handleSubmit} className="Styling">
+        <Form onSubmit={handleSubmit}>
 
             {/* Form title */}
             <div className="TitleDisplay">
