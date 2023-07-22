@@ -85,17 +85,17 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                         setShowErrorModal(true);
                     }).catch((error) => {
                         console.error("Error reading response data:", error);
-                        setResponseMessage("Update failed");
+                        setResponseMessage("Make sure you enter a username and email address that are not already used by another user, and that your email address is valid (such as exemple@abc.com).");
                         setShowErrorModal(true);
                     });
                 } else {
-                    setResponseMessage("Update failed");
+                    setResponseMessage("Make sure you enter a username and email address that are not already used by another user, and that your email address is valid (such as exemple@abc.com).");
                     setShowErrorModal(true);
                 }
             })
             .catch((error) => {
                 console.error("Error updated user:", error);
-                setResponseMessage("Update failed");
+                setResponseMessage("Make sure you enter a username and email address that are not already used by another user, and that your email address is valid (such as exemple@abc.com).");
                 setShowErrorModal(true);
             });
     };
