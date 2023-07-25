@@ -14,6 +14,10 @@
 .center-content {
     display: flex;
     justify-content: center;
-    width: auto;
+    align-items: center;
+    text-align: center;
   }
 
+  .filterTitle {
+    text-decoration: underline;
+}

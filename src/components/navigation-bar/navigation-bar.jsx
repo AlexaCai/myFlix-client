@@ -12,6 +12,7 @@ import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 //***Import the navigation-bar.scss to allow modiication to the React Bootstrap UI design.
 import './navigation-bar.scss';
@@ -95,7 +96,8 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
           <Form className="center-content">
             {/* Render checkboxes for genres */}
             <Row>
-              <h5>Genres</h5>
+              <Col xs={12} sm={5} md={5} lg={5} xl={5} xxl={4} >
+              <h5 className="filterTitle">Genres</h5>
               {['Comedy', 'Crime', 'Drama', 'Fantasy', 'Horror', 'Science fiction', 'Thriller'].map((genre) => (
                 <div key={genre} className="mb-3">
                   <Form.Check
@@ -109,10 +111,10 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                   />
                 </div>
               ))}
-            </Row>
-            <Row>
+            </Col>
+            <Col xs={12} sm={7} md={7} lg={7} xl={7} xxl={8} >
               {/* Render checkboxes for directors */}
-              <h5>Director</h5>
+              <h5 className="filterTitle">Directors</h5>
               {['Brad Bird', 'Bryan Buckley', 'Edward Zwick', 'Francis Ford Coppola', 'Hayao Miyazaki', 'Jonathan Demme', 'Ridley Scott', 'Steven Spielberg', 'Thomas Carter'].map((director) => (
                 <div key={director} className="mb-3">
                   <Form.Check
@@ -126,10 +128,14 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                   />
                 </div>
               ))}
+              </Col>
             </Row>
           </Form>
         </Modal.Body>
         <Modal.Footer>
+        <Button variant="outline-success" onClick={handleClose}>
+            Close
+          </Button>
           <Button variant="outline-danger" onClick={resetFilters}>
             Clear Filters
           </Button>

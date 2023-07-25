@@ -97,9 +97,14 @@
 }
 
 .center-content {
+  text-align: center;
   justify-content: center;
-  width: auto;
+  align-items: center;
   display: flex;
+}
+
+.filterTitle {
+  text-decoration: underline;
 }
 
 .styling-position {
