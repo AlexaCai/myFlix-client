@@ -17,6 +17,10 @@ import { ProfileView } from "../profile-view/profile-view";
 //***Import different React Bootstrap components.
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+
+//***Import the movie-card.scss to allow modification to the React Bootstrap UI design.
+import './main-view.scss'; // Import the SCSS file
 
 //***''const MainView'' is functional component, ''MainView'' being it's name. It is defined as an arrow function without any parameters, indicating it does not receive any props.
 export const MainView = () => {
@@ -65,7 +69,7 @@ export const MainView = () => {
         setSelectedDirectors([]);
         setFilteredMovies([]); // Set filteredMovies to an empty array to show the whole list of movies
         console.log('Original movies', originalMovies);
-      };
+    };
 
     useEffect(() => {
         // Filter movies based on selectedGenres and selectedDirectors
@@ -268,20 +272,42 @@ export const MainView = () => {
                             <>
                                 {!user ? (
                                     <Navigate to="/login" replace />
-                                ) : movies.length === 0 ? (
-                                    <Col>The list is empty!</Col>
                                 ) : (
                                     <>
-                                        {filteredMovies.length === 0 ? (
-                                            // Display movies from originalMovies when filteredMovies is empty
-                                            originalMovies.map((movie) => (
+                                        {filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && (
+                                            <>
+                                            <div className="container-margin">
+                                            <div className="center-container">
+                                                <Row>
+                                                    <Col>
+                                                    <h1>Oh.</h1>
+                                                    <br />
+                                                    <p>It seems that no of the films match your filters.</p>
+                                                    <p>Modify your filters to get more results, or delete them completely to return to the initial list of movies.</p>
+                                                    </Col>
+                                                </Row>
+                                                </div>
+                                            <div className="center-container">
+                                                <Row>
+                                                    <Col>
+                                                        <Button variant="danger" onClick={resetFilters}>
+                                                            Clear Filters
+                                                        </Button>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                            </div>
+                                            </>
+                                        )}
+                                        {filteredMovies.length > 0 && (
+                                            filteredMovies.map((movie) => (
                                                 <Col xs={12} md={6} lg="3">
                                                     <MovieCard movie={movie} />
                                                 </Col>
                                             ))
-                                        ) : (
-                                            // Display movies from filteredMovies
-                                            filteredMovies.map((movie) => (
+                                        )}
+                                        {filteredMovies.length === 0 && selectedGenres.length === 0 && selectedDirectors.length === 0 && (
+                                            originalMovies.map((movie) => (
                                                 <Col xs={12} md={6} lg="3">
                                                     <MovieCard movie={movie} />
                                                 </Col>

@@ -119,14 +119,11 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                     </Form>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant="outline-success" onClick={handleClose}>
-                      Close
-                    </Button>
                     <Button variant="outline-danger" onClick={resetFilters}>
                       Clear Filters
                     </Button>                    
-                    <Button variant="success" onClick={handleFilter}>
-                      Find
+                    <Button variant="success" onClick={handleClose}>
+                      See results
                     </Button>
                   </Modal.Footer>
                 </Modal>
