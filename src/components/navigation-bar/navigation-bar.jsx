@@ -18,6 +18,12 @@ import './navigation-bar.scss';
 //***''const NavigationBar'' is functional component, ''NavigationBar'' being it's name. It is defined as an arrow function without two parameters, indicating it receives { user, onLoggedOut } props.
 export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, selectedDirectors, setSelectedDirectors, resetFilters }) => {
 
+  //***Used to know which page the user is on, to show the ''search and filter'' button accordingly (if user is on home page, the button appear in the naviagation bar - but not if he's in the profile page).
+  const [currentPage, setCurrentPage] = useState("");
+  const handleNavigation = (page) => {
+    setCurrentPage(page);
+  };
+
   //***Filter modal
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -47,7 +53,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
   return (
     <Navbar expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/" onClick={() => handleNavigation("/")}>
           myFlix
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -67,16 +73,22 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
             {/* Display in the navigation bar if the user is logged in */}
             {user && (
               <>
-                <Nav.Link as={Link} to="/">
+                <Nav.Link as={Link} to="/" onClick={() => handleNavigation("/")}>
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to={`/users/${user.Username}`}>
+                <Nav.Link as={Link} to={`/users/${user.Username}`} onClick={() => handleNavigation("/users/:Username")}>
                   Profile
                 </Nav.Link>
-                <Nav.Link onClick={onLoggedOut}>Log out</Nav.Link>
-                <Button variant="success" onClick={() => setShow(true)}>
-                  Search movies
-                </Button>
+                <Nav.Link onClick={onLoggedOut}>
+                  Log out
+                </Nav.Link>
+                {user && currentPage === "/" && (
+                  <>
+                    <Button variant="success" onClick={() => setShow(true)}>
+                      Search movies
+                    </Button>
+                  </>
+                )}
 
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
@@ -122,7 +134,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                     </Form>
                   </Modal.Body>
                   <Modal.Footer>
-                  <Button variant="outline-success" onClick={handleClose}>
+                    <Button variant="outline-success" onClick={handleClose}>
                       Close
                     </Button>
                     <Button variant="outline-danger" onClick={resetFilters}>
