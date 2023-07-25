@@ -1,6 +1,7 @@
 //***Import different React built-in function.
 import { useState } from "react";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 //***Import the different React Bootstrap components.
 import { Navbar } from "react-bootstrap";
@@ -11,7 +12,6 @@ import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
 
 //***Import the navigation-bar.scss to allow modiication to the React Bootstrap UI design.
 import './navigation-bar.scss';
@@ -19,18 +19,15 @@ import './navigation-bar.scss';
 //***''const NavigationBar'' is functional component, ''NavigationBar'' being it's name. It is defined as an arrow function without two parameters, indicating it receives { user, onLoggedOut } props.
 export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, selectedDirectors, setSelectedDirectors, resetFilters }) => {
 
-  //***Used to know which page the user is on, to show the ''search movies'' button in the navigation bar accordingly (if user is on home page, the button appear in the naviagation bar - but not if hte user is in the profile page).
   const [currentPage, setCurrentPage] = useState("");
   const handleNavigation = (page) => {
     setCurrentPage(page);
   };
 
-  //***Logic to insure that upon successful login, the currentPage state variable is set to '/', which show directly the ''search movie'' button in the navigation bar.
+  const location = useLocation();
   useEffect(() => {
-    if (user) {
-      setCurrentPage("/");
-    }
-  }, [user]);
+    setCurrentPage(location.pathname);
+  }, [location.pathname]);
 
   //***Filter modal popping up after clicking on the ''search movies'' button in the navigation bar.
   const [show, setShow] = useState(false);
