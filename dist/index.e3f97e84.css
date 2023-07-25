@@ -96,6 +96,12 @@
   font-size: 20px;
 }
 
+.center-content {
+  justify-content: center;
+  width: auto;
+  display: flex;
+}
+
 .styling-position {
   text-align: center;
   margin-bottom: 20px;

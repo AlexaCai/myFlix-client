@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 //***Import the navigation-bar.scss to allow modiication to the React Bootstrap UI design.
 import './navigation-bar.scss';
@@ -82,46 +84,50 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                   </Modal.Header>
                   <Modal.Body>
 
-                    <Form>
-
+                    <Form className="center-content">
                       {/* Render checkboxes for genres */}
-                      <h4>Genres</h4>
-                      {['Comedy', 'Crime', 'Drama', 'Fantasy', 'Horror', 'Science fiction', 'Thriller'].map((genre) => (
-                        <div key={genre} className="mb-3">
-                          <Form.Check
-                            inline
-                            label={genre}
-                            name="genres"
-                            type="checkbox"
-                            id={`inline-${genre}`}
-                            onChange={() => setSelectedGenres(genre)}
-                            checked={selectedGenres.includes(genre)}
-                          />
-                        </div>
-                      ))}
-
-                      {/* Render checkboxes for directors */}
-                      <h4>Director</h4>
-                      {['Brad Bird', 'Thomas Carter'].map((director) => (
-                        <div key={director} className="mb-3">
-                          <Form.Check
-                            inline
-                            label={director}
-                            name="directors"
-                            type="checkbox"
-                            id={`inline-${director}`}
-                            onChange={() => setSelectedDirectors(director)}
-                            checked={selectedDirectors.includes(director)}
-                          />
-                        </div>
-                      ))}
-
+                      <Row>
+                        <h5>Genres</h5>
+                        {['Comedy', 'Crime', 'Drama', 'Fantasy', 'Horror', 'Science fiction', 'Thriller'].map((genre) => (
+                          <div key={genre} className="mb-3">
+                            <Form.Check
+                              inline
+                              label={genre}
+                              name="genres"
+                              type="checkbox"
+                              id={`inline-${genre}`}
+                              onChange={() => setSelectedGenres(genre)}
+                              checked={selectedGenres.includes(genre)}
+                            />
+                          </div>
+                        ))}
+                      </Row>
+                      <Row>
+                        {/* Render checkboxes for directors */}
+                        <h5>Director</h5>
+                        {['Brad Bird', 'Bryan Buckley', 'Edward Zwick', 'Francis Ford Coppola', 'Hayao Miyazaki', 'Jonathan Demme', 'Ridley Scott', 'Steven Spielberg', 'Thomas Carter'].map((director) => (
+                          <div key={director} className="mb-3">
+                            <Form.Check
+                              inline
+                              label={director}
+                              name="directors"
+                              type="checkbox"
+                              id={`inline-${director}`}
+                              onChange={() => setSelectedDirectors(director)}
+                              checked={selectedDirectors.includes(director)}
+                            />
+                          </div>
+                        ))}
+                      </Row>
                     </Form>
                   </Modal.Body>
                   <Modal.Footer>
+                  <Button variant="outline-success" onClick={handleClose}>
+                      Close
+                    </Button>
                     <Button variant="outline-danger" onClick={resetFilters}>
                       Clear Filters
-                    </Button>                    
+                    </Button>
                     <Button variant="success" onClick={handleClose}>
                       See results
                     </Button>
