@@ -197,7 +197,6 @@ export const MainView = () => {
                 selectedDirectors={selectedDirectors}
                 setSelectedDirectors={handleDirectorChange}
                 resetFilters={resetFilters}
-
             />
             <Row className="justify-content-md-center">
                 {/* <Routes> is used as a container for multiple <Route> components, and it defines the different routes that can be accessed in the application. */}

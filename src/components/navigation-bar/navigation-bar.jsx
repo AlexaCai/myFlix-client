@@ -74,15 +74,24 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 </>
               )}
             </Nav>
-            
+
             {/* Search movie button is separated from the navigation bar to put it on the very right of it */}
             {user && currentPage === "/" && (
-              <div className="ml-auto"> {/* This div will push the button to the right */}
+              <div className="ms-auto d-flex align-items-center"> {/* Use ms-auto class to push the div to the right */}
                 <Button variant="success" onClick={() => setShow(true)}>
-                  Search movies
+                  Filter movies
                 </Button>
+                <Form inline className="d-flex align-items-center"> {/* Add d-flex class to make the contents display in a row */}
+                  <Form.Control
+                    type="text"
+                    placeholder="Search"
+                    className="mr-sm-2"
+                  />
+                  <Button type="submit">Submit</Button>
+                </Form>
               </div>
             )}
+
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -97,50 +106,47 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
             {/* Render checkboxes for genres */}
             <Row>
               <Col xs={12} sm={5} md={5} lg={5} xl={5} xxl={4} >
-              <h5 className="filterTitle">Genres</h5>
-              {['Comedy', 'Crime', 'Drama', 'Fantasy', 'Horror', 'Science fiction', 'Thriller'].map((genre) => (
-                <div key={genre} className="mb-3">
-                  <Form.Check
-                    inline
-                    label={genre}
-                    name="genres"
-                    type="checkbox"
-                    id={`inline-${genre}`}
-                    onChange={() => setSelectedGenres(genre)}
-                    checked={selectedGenres.includes(genre)}
-                  />
-                </div>
-              ))}
-            </Col>
-            <Col xs={12} sm={7} md={7} lg={7} xl={7} xxl={8} >
-              {/* Render checkboxes for directors */}
-              <h5 className="filterTitle">Directors</h5>
-              {['Brad Bird', 'Bryan Buckley', 'Edward Zwick', 'Francis Ford Coppola', 'Hayao Miyazaki', 'Jonathan Demme', 'Ridley Scott', 'Steven Spielberg', 'Thomas Carter'].map((director) => (
-                <div key={director} className="mb-3">
-                  <Form.Check
-                    inline
-                    label={director}
-                    name="directors"
-                    type="checkbox"
-                    id={`inline-${director}`}
-                    onChange={() => setSelectedDirectors(director)}
-                    checked={selectedDirectors.includes(director)}
-                  />
-                </div>
-              ))}
+                <h5 className="filterTitle">Genres</h5>
+                {['Comedy', 'Crime', 'Drama', 'Fantasy', 'Horror', 'Science fiction', 'Thriller'].map((genre) => (
+                  <div key={genre} className="mb-3">
+                    <Form.Check
+                      inline
+                      label={genre}
+                      name="genres"
+                      type="checkbox"
+                      id={`inline-${genre}`}
+                      onChange={() => setSelectedGenres(genre)}
+                      checked={selectedGenres.includes(genre)}
+                    />
+                  </div>
+                ))}
+              </Col>
+              <Col xs={12} sm={7} md={7} lg={7} xl={7} xxl={8} >
+                {/* Render checkboxes for directors */}
+                <h5 className="filterTitle">Directors</h5>
+                {['Brad Bird', 'Bryan Buckley', 'Edward Zwick', 'Francis Ford Coppola', 'Hayao Miyazaki', 'Jonathan Demme', 'Ridley Scott', 'Steven Spielberg', 'Thomas Carter'].map((director) => (
+                  <div key={director} className="mb-3">
+                    <Form.Check
+                      inline
+                      label={director}
+                      name="directors"
+                      type="checkbox"
+                      id={`inline-${director}`}
+                      onChange={() => setSelectedDirectors(director)}
+                      checked={selectedDirectors.includes(director)}
+                    />
+                  </div>
+                ))}
               </Col>
             </Row>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="outline-success" onClick={handleClose}>
-            Close
-          </Button>
           <Button variant="outline-danger" onClick={resetFilters}>
             Clear Filters
           </Button>
           <Button variant="success" onClick={handleClose}>
-            See results
+            Close
           </Button>
         </Modal.Footer>
       </Modal>
