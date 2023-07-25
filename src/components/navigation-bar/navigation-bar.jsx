@@ -1,5 +1,6 @@
 //***Import different React built-in function.
 import { useState } from "react";
+import { useEffect } from "react";
 
 //***Import the different React Bootstrap components.
 import { Navbar } from "react-bootstrap";
@@ -24,10 +25,12 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
     setCurrentPage(page);
   };
 
-  //***Used to set the ''currentPage'' variable state upper to ''/'' when a user logout, so whenever to user is login back again, the state of the currentPage will be ''/'', and will therefore show the ''search movies'' button in the navigation bar right away.
-  const setBackCurrentPage = () => {
-    setCurrentPage("/");
-  };
+  //***Logic to insure that upon successful login, the currentPage state variable is set to '/', which show directly the ''search movie'' button in the navigation bar.
+  useEffect(() => {
+    if (user) {
+      setCurrentPage("/");
+    }
+  }, [user]);
 
   //***Filter modal popping up after clicking on the ''search movies'' button in the navigation bar.
   const [show, setShow] = useState(false);
@@ -67,7 +70,6 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                   </Nav.Link>
                   <Nav.Link onClick={() => {
                     onLoggedOut(); // Call the first function
-                    setBackCurrentPage(); // Call the second function
                   }}>
                     Log out
                   </Nav.Link>
