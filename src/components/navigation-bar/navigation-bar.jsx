@@ -24,28 +24,12 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
     setCurrentPage(page);
   };
 
-  //***Filter modal
+  //***Filter modal popping up after clicking on the ''search movies'' button in the navigation bar.
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleFilter = () => {
     console.log("Selected Genres:", selectedGenres);
     console.log("Selected Directors:", selectedDirectors);
-  };
-
-  const handleClearClick = () => {
-    // Get all checkbox inputs by name
-    const genreCheckboxes = document.querySelectorAll('input[name="genres"]');
-    const directorCheckboxes = document.querySelectorAll('input[name="directors"]');
-
-    // Uncheck all genre checkboxes
-    genreCheckboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
-
-    // Uncheck all director checkboxes
-    directorCheckboxes.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
   };
 
   //***''return'' includes all the elements that will be returned as the output on the UI when as user is logged in or not. 
