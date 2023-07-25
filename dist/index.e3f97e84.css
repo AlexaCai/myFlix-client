@@ -173,6 +173,11 @@
   display: flex;
 }
 
+.clearFitlerButton {
+  border-color: 1px solid green;
+  margin-top: 15px;
+}
+
 :root, [data-bs-theme="light"] {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

@@ -83,10 +83,10 @@ export const MainView = () => {
             // Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria
             return genreMatch && directorMatch;
         });
-        console.log('Filtered movies' + filteredMovies); // Add this line to see the current value of filteredMovies in the console
 
         // Update the filteredMovies state with the filtered movies
         setFilteredMovies(filtered);
+        console.log('film dans la liste' + filtered)
     }, [selectedGenres, selectedDirectors, movies]);
 
 
@@ -147,6 +147,7 @@ export const MainView = () => {
                     console.log(moviesFromApi);
                     //***Updates the movies state from ''const [movies, setMovies] = useState([]);'' with the transformed movie data obtained from the API.
                     setMovies(moviesFromApi);
+                    setOriginalMovies(moviesFromApi); // Update 'originalMovies' state with fetched data
                 })
                 //***Catches any errors that might occur during the fetch operation and log an error message to the console.
                 .catch((error) => {
@@ -270,45 +271,43 @@ export const MainView = () => {
                         path="/"
                         element={
                             <>
+                                {/* Redirect to login page if user is not logged in */}
                                 {!user ? (
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <>
+                                        {/* Show the "Clear Filters" button only when filteredMovies is not empty */}
+                                        {selectedGenres.length > 0 || selectedDirectors.length > 0 ? (
+                                            <Button variant="outline-danger" onClick={resetFilters}>
+                                                Clear Filters
+                                            </Button>
+                                        ) : null}
+
+                                        {/* Show the "Clear Filters" button and message when no films match the filters */}
                                         {filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && (
                                             <>
-                                            <div className="container-margin">
-                                            <div className="center-container">
-                                                <Row>
-                                                    <Col>
-                                                    <h1>Oh.</h1>
-                                                    <br />
-                                                    <p>It seems that no of the films match your filters.</p>
-                                                    <p>Modify your filters to get more results, or delete them completely to return to the initial list of movies.</p>
-                                                    </Col>
-                                                </Row>
+                                                <div className="center-container">
+                                                    <Row>
+                                                        <Col>
+                                                            <h1>Oh.</h1>
+                                                            <br />
+                                                            <p>It seems that no films match your filters.</p>
+                                                            <p>Modify your filters to get more results, or delete them completely to return to the initial list of movies.</p>
+                                                        </Col>
+                                                    </Row>
                                                 </div>
-                                            <div className="center-container">
-                                                <Row>
-                                                    <Col>
-                                                        <Button variant="danger" onClick={resetFilters}>
-                                                            Clear Filters
-                                                        </Button>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                            </div>
                                             </>
                                         )}
-                                        {filteredMovies.length > 0 && (
+                                        {selectedGenres.length > 0 || selectedDirectors.length > 0 ? (
                                             filteredMovies.map((movie) => (
-                                                <Col xs={12} md={6} lg="3">
+                                                <Col xs={12} md={6} lg="3" key={movie.id}>
                                                     <MovieCard movie={movie} />
                                                 </Col>
                                             ))
-                                        )}
-                                        {filteredMovies.length === 0 && selectedGenres.length === 0 && selectedDirectors.length === 0 && (
+                                        ) : (
+                                            // Show the original list of movies when there are no filters applied
                                             originalMovies.map((movie) => (
-                                                <Col xs={12} md={6} lg="3">
+                                                <Col xs={12} md={6} lg="3" key={movie.id}>
                                                     <MovieCard movie={movie} />
                                                 </Col>
                                             ))
@@ -318,6 +317,8 @@ export const MainView = () => {
                             </>
                         }
                     />
+
+
                 </Routes>
             </Row>
         </BrowserRouter>
