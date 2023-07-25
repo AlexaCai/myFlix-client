@@ -48112,289 +48112,299 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
     const handleNavigation = (page)=>{
         setCurrentPage(page);
     };
-    //***Used to set the currentPage state variable upper to ''/'' when a user logout, so whenever to user is login back again, the state of the currentPage will be /, and will therefore show the ''search movies'' button right away.
+    //***Used to set the ''currentPage'' variable state upper to ''/'' when a user logout, so whenever to user is login back again, the state of the currentPage will be ''/'', and will therefore show the ''search movies'' button in the navigation bar right away.
     const setBackCurrentPage = ()=>{
         setCurrentPage("/");
     };
     //***Filter modal popping up after clicking on the ''search movies'' button in the navigation bar.
     const [show, setShow] = (0, _react.useState)(false);
     const handleClose = ()=>setShow(false);
-    const handleFilter = ()=>{
-        console.log("Selected Genres:", selectedGenres);
-        console.log("Selected Directors:", selectedDirectors);
-    };
     //***''return'' includes all the elements that will be returned as the output on the UI when as user is logged in or not. 
     //***These elements are designed using React Bootstrap.
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
-        expand: "lg",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
-            children: [
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
-                    as: (0, _reactRouterDom.Link),
-                    to: "/",
-                    onClick: ()=>handleNavigation("/"),
-                    children: "myFlix"
-                }, void 0, false, {
-                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 45,
-                    columnNumber: 9
-                }, undefined),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
-                    "aria-controls": "basic-navbar-nav"
-                }, void 0, false, {
-                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 48,
-                    columnNumber: 9
-                }, undefined),
-                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
-                    id: "basic-navbar-nav",
-                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
-                        className: "me-auto",
-                        children: [
-                            !user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        as: (0, _reactRouterDom.Link),
-                                        to: "/login",
-                                        onClick: ()=>handleNavigation("/"),
-                                        children: "Log in"
-                                    }, void 0, false, {
-                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 54,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        as: (0, _reactRouterDom.Link),
-                                        to: "/signup",
-                                        children: "Sign up"
-                                    }, void 0, false, {
-                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 57,
-                                        columnNumber: 17
-                                    }, undefined)
-                                ]
-                            }, void 0, true),
-                            user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        as: (0, _reactRouterDom.Link),
-                                        to: "/",
-                                        onClick: ()=>handleNavigation("/"),
-                                        children: "Home"
-                                    }, void 0, false, {
-                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 65,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        as: (0, _reactRouterDom.Link),
-                                        to: `/users/${user.Username}`,
-                                        onClick: ()=>handleNavigation("/users/:Username"),
-                                        children: "Profile"
-                                    }, void 0, false, {
-                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 68,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
-                                        onClick: ()=>{
-                                            onLoggedOut(); // Call the first function
-                                            setBackCurrentPage(); // Call the second function
-                                        },
-                                        children: "Log out"
-                                    }, void 0, false, {
-                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 71,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    user && currentPage === "/" && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar), {
+                expand: "lg",
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Container), {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Brand, {
+                            as: (0, _reactRouterDom.Link),
+                            to: "/",
+                            onClick: ()=>handleNavigation("/"),
+                            children: "myFlix"
+                        }, void 0, false, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 42,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
+                            "aria-controls": "basic-navbar-nav"
+                        }, void 0, false, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 45,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
+                            id: "basic-navbar-nav",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav), {
+                                    className: "me-auto",
+                                    children: [
+                                        !user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                                    as: (0, _reactRouterDom.Link),
+                                                    to: "/login",
+                                                    onClick: ()=>handleNavigation("/"),
+                                                    children: "Log in"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 51,
+                                                    columnNumber: 19
+                                                }, undefined),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                                    as: (0, _reactRouterDom.Link),
+                                                    to: "/signup",
+                                                    children: "Sign up"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 54,
+                                                    columnNumber: 19
+                                                }, undefined)
+                                            ]
+                                        }, void 0, true),
+                                        user && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                            children: [
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                                    as: (0, _reactRouterDom.Link),
+                                                    to: "/",
+                                                    onClick: ()=>handleNavigation("/"),
+                                                    children: "Home"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 62,
+                                                    columnNumber: 19
+                                                }, undefined),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                                    as: (0, _reactRouterDom.Link),
+                                                    to: `/users/${user.Username}`,
+                                                    onClick: ()=>handleNavigation("/users/:Username"),
+                                                    children: "Profile"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 65,
+                                                    columnNumber: 19
+                                                }, undefined),
+                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
+                                                    onClick: ()=>{
+                                                        onLoggedOut(); // Call the first function
+                                                        setBackCurrentPage(); // Call the second function
+                                                    },
+                                                    children: "Log out"
+                                                }, void 0, false, {
+                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                                    lineNumber: 68,
+                                                    columnNumber: 19
+                                                }, undefined)
+                                            ]
+                                        }, void 0, true)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 47,
+                                    columnNumber: 13
+                                }, undefined),
+                                user && currentPage === "/" && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    className: "ml-auto",
+                                    children: [
+                                        " ",
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                             variant: "success",
                                             onClick: ()=>setShow(true),
                                             children: "Search movies"
                                         }, void 0, false, {
                                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                            lineNumber: 79,
-                                            columnNumber: 21
+                                            lineNumber: 81,
+                                            columnNumber: 17
                                         }, undefined)
-                                    }, void 0, false),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal), {
-                                        show: show,
-                                        onHide: handleClose,
-                                        children: [
-                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Header, {
-                                                closeButton: true,
-                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Title, {
-                                                    children: "Filter movies"
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 80,
+                                    columnNumber: 15
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 46,
+                            columnNumber: 11
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                    lineNumber: 41,
+                    columnNumber: 9
+                }, undefined)
+            }, void 0, false, {
+                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                lineNumber: 40,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal), {
+                show: show,
+                onHide: handleClose,
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Header, {
+                        closeButton: true,
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Title, {
+                            children: "Filter movies"
+                        }, void 0, false, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 92,
+                            columnNumber: 11
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                        lineNumber: 91,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
+                            className: "center-content",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h5", {
+                                            children: "Genres"
+                                        }, void 0, false, {
+                                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                            lineNumber: 99,
+                                            columnNumber: 15
+                                        }, undefined),
+                                        [
+                                            "Comedy",
+                                            "Crime",
+                                            "Drama",
+                                            "Fantasy",
+                                            "Horror",
+                                            "Science fiction",
+                                            "Thriller"
+                                        ].map((genre)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                className: "mb-3",
+                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Check, {
+                                                    inline: true,
+                                                    label: genre,
+                                                    name: "genres",
+                                                    type: "checkbox",
+                                                    id: `inline-${genre}`,
+                                                    onChange: ()=>setSelectedGenres(genre),
+                                                    checked: selectedGenres.includes(genre)
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 87,
-                                                    columnNumber: 21
+                                                    lineNumber: 102,
+                                                    columnNumber: 19
                                                 }, undefined)
-                                            }, void 0, false, {
+                                            }, genre, false, {
                                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 86,
-                                                columnNumber: 19
-                                            }, undefined),
-                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
-                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
-                                                    className: "center-content",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                                                            children: [
-                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h5", {
-                                                                    children: "Genres"
-                                                                }, void 0, false, {
-                                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                                    lineNumber: 94,
-                                                                    columnNumber: 25
-                                                                }, undefined),
-                                                                [
-                                                                    "Comedy",
-                                                                    "Crime",
-                                                                    "Drama",
-                                                                    "Fantasy",
-                                                                    "Horror",
-                                                                    "Science fiction",
-                                                                    "Thriller"
-                                                                ].map((genre)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                                                        className: "mb-3",
-                                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Check, {
-                                                                            inline: true,
-                                                                            label: genre,
-                                                                            name: "genres",
-                                                                            type: "checkbox",
-                                                                            id: `inline-${genre}`,
-                                                                            onChange: ()=>setSelectedGenres(genre),
-                                                                            checked: selectedGenres.includes(genre)
-                                                                        }, void 0, false, {
-                                                                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                                            lineNumber: 97,
-                                                                            columnNumber: 29
-                                                                        }, undefined)
-                                                                    }, genre, false, {
-                                                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                                        lineNumber: 96,
-                                                                        columnNumber: 27
-                                                                    }, undefined))
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                            lineNumber: 93,
-                                                            columnNumber: 23
-                                                        }, undefined),
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
-                                                            children: [
-                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h5", {
-                                                                    children: "Director"
-                                                                }, void 0, false, {
-                                                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                                    lineNumber: 111,
-                                                                    columnNumber: 25
-                                                                }, undefined),
-                                                                [
-                                                                    "Brad Bird",
-                                                                    "Bryan Buckley",
-                                                                    "Edward Zwick",
-                                                                    "Francis Ford Coppola",
-                                                                    "Hayao Miyazaki",
-                                                                    "Jonathan Demme",
-                                                                    "Ridley Scott",
-                                                                    "Steven Spielberg",
-                                                                    "Thomas Carter"
-                                                                ].map((director)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                                                        className: "mb-3",
-                                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Check, {
-                                                                            inline: true,
-                                                                            label: director,
-                                                                            name: "directors",
-                                                                            type: "checkbox",
-                                                                            id: `inline-${director}`,
-                                                                            onChange: ()=>setSelectedDirectors(director),
-                                                                            checked: selectedDirectors.includes(director)
-                                                                        }, void 0, false, {
-                                                                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                                            lineNumber: 114,
-                                                                            columnNumber: 29
-                                                                        }, undefined)
-                                                                    }, director, false, {
-                                                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                                        lineNumber: 113,
-                                                                        columnNumber: 27
-                                                                    }, undefined))
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                            lineNumber: 109,
-                                                            columnNumber: 23
-                                                        }, undefined)
-                                                    ]
-                                                }, void 0, true, {
+                                                lineNumber: 101,
+                                                columnNumber: 17
+                                            }, undefined))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 98,
+                                    columnNumber: 13
+                                }, undefined),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                    children: [
+                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h5", {
+                                            children: "Director"
+                                        }, void 0, false, {
+                                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                            lineNumber: 116,
+                                            columnNumber: 15
+                                        }, undefined),
+                                        [
+                                            "Brad Bird",
+                                            "Bryan Buckley",
+                                            "Edward Zwick",
+                                            "Francis Ford Coppola",
+                                            "Hayao Miyazaki",
+                                            "Jonathan Demme",
+                                            "Ridley Scott",
+                                            "Steven Spielberg",
+                                            "Thomas Carter"
+                                        ].map((director)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                className: "mb-3",
+                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Check, {
+                                                    inline: true,
+                                                    label: director,
+                                                    name: "directors",
+                                                    type: "checkbox",
+                                                    id: `inline-${director}`,
+                                                    onChange: ()=>setSelectedDirectors(director),
+                                                    checked: selectedDirectors.includes(director)
+                                                }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 91,
-                                                    columnNumber: 21
+                                                    lineNumber: 119,
+                                                    columnNumber: 19
                                                 }, undefined)
-                                            }, void 0, false, {
+                                            }, director, false, {
                                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 89,
-                                                columnNumber: 19
-                                            }, undefined),
-                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
-                                                children: [
-                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                                        variant: "outline-danger",
-                                                        onClick: resetFilters,
-                                                        children: "Clear Filters"
-                                                    }, void 0, false, {
-                                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                        lineNumber: 129,
-                                                        columnNumber: 21
-                                                    }, undefined),
-                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                                        variant: "success",
-                                                        onClick: handleClose,
-                                                        children: "See results"
-                                                    }, void 0, false, {
-                                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                        lineNumber: 132,
-                                                        columnNumber: 21
-                                                    }, undefined)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 128,
-                                                columnNumber: 19
-                                            }, undefined)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 85,
-                                        columnNumber: 17
-                                    }, undefined)
-                                ]
-                            }, void 0, true)
+                                                lineNumber: 118,
+                                                columnNumber: 17
+                                            }, undefined))
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                    lineNumber: 114,
+                                    columnNumber: 13
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                            lineNumber: 96,
+                            columnNumber: 11
+                        }, undefined)
+                    }, void 0, false, {
+                        fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                        lineNumber: 94,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                variant: "outline-danger",
+                                onClick: resetFilters,
+                                children: "Clear Filters"
+                            }, void 0, false, {
+                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                lineNumber: 134,
+                                columnNumber: 11
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                variant: "success",
+                                onClick: handleClose,
+                                children: "See results"
+                            }, void 0, false, {
+                                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                                lineNumber: 137,
+                                columnNumber: 11
+                            }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 50,
-                        columnNumber: 11
+                        lineNumber: 133,
+                        columnNumber: 9
                     }, undefined)
-                }, void 0, false, {
-                    fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 49,
-                    columnNumber: 9
-                }, undefined)
-            ]
-        }, void 0, true, {
-            fileName: "src/components/navigation-bar/navigation-bar.jsx",
-            lineNumber: 44,
-            columnNumber: 7
-        }, undefined)
-    }, void 0, false, {
-        fileName: "src/components/navigation-bar/navigation-bar.jsx",
-        lineNumber: 43,
-        columnNumber: 5
-    }, undefined);
+                ]
+            }, void 0, true, {
+                fileName: "src/components/navigation-bar/navigation-bar.jsx",
+                lineNumber: 90,
+                columnNumber: 7
+            }, undefined)
+        ]
+    }, void 0, true);
 };
 _s(NavigationBar, "YwXnYPHEUFEslVINydNEU5/SrCY=");
 _c = NavigationBar;
