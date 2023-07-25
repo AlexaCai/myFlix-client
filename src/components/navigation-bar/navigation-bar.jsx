@@ -14,7 +14,7 @@ import { Form } from "react-bootstrap";
 import './navigation-bar.scss';
 
 //***''const NavigationBar'' is functional component, ''NavigationBar'' being it's name. It is defined as an arrow function without two parameters, indicating it receives { user, onLoggedOut } props.
-export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, selectedDirectors, setSelectedDirectors }) => {
+export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, selectedDirectors, setSelectedDirectors, resetFilters }) => {
 
   //***Filter modal
   const [show, setShow] = useState(false);
@@ -23,7 +23,22 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
     console.log("Selected Genres:", selectedGenres);
     console.log("Selected Directors:", selectedDirectors);
   };
-  
+
+  const handleClearClick = () => {
+    // Get all checkbox inputs by name
+    const genreCheckboxes = document.querySelectorAll('input[name="genres"]');
+    const directorCheckboxes = document.querySelectorAll('input[name="directors"]');
+
+    // Uncheck all genre checkboxes
+    genreCheckboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+
+    // Uncheck all director checkboxes
+    directorCheckboxes.forEach((checkbox) => {
+      checkbox.checked = false;
+    });
+  };
 
   //***''return'' includes all the elements that will be returned as the output on the UI when as user is logged in or not. 
   //***These elements are designed using React Bootstrap.
@@ -71,7 +86,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
 
                       {/* Render checkboxes for genres */}
                       <h4>Genres</h4>
-                      {['Comedy','Crime', 'Drama', 'Fantasy', 'Horror', 'Science fiction', 'Thriller'].map((genre) => (
+                      {['Comedy', 'Crime', 'Drama', 'Fantasy', 'Horror', 'Science fiction', 'Thriller'].map((genre) => (
                         <div key={genre} className="mb-3">
                           <Form.Check
                             inline
@@ -107,6 +122,9 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                     <Button variant="outline-success" onClick={handleClose}>
                       Close
                     </Button>
+                    <Button variant="outline-danger" onClick={resetFilters}>
+                      Clear Filters
+                    </Button>                    
                     <Button variant="success" onClick={handleFilter}>
                       Find
                     </Button>

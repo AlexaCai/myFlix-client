@@ -56,6 +56,16 @@ export const MainView = () => {
 
     //***Used to display each filtered movie on the UI (when filter parameter(s) is/are activated).
     const [filteredMovies, setFilteredMovies] = useState([]);
+    //***Used to save the first list of all movie fetched, so it can be re-used when user clear filter to show back again the whole list of movie (instead of fetching again the data from the API after).
+    const [originalMovies, setOriginalMovies] = useState([]);
+
+    //***Logic for the ''clear filter'' button.
+    const resetFilters = () => {
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([]); // Set filteredMovies to an empty array to show the whole list of movies
+        console.log('Original movies', originalMovies);
+      };
 
     useEffect(() => {
         // Filter movies based on selectedGenres and selectedDirectors
@@ -69,6 +79,7 @@ export const MainView = () => {
             // Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria
             return genreMatch && directorMatch;
         });
+        console.log('Filtered movies' + filteredMovies); // Add this line to see the current value of filteredMovies in the console
 
         // Update the filteredMovies state with the filtered movies
         setFilteredMovies(filtered);
@@ -114,6 +125,7 @@ export const MainView = () => {
                 //***After parsing to JSON the response data, the data received from the API is processed.
                 .then((data) => {
                     console.log(data);
+                    setOriginalMovies(data); // Save the original movie data
                     //***This maps over the data received from the API and transforms each movie object into a new object with selected properties (id, image, title, description, genre, genreDescription, director, directorBio, directorBirth).
                     const moviesFromApi = data.map((movie) => {
                         return {
@@ -179,6 +191,8 @@ export const MainView = () => {
                 setSelectedGenres={handleGenreChange}
                 selectedDirectors={selectedDirectors}
                 setSelectedDirectors={handleDirectorChange}
+                resetFilters={resetFilters}
+
             />
             <Row className="justify-content-md-center">
                 {/* <Routes> is used as a container for multiple <Route> components, and it defines the different routes that can be accessed in the application. */}
@@ -258,12 +272,21 @@ export const MainView = () => {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <>
-                                        {filteredMovies.map((movie) => (
-                                            <Col xs={12} md={6} lg="3">
-
-                                                <MovieCard movie={movie} />
-                                            </Col>
-                                        ))}
+                                        {filteredMovies.length === 0 ? (
+                                            // Display movies from originalMovies when filteredMovies is empty
+                                            originalMovies.map((movie) => (
+                                                <Col xs={12} md={6} lg="3">
+                                                    <MovieCard movie={movie} />
+                                                </Col>
+                                            ))
+                                        ) : (
+                                            // Display movies from filteredMovies
+                                            filteredMovies.map((movie) => (
+                                                <Col xs={12} md={6} lg="3">
+                                                    <MovieCard movie={movie} />
+                                                </Col>
+                                            ))
+                                        )}
                                     </>
                                 )}
                             </>
