@@ -276,28 +276,31 @@ export const MainView = () => {
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <>
-                                        {/* Show the "Clear Filters" button only when filteredMovies is not empty */}
-                                        {selectedGenres.length > 0 || selectedDirectors.length > 0 ? (
-                                            <Button variant="outline-danger" onClick={resetFilters}>
-                                                Clear Filters
-                                            </Button>
-                                        ) : null}
-
                                         {/* Show the "Clear Filters" button and message when no films match the filters */}
                                         {filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && (
                                             <>
                                                 <div className="center-container">
                                                     <Row>
                                                         <Col>
-                                                            <h1>Oh.</h1>
+                                                            <h1 className="textMargin">Oh.</h1>
                                                             <br />
-                                                            <p>It seems that no films match your filters.</p>
+                                                            <p>It seems like no movies match your filters.</p>
                                                             <p>Modify your filters to get more results, or delete them completely to return to the initial list of movies.</p>
                                                         </Col>
                                                     </Row>
                                                 </div>
                                             </>
                                         )}
+
+                                        {/* Show the "Clear Filters" button only when filteredMovies is not empty */}
+                                        {selectedGenres.length > 0 || selectedDirectors.length > 0 ? (
+                                            <div className="clear-filters-button-container">
+                                                <Button variant="danger" onClick={resetFilters} className="clear-filters-button">
+                                                    Clear Filters
+                                                </Button>
+                                            </div>
+                                        ) : null}
+
                                         {selectedGenres.length > 0 || selectedDirectors.length > 0 ? (
                                             filteredMovies.map((movie) => (
                                                 <Col xs={12} md={6} lg="3" key={movie.id}>

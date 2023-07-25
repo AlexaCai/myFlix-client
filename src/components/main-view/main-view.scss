@@ -1,16 +1,22 @@
-.container-margin {
-    margin-top: 15px;
-}
+.clear-filters-button-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .clear-filters-button {
+    width: 30%; /* Customize the width as needed */
+    margin-top: 30px;
+  }
 
 .center-container {
     display: flex;
     justify-content: center; /* Horizontally center the content */
     align-items: center; /* Vertically center the content */
     text-align: center;
-    margin-top: 15px;
+    margin-top: 45px;
 }
 
-.clearFitlerButton {
-    margin-top: 15px;
-    border-color: 1px solid green;
-}
+.textMargin {
+    margin-top: 30px;
+  }
+

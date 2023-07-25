@@ -161,21 +161,26 @@
   }
 }
 
-.container-margin {
-  margin-top: 15px;
+.clear-filters-button-container {
+  justify-content: center;
+  display: flex;
+}
+
+.clear-filters-button {
+  width: 30%;
+  margin-top: 30px;
 }
 
 .center-container {
   text-align: center;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 45px;
   display: flex;
 }
 
-.clearFitlerButton {
-  border-color: 1px solid green;
-  margin-top: 15px;
+.textMargin {
+  margin-top: 30px;
 }
 
 :root, [data-bs-theme="light"] {

@@ -27478,11 +27478,6 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: [
-                                        selectedGenres.length > 0 || selectedDirectors.length > 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                            variant: "outline-danger",
-                                            onClick: resetFilters,
-                                            children: "Clear Filters"
-                                        }, void 0, false, void 0, void 0) : null,
                                         filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                                 className: "center-container",
@@ -27490,11 +27485,12 @@ const MainView = ()=>{
                                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                                         children: [
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                                                                className: "textMargin",
                                                                 children: "Oh."
                                                             }, void 0, false, void 0, void 0),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                                children: "It seems that no films match your filters."
+                                                                children: "It seems like no movies match your filters."
                                                             }, void 0, false, void 0, void 0),
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                                                 children: "Modify your filters to get more results, or delete them completely to return to the initial list of movies."
@@ -27504,6 +27500,15 @@ const MainView = ()=>{
                                                 }, void 0, false, void 0, void 0)
                                             }, void 0, false, void 0, void 0)
                                         }, void 0, false),
+                                        selectedGenres.length > 0 || selectedDirectors.length > 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "clear-filters-button-container",
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                variant: "danger",
+                                                onClick: resetFilters,
+                                                className: "clear-filters-button",
+                                                children: "Clear Filters"
+                                            }, void 0, false, void 0, void 0)
+                                        }, void 0, false, void 0, void 0) : null,
                                         selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                                 xs: 12,
                                                 md: 6,
@@ -27556,7 +27561,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../navigation-bar/navigation-bar":"bsPVM","../profile-view/profile-view":"2vVqf","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./main-view.scss":"eBaMl"}],"9xmpe":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","../login-view/login-view":"9YtA0","../signup-view/signup-view":"4OGiN","../navigation-bar/navigation-bar":"bsPVM","../profile-view/profile-view":"2vVqf","react-bootstrap":"3AD9A","./main-view.scss":"eBaMl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9xmpe":[function(require,module,exports) {
 /**
  * React Router DOM v6.14.1
  *
@@ -48406,7 +48411,7 @@ $RefreshReg$(_c, "NavigationBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","./navigation-bar.scss":"dnXvl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq"}],"dnXvl":[function() {},{}],"2vVqf":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"9xmpe","./navigation-bar.scss":"dnXvl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"dnXvl":[function() {},{}],"2vVqf":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3c12 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
