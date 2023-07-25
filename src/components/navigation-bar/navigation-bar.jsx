@@ -18,10 +18,15 @@ import './navigation-bar.scss';
 //***''const NavigationBar'' is functional component, ''NavigationBar'' being it's name. It is defined as an arrow function without two parameters, indicating it receives { user, onLoggedOut } props.
 export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, selectedDirectors, setSelectedDirectors, resetFilters }) => {
 
-  //***Used to know which page the user is on, to show the ''search and filter'' button accordingly (if user is on home page, the button appear in the naviagation bar - but not if he's in the profile page).
+  //***Used to know which page the user is on, to show the ''search movies'' button in the navigation bar accordingly (if user is on home page, the button appear in the naviagation bar - but not if hte user is in the profile page).
   const [currentPage, setCurrentPage] = useState("");
   const handleNavigation = (page) => {
     setCurrentPage(page);
+  };
+
+  //***Used to set the currentPage state variable upper to ''/'' when a user logout, so whenever to user is login back again, the state of the currentPage will be /, and will therefore show the ''search movies'' button right away.
+  const setBackCurrentPage = () => {
+    setCurrentPage("/");
   };
 
   //***Filter modal popping up after clicking on the ''search movies'' button in the navigation bar.
@@ -63,7 +68,10 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 <Nav.Link as={Link} to={`/users/${user.Username}`} onClick={() => handleNavigation("/users/:Username")}>
                   Profile
                 </Nav.Link>
-                <Nav.Link onClick={onLoggedOut}>
+                <Nav.Link onClick={() => {
+                  onLoggedOut(); // Call the first function
+                  setBackCurrentPage(); // Call the second function
+                }}>
                   Log out
                 </Nav.Link>
                 {user && currentPage === "/" && (
