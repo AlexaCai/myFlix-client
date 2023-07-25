@@ -46,7 +46,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
             {/* Display in the navigation bar if the user is not logged in */}
             {!user && (
               <>
-                <Nav.Link as={Link} to="/login">
+                <Nav.Link as={Link} to="/login" onClick={() => handleNavigation("/")}>
                   Log in
                 </Nav.Link>
                 <Nav.Link as={Link} to="/signup">
@@ -118,9 +118,6 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                     </Form>
                   </Modal.Body>
                   <Modal.Footer>
-                    <Button variant="outline-success" onClick={handleClose}>
-                      Close
-                    </Button>
                     <Button variant="outline-danger" onClick={resetFilters}>
                       Clear Filters
                     </Button>
