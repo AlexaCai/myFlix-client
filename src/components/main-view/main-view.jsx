@@ -33,6 +33,48 @@ export const MainView = () => {
     const [movies, setMovies] = useState([]);
 
 
+    //***Logic to filter movies based on genre.
+    const [selectedGenres, setSelectedGenres] = useState([]);
+    console.log(selectedGenres)
+    const handleGenreChange = (genre) => {
+        setSelectedGenres((prevGenres) =>
+            prevGenres.includes(genre)
+                ? prevGenres.filter((g) => g !== genre)
+                : [...prevGenres, genre]
+        );
+    };
+    //***Logic to filter movies based on directors.
+    const [selectedDirectors, setSelectedDirectors] = useState([]);
+    console.log(selectedDirectors)
+    const handleDirectorChange = (director) => {
+        setSelectedDirectors((prevDirectors) =>
+            prevDirectors.includes(director)
+                ? prevDirectors.filter((d) => d !== director)
+                : [...prevDirectors, director]
+        );
+    };
+
+    //***Used to display each filtered movie on the UI (when filter parameter(s) is/are activated).
+    const [filteredMovies, setFilteredMovies] = useState([]);
+
+    useEffect(() => {
+        // Filter movies based on selectedGenres and selectedDirectors
+        const filtered = movies.filter((movie) => {
+            // Check if the movie's genre is included in selectedGenres
+            const genreMatch = selectedGenres.length === 0 || selectedGenres.includes(movie.genre);
+
+            // Check if the movie's director is included in selectedDirectors
+            const directorMatch = selectedDirectors.length === 0 || selectedDirectors.includes(movie.director);
+
+            // Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria
+            return genreMatch && directorMatch;
+        });
+
+        // Update the filteredMovies state with the filtered movies
+        setFilteredMovies(filtered);
+    }, [selectedGenres, selectedDirectors, movies]);
+
+
     //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
     const updateFavoriteMovies = (movieId, isFavorite) => {
         //***Checks if isFavorite is true. If the movie is being marked as a favorite, the code inside this block will be executed.
@@ -133,6 +175,10 @@ export const MainView = () => {
                 onLoggedOut={() => {
                     setUser(null);
                 }}
+                selectedGenres={selectedGenres}
+                setSelectedGenres={handleGenreChange}
+                selectedDirectors={selectedDirectors}
+                setSelectedDirectors={handleDirectorChange}
             />
             <Row className="justify-content-md-center">
                 {/* <Routes> is used as a container for multiple <Route> components, and it defines the different routes that can be accessed in the application. */}
@@ -212,7 +258,7 @@ export const MainView = () => {
                                     <Col>The list is empty!</Col>
                                 ) : (
                                     <>
-                                        {movies.map((movie) => (
+                                        {filteredMovies.map((movie) => (
                                             <Col xs={12} md={6} lg="3">
 
                                                 <MovieCard movie={movie} />
