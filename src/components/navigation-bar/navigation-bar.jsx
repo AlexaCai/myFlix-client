@@ -18,7 +18,7 @@ import { Col } from "react-bootstrap";
 import './navigation-bar.scss';
 
 //***''const NavigationBar'' is functional component, ''NavigationBar'' being it's name. It is defined as an arrow function without two parameters, indicating it receives { user, onLoggedOut } props.
-export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, selectedDirectors, setSelectedDirectors, resetFilters }) => {
+export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, selectedDirectors, setSelectedDirectors, selectedTitle, setSelectedTitle, handleSearchSubmit, resetFilters }) => {
 
   const [currentPage, setCurrentPage] = useState("");
   const handleNavigation = (page) => {
@@ -78,17 +78,25 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
             {/* Search movie button is separated from the navigation bar to put it on the very right of it */}
             {user && currentPage === "/" && (
               <div className="ms-auto d-flex align-items-center"> {/* Use ms-auto class to push the div to the right */}
+
                 <Button variant="success" onClick={() => setShow(true)}>
                   Filter movies
                 </Button>
-                <Form inline className="d-flex align-items-center"> {/* Add d-flex class to make the contents display in a row */}
-                  <Form.Control
-                    type="text"
-                    placeholder="Search"
-                    className="mr-sm-2"
-                  />
-                  <Button type="submit">Submit</Button>
-                </Form>
+
+                <Form
+                inline
+                className="d-flex align-items-center"
+                onSubmit={handleSearchSubmit} // Handle the form submission
+              >
+                <Form.Control
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                  value={selectedTitle} // Bind the value to the selectedTitle state
+                  onChange={(e) => setSelectedTitle(e.target.value)} // Update the selectedTitle state when the user types in the input
+                />
+                <Button type="submit">Submit</Button>
+              </Form>
               </div>
             )}
 

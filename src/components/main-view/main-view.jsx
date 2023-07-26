@@ -47,6 +47,7 @@ export const MainView = () => {
                 : [...prevGenres, genre]
         );
     };
+
     //***Logic to filter movies based on directors.
     const [selectedDirectors, setSelectedDirectors] = useState([]);
     console.log(selectedDirectors)
@@ -57,6 +58,34 @@ export const MainView = () => {
                 : [...prevDirectors, director]
         );
     };
+
+
+
+
+
+
+    //***Logic to filter movies based on search bar.
+    const [selectedTitle, setSelectedTitle] = useState([]);
+    console.log(selectedTitle)
+    const [searchResults, setSearchResults] = useState([]);
+    console.log(JSON.stringify(searchResults, null, 2))
+
+    // Logic to handle the form submission when the user clicks Submit
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        // Perform the search logic here
+        const searchResult = movies.find((movie) => movie.title === selectedTitle);
+        if (searchResult) {
+            // If a movie with the title is found, update the searchResults state with that movie
+            setSearchResults([searchResult]);
+        } else {
+            // If no movie with the title is found, clear the searchResults state
+            setSearchResults([]);
+        }
+    };
+
+
+
 
     //***Used to display each filtered movie on the UI (when filter parameter(s) is/are activated).
     const [filteredMovies, setFilteredMovies] = useState([]);
@@ -80,14 +109,17 @@ export const MainView = () => {
             // Check if the movie's director is included in selectedDirectors
             const directorMatch = selectedDirectors.length === 0 || selectedDirectors.includes(movie.director);
 
+            // Check match for search title
+            const titleMatch = selectedTitle.length === 0 || selectedTitle.includes(movie.title);
+
             // Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria
-            return genreMatch && directorMatch;
+            return genreMatch && directorMatch && titleMatch;
         });
 
         // Update the filteredMovies state with the filtered movies
         setFilteredMovies(filtered);
         console.log('film dans la liste' + filtered)
-    }, [selectedGenres, selectedDirectors, movies]);
+    }, [selectedGenres, selectedDirectors, selectedTitle, movies]);
 
 
     //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
@@ -196,6 +228,9 @@ export const MainView = () => {
                 setSelectedGenres={handleGenreChange}
                 selectedDirectors={selectedDirectors}
                 setSelectedDirectors={handleDirectorChange}
+                selectedTitle={selectedTitle}
+                setSelectedTitle={setSelectedTitle}
+                handleSearchSubmit={handleSearchSubmit}
                 resetFilters={resetFilters}
             />
             <Row className="justify-content-md-center">
@@ -275,6 +310,26 @@ export const MainView = () => {
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <>
+                                        {/* Show the "Oh no." message when searchResults is empty */}
+                                        {searchResults.length === 0 ? (
+                                            <div className="center-container">
+                                                <Row>
+                                                    <Col>
+                                                        <h1 className="textMargin">Oh no.</h1>
+                                                        <br />
+                                                        <p>It seems like no movies match your search.</p>
+                                                        {/* You can add more descriptive text here if needed */}
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        ) : (
+                                            // Show the matched movie card when searchResults is not empty
+                                            searchResults.map((movie) => (
+                                                <Col xs={12} md={6} lg="3" key={movie.id}>
+                                                    <MovieCard movie={movie} />
+                                                </Col>
+                                            ))
+                                        )}
                                         {/* Show the "Clear Filters" button and message when no films match the filters */}
                                         {filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && (
                                             <>
@@ -319,8 +374,6 @@ export const MainView = () => {
                             </>
                         }
                     />
-
-
                 </Routes>
             </Row>
         </BrowserRouter>
