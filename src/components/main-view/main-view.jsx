@@ -37,6 +37,53 @@ export const MainView = () => {
     const [movies, setMovies] = useState([]);
 
 
+    //***Logic for the search bar.
+
+
+    //***const [selectedTitle, setSelectedTitle] holds the text (title) written by the user in the search bar.
+    const [selectedTitle, setSelectedTitle] = useState('');
+    console.log(selectedTitle)
+    //***const [searchResults, setSearchResults] holds the movie matched with the title researched by the user if the search bar. If the user type an existing movie title, searchResult variable will take the value of this matching movie. If the user type an non-existing movie title, searchResult variable will stay as an empty array (no movie).
+    const [searchResults, setSearchResults] = useState([]);
+    console.log(JSON.stringify(searchResults, null, 2))
+
+    // Logic to handle the form submission when the user clicks search bar submit button (this submit button and the trigger for that function are set up in the navigation-bar.jsx, in the search form).
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        //***Perform the search logic here. Compared the movie title written by the user in the search bar with the list of movies fetched.
+        const searchResult = movies.find((movie) => movie.title === selectedTitle);
+        //***If there's a match, searchResult state is updated to receive the value of the matching movie (and to eventully be displayed accordindly in the UI, as defined below in the ''return'' logic).
+        if (searchResult) {
+            setSearchResults([searchResult]);
+            //***If there's no match, searchResult state is updated to be an empty array (and to eventully be displayed accordindly in the UI, as defined below in the ''return'' logic).
+        } else {
+            setSearchResults([]);
+        }
+    };
+
+    //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
+    useEffect(() => {
+        const searchResult = movies.find((movie) => movie.title === selectedTitle);
+        if (searchResult) {
+            setSearchResults([searchResult]);
+        } else {
+            setSearchResults([]);
+        }
+    }, [selectedTitle]);
+
+    //***Function the set everything back as their initial value (used for the ''clear search'' button).
+    const handleClearSearch = () => {
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([])
+        setSelectedTitle("");
+        setSearchResults([]);
+    };
+
+
+    //***Logic for the ''filter movies'' button.
+
+
     //***Logic to filter movies based on genre.
     const [selectedGenres, setSelectedGenres] = useState([]);
     console.log(selectedGenres)
@@ -59,58 +106,19 @@ export const MainView = () => {
         );
     };
 
-
-    //***Logic to filter movies based on search bar.
-    const [selectedTitle, setSelectedTitle] = useState('');
-    console.log(selectedTitle)
-    const [searchResults, setSearchResults] = useState([]);
-    console.log(JSON.stringify(searchResults, null, 2))
-
-    // Logic to handle the form submission when the user clicks Submit
-    const handleSearchSubmit = (event) => {
-        event.preventDefault();
-        // Perform the search logic here
-        const searchResult = movies.find((movie) => movie.title === selectedTitle);
-        if (searchResult) {
-            // If a movie with the title is found, update the searchResults state with that movie
-            setSearchResults([searchResult]);
-        } else {
-            // If no movie with the title is found, clear the searchResults state
-            setSearchResults([]);
-        }
-    };
-
-    const handleClearSearch = () => {
-        setSelectedGenres([]);
-        setSelectedDirectors([]);
-        setFilteredMovies([])
-        setSelectedTitle(""); // Reset the selectedTitle state to an empty string
-        setSearchResults([]);
-    };
-
-
     //***Used to display each filtered movie on the UI (when filter parameter(s) is/are activated).
     const [filteredMovies, setFilteredMovies] = useState([]);
-    //***Used to save the first list of all movie fetched, so it can be re-used when user clear filter to show back again the whole list of movie (instead of fetching again the data from the API after).
+    //***Used to save the first list of all movie fetched, so it can be re-used when user clear filters to show back again the whole list of movies (instead of fetching again the data from the API after for example).
     const [originalMovies, setOriginalMovies] = useState([]);
 
-    //***Logic for the ''clear filter'' button.
-    const resetFilters = () => {
-        setSelectedGenres([]);
-        setSelectedDirectors([]);
-        setFilteredMovies([]);
-        setSelectedTitle(""); // Reset the selectedTitle state to an empty string
-        setSearchResults([]); // Set filteredMovies to an empty array to show the whole list of movies
-        console.log('Original movies', originalMovies);
-    };
-
+    //***This useEffect filter the array of fetched movies based on selected genres and directors, and it updates the filteredMovies state with the filtered results. If no filters are applied, it shows the entire list of movies.
     useEffect(() => {
         //***Filter movies based on selectedGenres and selectedDirectors.
         const filtered = movies.filter((movie) => {
-            //***Check if the movie's genre is included in selectedGenres.
+            //***Check if a movie's genre is included in selectedGenres.
             const genreMatch = selectedGenres.length === 0 || selectedGenres.includes(movie.genre);
 
-            //***Check if the movie's director is included in selectedDirectors.
+            //***Check if a movie's director is included in selectedDirectors.
             const directorMatch = selectedDirectors.length === 0 || selectedDirectors.includes(movie.director);
 
             //***Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria.
@@ -119,13 +127,25 @@ export const MainView = () => {
         if (selectedGenres.length === 0 && selectedDirectors.length === 0) {
             //***If no filters are applied, show the whole list of movies.
             setFilteredMovies([]);
-          } else {
+        } else {
             //***If filters are applied, set the filtered movies or an empty array if no movies match.
-            setFilteredMovies(filtered.length > 0 ? filtered : []);
-          }
-        
-          console.log('film dans la liste filtrée', filtered);
-        }, [selectedGenres, selectedDirectors, movies]);
+            setFilteredMovies(filtered);
+        }
+    }, [selectedGenres, selectedDirectors, movies]);
+
+    //***Function the set everything back as their initial value (used for the ''clear filters'' button).
+    const resetFilters = () => {
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([]);
+        setSelectedTitle("");
+        setSearchResults([]);
+        console.log('Original movies', originalMovies);
+    };
+
+
+    //***Logic for the updating favorite movies.
+
 
     //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
     const updateFavoriteMovies = (movieId, isFavorite) => {
@@ -147,6 +167,9 @@ export const MainView = () => {
             }));
         }
     };
+
+
+    //***Logic to fetch necessary data (user and movies).
 
 
     //***This useEffect is responsible for fetching movie data from the server when there is a valid token available (when the user is authenticated and logged in). After fetching the movie data, it transforms the API response into a format that the application can use and updates the movies state accordingly. The effect is triggered whenever the token state changes.
@@ -216,6 +239,10 @@ export const MainView = () => {
                 });
         }
     }, [token]);
+
+
+    //***Logic to return appropriate UI elements based on different conditions.
+
 
     //***''return'' includes all the elements that will be returned as the output on the UI of the main view page (MainView component). 
     //***These elements are designed using React Bootstrap.
@@ -331,12 +358,12 @@ export const MainView = () => {
                                             </div>
                                         ) : (
                                             // Show the matched movie card when searchResults is not empty
-                                            searchResults.map((movie) => (  
+                                            searchResults.map((movie) => (
                                                 <Col xs={12} md={6} lg="3" key={movie.id}>
                                                     <div className="clearSearchButton">
-                                                    <Button variant="danger" onClick={handleClearSearch}>
-                                                        Clear search
-                                                    </Button>
+                                                        <Button variant="danger" onClick={handleClearSearch}>
+                                                            Clear search
+                                                        </Button>
                                                     </div>
                                                     <MovieCard movie={movie} />
                                                 </Col>
