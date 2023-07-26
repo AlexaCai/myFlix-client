@@ -27228,6 +27228,43 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(null);
     //***This state holds an array of movie objects fetched from the server.
     const [movies, setMovies] = (0, _react.useState)([]);
+    //***Logic for the search bar.
+    //***const [selectedTitle, setSelectedTitle] holds the text (title) written by the user in the search bar.
+    const [selectedTitle, setSelectedTitle] = (0, _react.useState)("");
+    console.log(selectedTitle);
+    //***const [searchResults, setSearchResults] holds the movie matched with the title researched by the user if the search bar. If the user type an existing movie title, searchResult variable will take the value of this matching movie. If the user type an non-existing movie title, searchResult variable will stay as an empty array (no movie).
+    const [searchResults, setSearchResults] = (0, _react.useState)([]);
+    console.log(JSON.stringify(searchResults, null, 2));
+    // Logic to handle the form submission when the user clicks search bar submit button (this submit button and the trigger for that function are set up in the navigation-bar.jsx, in the search form).
+    const handleSearchSubmit = (event)=>{
+        event.preventDefault();
+        //***Perform the search logic here. Compared the movie title written by the user in the search bar with the list of movies fetched.
+        const searchResult = movies.find((movie)=>movie.title === selectedTitle);
+        //***If there's a match, searchResult state is updated to receive the value of the matching movie (and to eventully be displayed accordindly in the UI, as defined below in the ''return'' logic).
+        if (searchResult) setSearchResults([
+            searchResult
+        ]);
+        else setSearchResults([]);
+    };
+    //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
+    (0, _react.useEffect)(()=>{
+        const searchResult = movies.find((movie)=>movie.title === selectedTitle);
+        if (searchResult) setSearchResults([
+            searchResult
+        ]);
+        else setSearchResults([]);
+    }, [
+        selectedTitle
+    ]);
+    //***Function the set everything back as their initial value (used for the ''clear search'' button).
+    const handleClearSearch = ()=>{
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([]);
+        setSelectedTitle("");
+        setSearchResults([]);
+    };
+    //***Logic for the ''filter movies'' button.
     //***Logic to filter movies based on genre.
     const [selectedGenres, setSelectedGenres] = (0, _react.useState)([]);
     console.log(selectedGenres);
@@ -27246,49 +27283,17 @@ const MainView = ()=>{
                 director
             ]);
     };
-    //***Logic to filter movies based on search bar.
-    const [selectedTitle, setSelectedTitle] = (0, _react.useState)("");
-    console.log(selectedTitle);
-    const [searchResults, setSearchResults] = (0, _react.useState)([]);
-    console.log(JSON.stringify(searchResults, null, 2));
-    // Logic to handle the form submission when the user clicks Submit
-    const handleSearchSubmit = (event)=>{
-        event.preventDefault();
-        // Perform the search logic here
-        const searchResult = movies.find((movie)=>movie.title === selectedTitle);
-        if (searchResult) // If a movie with the title is found, update the searchResults state with that movie
-        setSearchResults([
-            searchResult
-        ]);
-        else // If no movie with the title is found, clear the searchResults state
-        setSearchResults([]);
-    };
-    const handleClearSearch = ()=>{
-        setSelectedGenres([]);
-        setSelectedDirectors([]);
-        setFilteredMovies([]);
-        setSelectedTitle(""); // Reset the selectedTitle state to an empty string
-        setSearchResults([]);
-    };
     //***Used to display each filtered movie on the UI (when filter parameter(s) is/are activated).
     const [filteredMovies, setFilteredMovies] = (0, _react.useState)([]);
-    //***Used to save the first list of all movie fetched, so it can be re-used when user clear filter to show back again the whole list of movie (instead of fetching again the data from the API after).
+    //***Used to save the first list of all movie fetched, so it can be re-used when user clear filters to show back again the whole list of movies (instead of fetching again the data from the API after for example).
     const [originalMovies, setOriginalMovies] = (0, _react.useState)([]);
-    //***Logic for the ''clear filter'' button.
-    const resetFilters = ()=>{
-        setSelectedGenres([]);
-        setSelectedDirectors([]);
-        setFilteredMovies([]);
-        setSelectedTitle(""); // Reset the selectedTitle state to an empty string
-        setSearchResults([]); // Set filteredMovies to an empty array to show the whole list of movies
-        console.log("Original movies", originalMovies);
-    };
+    //***This useEffect filter the array of fetched movies based on selected genres and directors, and it updates the filteredMovies state with the filtered results. If no filters are applied, it shows the entire list of movies.
     (0, _react.useEffect)(()=>{
         //***Filter movies based on selectedGenres and selectedDirectors.
         const filtered = movies.filter((movie)=>{
-            //***Check if the movie's genre is included in selectedGenres.
+            //***Check if a movie's genre is included in selectedGenres.
             const genreMatch = selectedGenres.length === 0 || selectedGenres.includes(movie.genre);
-            //***Check if the movie's director is included in selectedDirectors.
+            //***Check if a movie's director is included in selectedDirectors.
             const directorMatch = selectedDirectors.length === 0 || selectedDirectors.includes(movie.director);
             //***Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria.
             return genreMatch && directorMatch;
@@ -27296,13 +27301,22 @@ const MainView = ()=>{
         if (selectedGenres.length === 0 && selectedDirectors.length === 0) //***If no filters are applied, show the whole list of movies.
         setFilteredMovies([]);
         else //***If filters are applied, set the filtered movies or an empty array if no movies match.
-        setFilteredMovies(filtered.length > 0 ? filtered : []);
-        console.log("film dans la liste filtr\xe9e", filtered);
+        setFilteredMovies(filtered);
     }, [
         selectedGenres,
         selectedDirectors,
         movies
     ]);
+    //***Function the set everything back as their initial value (used for the ''clear filters'' button).
+    const resetFilters = ()=>{
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([]);
+        setSelectedTitle("");
+        setSearchResults([]);
+        console.log("Original movies", originalMovies);
+    };
+    //***Logic for the updating favorite movies.
     //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
     const updateFavoriteMovies = (movieId, isFavorite)=>{
         //***Checks if isFavorite is true. If the movie is being marked as a favorite, the code inside this block will be executed.
@@ -27323,6 +27337,7 @@ const MainView = ()=>{
                 FavoriteMovies: prevUser.FavoriteMovies.filter((id)=>id !== movieId)
             }));
     };
+    //***Logic to fetch necessary data (user and movies).
     //***This useEffect is responsible for fetching movie data from the server when there is a valid token available (when the user is authenticated and logged in). After fetching the movie data, it transforms the API response into a format that the application can use and updates the movies state accordingly. The effect is triggered whenever the token state changes.
     (0, _react.useEffect)(()=>{
         //***Conditional logic that ensures that the useEffect is only executed if the token state is not null or undefined (when a user has logged in successfuly). If token is null or undefined (when a user has not logged in), the effect returns and nothing inside the useEffect is executed.
@@ -27383,6 +27398,7 @@ const MainView = ()=>{
     }, [
         token
     ]);
+    //***Logic to return appropriate UI elements based on different conditions.
     //***''return'' includes all the elements that will be returned as the output on the UI of the main view page (MainView component). 
     //***These elements are designed using React Bootstrap.
     return(//***<BrowserRouter> is component from the react-router-dom library. It provides the routing functionality for the application, allowing different components to be rendered based on the current URL path.
@@ -27405,7 +27421,7 @@ const MainView = ()=>{
                 resetFilters: resetFilters
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 225,
+                lineNumber: 252,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27430,7 +27446,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 245,
+                            lineNumber: 272,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27456,7 +27472,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 261,
+                            lineNumber: 288,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27478,7 +27494,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 279,
+                            lineNumber: 306,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27498,7 +27514,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 295,
+                            lineNumber: 322,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27601,28 +27617,28 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 309,
+                            lineNumber: 336,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 243,
+                    lineNumber: 270,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 241,
+                lineNumber: 268,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 224,
+        lineNumber: 251,
         columnNumber: 9
     }, undefined));
 };
-_s(MainView, "uG8TvKGNK8PXtLIcKZAogLsX5xY=");
+_s(MainView, "EAiaZ+3ueImF2vSFCT8YkK9Vod4=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -48185,6 +48201,15 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
     //***Filter modal popping up after clicking on the ''search movies'' button in the navigation bar.
     const [show, setShow] = (0, _react.useState)(false);
     const handleClose = ()=>setShow(false);
+    const [inputValue, setInputValue] = (0, _react.useState)("");
+    const handleInputChange = (e)=>{
+        setInputValue(e.target.value);
+    };
+    const handleSearchSubmitNav = (e)=>{
+        e.preventDefault();
+        setSelectedTitle(inputValue);
+        handleSearchSubmit(e);
+    };
     //***''return'' includes all the elements that will be returned as the output on the UI when as user is logged in or not. 
     //***These elements are designed using React Bootstrap.
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
@@ -48200,14 +48225,14 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                             children: "myFlix"
                         }, void 0, false, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 43,
+                            lineNumber: 61,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Toggle, {
                             "aria-controls": "basic-navbar-nav"
                         }, void 0, false, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 46,
+                            lineNumber: 64,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Navbar).Collapse, {
@@ -48225,7 +48250,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                     children: "Log in"
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 52,
+                                                    lineNumber: 70,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -48234,7 +48259,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                     children: "Sign up"
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 55,
+                                                    lineNumber: 73,
                                                     columnNumber: 19
                                                 }, undefined)
                                             ]
@@ -48248,7 +48273,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                     children: "Home"
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 63,
+                                                    lineNumber: 81,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -48258,7 +48283,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                     children: "Profile"
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 66,
+                                                    lineNumber: 84,
                                                     columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
@@ -48268,7 +48293,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                     children: "Log out"
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 69,
+                                                    lineNumber: 87,
                                                     columnNumber: 19
                                                 }, undefined)
                                             ]
@@ -48276,7 +48301,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 48,
+                                    lineNumber: 66,
                                     columnNumber: 13
                                 }, undefined),
                                 user && currentPage === "/" && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -48289,24 +48314,24 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                             children: "Filter movies"
                                         }, void 0, false, {
                                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                            lineNumber: 82,
+                                            lineNumber: 100,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form), {
                                             inline: true,
                                             className: "d-flex align-items-center",
-                                            onSubmit: handleSearchSubmit,
+                                            onSubmit: handleSearchSubmitNav,
                                             children: [
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Form).Control, {
                                                     type: "text",
                                                     placeholder: "Search",
                                                     className: "mr-sm-2",
-                                                    value: selectedTitle,
-                                                    onChange: (e)=>setSelectedTitle(e.target.value)
+                                                    value: inputValue,
+                                                    onChange: handleInputChange
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 91,
-                                                    columnNumber: 17
+                                                    lineNumber: 109,
+                                                    columnNumber: 19
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                                     type: "submit",
@@ -48314,36 +48339,36 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                     children: "Submit"
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 98,
-                                                    columnNumber: 17
+                                                    lineNumber: 116,
+                                                    columnNumber: 19
                                                 }, undefined)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                            lineNumber: 86,
+                                            lineNumber: 104,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 80,
+                                    lineNumber: 98,
                                     columnNumber: 15
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 47,
+                            lineNumber: 65,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                    lineNumber: 42,
+                    lineNumber: 60,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                lineNumber: 41,
+                lineNumber: 59,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal), {
@@ -48356,12 +48381,12 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                             children: "Filter movies"
                         }, void 0, false, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 109,
+                            lineNumber: 127,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 108,
+                        lineNumber: 126,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
@@ -48382,7 +48407,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                 children: "Genres"
                                             }, void 0, false, {
                                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 117,
+                                                lineNumber: 135,
                                                 columnNumber: 17
                                             }, undefined),
                                             [
@@ -48405,18 +48430,18 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                         checked: selectedGenres.includes(genre)
                                                     }, void 0, false, {
                                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                        lineNumber: 120,
+                                                        lineNumber: 138,
                                                         columnNumber: 21
                                                     }, undefined)
                                                 }, genre, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 119,
+                                                    lineNumber: 137,
                                                     columnNumber: 19
                                                 }, undefined))
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 116,
+                                        lineNumber: 134,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -48432,7 +48457,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                 children: "Directors"
                                             }, void 0, false, {
                                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 134,
+                                                lineNumber: 152,
                                                 columnNumber: 17
                                             }, undefined),
                                             [
@@ -48457,34 +48482,34 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                         checked: selectedDirectors.includes(director)
                                                     }, void 0, false, {
                                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                        lineNumber: 137,
+                                                        lineNumber: 155,
                                                         columnNumber: 21
                                                     }, undefined)
                                                 }, director, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 136,
+                                                    lineNumber: 154,
                                                     columnNumber: 19
                                                 }, undefined))
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 132,
+                                        lineNumber: 150,
                                         columnNumber: 15
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                lineNumber: 115,
+                                lineNumber: 133,
                                 columnNumber: 13
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 113,
+                            lineNumber: 131,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 111,
+                        lineNumber: 129,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
@@ -48495,7 +48520,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                 children: "Clear Filters"
                             }, void 0, false, {
                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                lineNumber: 153,
+                                lineNumber: 171,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -48504,25 +48529,25 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                 children: "Close"
                             }, void 0, false, {
                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                lineNumber: 156,
+                                lineNumber: 174,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 152,
+                        lineNumber: 170,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                lineNumber: 107,
+                lineNumber: 125,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true);
 };
-_s(NavigationBar, "qCUOhUQVbu1veS1L1zNugMAv1b0=", false, function() {
+_s(NavigationBar, "b5Zk9LKjdyzGct2DHDpbHeYBrY4=", false, function() {
     return [
         (0, _reactRouterDom.useLocation)
     ];
