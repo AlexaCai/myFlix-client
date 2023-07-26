@@ -37,50 +37,6 @@ export const MainView = () => {
     const [movies, setMovies] = useState([]);
 
 
-    //***Logic for the search bar.
-
-
-    //***const [selectedTitle, setSelectedTitle] holds the text (title) written by the user in the search bar.
-    const [selectedTitle, setSelectedTitle] = useState('');
-    console.log(selectedTitle)
-    //***const [searchResults, setSearchResults] holds the movie matched with the title researched by the user if the search bar. If the user type an existing movie title, searchResult variable will take the value of this matching movie. If the user type an non-existing movie title, searchResult variable will stay as an empty array (no movie).
-    const [searchResults, setSearchResults] = useState([]);
-    console.log(JSON.stringify(searchResults, null, 2))
-
-    // Logic to handle the form submission when the user clicks search bar submit button (this submit button and the trigger for that function are set up in the navigation-bar.jsx, in the search form).
-    const handleSearchSubmit = (event) => {
-        event.preventDefault();
-        //***Perform the search logic here. Compared the movie title written by the user in the search bar with the list of movies fetched.
-        const searchResult = movies.find((movie) => movie.title === selectedTitle);
-        //***If there's a match, searchResult state is updated to receive the value of the matching movie (and to eventully be displayed accordindly in the UI, as defined below in the ''return'' logic).
-        if (searchResult) {
-            setSearchResults([searchResult]);
-            //***If there's no match, searchResult state is updated to be an empty array (and to eventully be displayed accordindly in the UI, as defined below in the ''return'' logic).
-        } else {
-            setSearchResults([]);
-        }
-    };
-
-    //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
-    useEffect(() => {
-        const searchResult = movies.find((movie) => movie.title === selectedTitle);
-        if (searchResult) {
-            setSearchResults([searchResult]);
-        } else {
-            setSearchResults([]);
-        }
-    }, [selectedTitle]);
-
-    //***Function the set everything back as their initial value (used for the ''clear search'' button).
-    const handleClearSearch = () => {
-        setSelectedGenres([]);
-        setSelectedDirectors([]);
-        setFilteredMovies([])
-        setSelectedTitle("");
-        setSearchResults([]);
-    };
-
-
     //***Logic for the ''filter movies'' button.
 
 
@@ -141,6 +97,54 @@ export const MainView = () => {
         setSelectedTitle("");
         setSearchResults([]);
         console.log('Original movies', originalMovies);
+    };
+
+
+    //***Logic for the search bar.
+
+
+    //***const [selectedTitle, setSelectedTitle] holds the text (title) written by the user in the search bar.
+    const [selectedTitle, setSelectedTitle] = useState('');
+    console.log(selectedTitle)
+    //***const [searchResults, setSearchResults] holds the movie matched with the title researched by the user if the search bar. If the user type an existing movie title, searchResult variable will take the value of this matching movie. If the user type an non-existing movie title, searchResult variable will stay as an empty array (no movie).
+    const [searchResults, setSearchResults] = useState([]);
+    console.log(JSON.stringify(searchResults, null, 2))
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+
+        //***Determine which array to search in based on whether filters are applied or not (if no filters, search inside the whole list of movie, if filters, search inside the list of filtered movie).
+        const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
+
+        //***Perform the search logic based on the selectedTitle in the search bar.
+        const searchResult = searchArray.find((movie) => movie.title === selectedTitle);
+
+        if (searchResult) {
+            setSearchResults([searchResult]);
+        } else {
+            setSearchResults([]);
+        }
+    };
+
+    //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
+    useEffect(() => {
+        const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
+        const searchResult = searchArray.find((movie) => movie.title === selectedTitle);
+
+        if (searchResult) {
+            setSearchResults([searchResult]);
+        } else {
+            setSearchResults([]);
+        }
+    }, [selectedTitle, selectedGenres, selectedDirectors, movies, filteredMovies]);
+
+    //***Function the set everything back as their initial value (used for the ''clear search'' button).
+    const handleClearSearch = () => {
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([])
+        setSelectedTitle("");
+        setSearchResults([]);
     };
 
 
@@ -342,8 +346,8 @@ export const MainView = () => {
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <>
-                                        {/* Show the "Oh no." message when searchResults is empty and a title is selected */}
-                                        {selectedTitle && searchResults.length === 0 ? (
+                                        {/* Show the "Seems like no movies" message when searchResults is empty and a title is selected */}
+                                        {selectedGenres.length === 0 && selectedDirectors.length === 0 && selectedTitle && searchResults.length === 0 && (
                                             <div className="center-container">
                                                 <Row>
                                                     <Col>
@@ -356,21 +360,41 @@ export const MainView = () => {
                                                     </Col>
                                                 </Row>
                                             </div>
-                                        ) : (
-                                            // Show the matched movie card when searchResults is not empty
-                                            searchResults.map((movie) => (
-                                                <Col xs={12} md={6} lg="3" key={movie.id}>
-                                                    <div className="clearSearchButton">
-                                                        <Button variant="danger" onClick={handleClearSearch}>
-                                                            Clear search
-                                                        </Button>
-                                                    </div>
-                                                    <MovieCard movie={movie} />
-                                                </Col>
-                                            ))
                                         )}
+                                        {(selectedGenres.length > 0 || selectedDirectors.length > 0) && selectedTitle && searchResults.length === 0 && (
+                                            <div className="center-container">
+                                                <Row>
+                                                    <Col>
+                                                        <h1 className="textMargin">Oh.</h1>
+                                                        <br />
+                                                        <p>It looks like there are no movies matching your search within your filtered movie list.
+                                                            <br />
+                                                            <br />
+                                                            Try searching for your movie without applying filters, as you'll search in a wider list of movies.</p>
+                                                        <br />
+                                                        <Button variant="danger" onClick={handleClearSearch}>
+                                                            Clear filters/search
+                                                        </Button>
+                                                        <Button>
+                                                            Back to filtered movies
+                                                        </Button>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        )}
+                                        {/* Show the matched movie card when searchResults is not empty (meaning a movie matching with the title researched in the search bar has been found). */}
+                                        {searchResults.map((movie) => (
+                                            <Col xs={12} md={6} lg="3" key={movie.id}>
+                                                <div className="clearSearchButton">
+                                                    <Button variant="danger" onClick={handleClearSearch}>
+                                                        Clear search
+                                                    </Button>
+                                                </div>
+                                                <MovieCard movie={movie} />
+                                            </Col>
+                                        ))}
 
-                                        {/* Show the "Clear Filters" button and message when no films match the filters */}
+                                        {/* Show the message when no films match the filters */}
                                         {!selectedTitle && filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && (
                                             <>
                                                 <div className="center-container">
@@ -386,7 +410,7 @@ export const MainView = () => {
                                             </>
                                         )}
 
-                                        {/* Show the "Clear Filters" button only when filteredMovies is not empty */}
+                                        {/* Show the "Clear Filters" button only when there's no value written in the search bar, and when there's at least one filter applied */}
                                         {!selectedTitle && (selectedGenres.length > 0 || selectedDirectors.length > 0) ? (
                                             <div className="clear-filters-button-container">
                                                 <Button variant="danger" onClick={resetFilters} className="clear-filters-button">
@@ -395,14 +419,14 @@ export const MainView = () => {
                                             </div>
                                         ) : null}
 
-                                        {/* Show the matched movie card when filteredMovies is not empty and no search term */}
+                                        {/* Show the matched movie card when filteredMovies is not empty (meaning a movie(s) corresponding to the filter(s) exist) and there is no search element in the search bar */}
                                         {!selectedTitle && filteredMovies.length > 0 && filteredMovies.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
                                                 <MovieCard movie={movie} />
                                             </Col>
                                         ))}
 
-                                        {/* Show the original list of movies when there are no filters applied and no search term */}
+                                        {/* Show the original list of movies when there are no filters applied and no search element in the search bar */}
                                         {!selectedTitle && selectedGenres.length === 0 && selectedDirectors.length === 0 && originalMovies.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
                                                 <MovieCard movie={movie} />
@@ -413,7 +437,6 @@ export const MainView = () => {
                             </>
                         }
                     />
-
                 </Routes>
             </Row>
         </BrowserRouter>

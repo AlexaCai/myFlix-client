@@ -27228,42 +27228,6 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(null);
     //***This state holds an array of movie objects fetched from the server.
     const [movies, setMovies] = (0, _react.useState)([]);
-    //***Logic for the search bar.
-    //***const [selectedTitle, setSelectedTitle] holds the text (title) written by the user in the search bar.
-    const [selectedTitle, setSelectedTitle] = (0, _react.useState)("");
-    console.log(selectedTitle);
-    //***const [searchResults, setSearchResults] holds the movie matched with the title researched by the user if the search bar. If the user type an existing movie title, searchResult variable will take the value of this matching movie. If the user type an non-existing movie title, searchResult variable will stay as an empty array (no movie).
-    const [searchResults, setSearchResults] = (0, _react.useState)([]);
-    console.log(JSON.stringify(searchResults, null, 2));
-    // Logic to handle the form submission when the user clicks search bar submit button (this submit button and the trigger for that function are set up in the navigation-bar.jsx, in the search form).
-    const handleSearchSubmit = (event)=>{
-        event.preventDefault();
-        //***Perform the search logic here. Compared the movie title written by the user in the search bar with the list of movies fetched.
-        const searchResult = movies.find((movie)=>movie.title === selectedTitle);
-        //***If there's a match, searchResult state is updated to receive the value of the matching movie (and to eventully be displayed accordindly in the UI, as defined below in the ''return'' logic).
-        if (searchResult) setSearchResults([
-            searchResult
-        ]);
-        else setSearchResults([]);
-    };
-    //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
-    (0, _react.useEffect)(()=>{
-        const searchResult = movies.find((movie)=>movie.title === selectedTitle);
-        if (searchResult) setSearchResults([
-            searchResult
-        ]);
-        else setSearchResults([]);
-    }, [
-        selectedTitle
-    ]);
-    //***Function the set everything back as their initial value (used for the ''clear search'' button).
-    const handleClearSearch = ()=>{
-        setSelectedGenres([]);
-        setSelectedDirectors([]);
-        setFilteredMovies([]);
-        setSelectedTitle("");
-        setSearchResults([]);
-    };
     //***Logic for the ''filter movies'' button.
     //***Logic to filter movies based on genre.
     const [selectedGenres, setSelectedGenres] = (0, _react.useState)([]);
@@ -27315,6 +27279,47 @@ const MainView = ()=>{
         setSelectedTitle("");
         setSearchResults([]);
         console.log("Original movies", originalMovies);
+    };
+    //***Logic for the search bar.
+    //***const [selectedTitle, setSelectedTitle] holds the text (title) written by the user in the search bar.
+    const [selectedTitle, setSelectedTitle] = (0, _react.useState)("");
+    console.log(selectedTitle);
+    //***const [searchResults, setSearchResults] holds the movie matched with the title researched by the user if the search bar. If the user type an existing movie title, searchResult variable will take the value of this matching movie. If the user type an non-existing movie title, searchResult variable will stay as an empty array (no movie).
+    const [searchResults, setSearchResults] = (0, _react.useState)([]);
+    console.log(JSON.stringify(searchResults, null, 2));
+    const handleSearchSubmit = (event)=>{
+        event.preventDefault();
+        //***Determine which array to search in based on whether filters are applied or not (if no filters, search inside the whole list of movie, if filters, search inside the list of filtered movie).
+        const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
+        //***Perform the search logic based on the selectedTitle in the search bar.
+        const searchResult = searchArray.find((movie)=>movie.title === selectedTitle);
+        if (searchResult) setSearchResults([
+            searchResult
+        ]);
+        else setSearchResults([]);
+    };
+    //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
+    (0, _react.useEffect)(()=>{
+        const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
+        const searchResult = searchArray.find((movie)=>movie.title === selectedTitle);
+        if (searchResult) setSearchResults([
+            searchResult
+        ]);
+        else setSearchResults([]);
+    }, [
+        selectedTitle,
+        selectedGenres,
+        selectedDirectors,
+        movies,
+        filteredMovies
+    ]);
+    //***Function the set everything back as their initial value (used for the ''clear search'' button).
+    const handleClearSearch = ()=>{
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([]);
+        setSelectedTitle("");
+        setSearchResults([]);
     };
     //***Logic for the updating favorite movies.
     //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
@@ -27421,7 +27426,7 @@ const MainView = ()=>{
                 resetFilters: resetFilters
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 252,
+                lineNumber: 256,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27446,7 +27451,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 272,
+                            lineNumber: 276,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27472,7 +27477,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 288,
+                            lineNumber: 292,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27494,7 +27499,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 306,
+                            lineNumber: 310,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27514,7 +27519,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 322,
+                            lineNumber: 326,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27525,7 +27530,7 @@ const MainView = ()=>{
                                     replace: true
                                 }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
                                     children: [
-                                        selectedTitle && searchResults.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                        selectedGenres.length === 0 && selectedDirectors.length === 0 && selectedTitle && searchResults.length === 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                             className: "center-container",
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -27546,7 +27551,38 @@ const MainView = ()=>{
                                                     ]
                                                 }, void 0, true, void 0, void 0)
                                             }, void 0, false, void 0, void 0)
-                                        }, void 0, false, void 0, void 0) : // Show the matched movie card when searchResults is not empty
+                                        }, void 0, false, void 0, void 0),
+                                        (selectedGenres.length > 0 || selectedDirectors.length > 0) && selectedTitle && searchResults.length === 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                            className: "center-container",
+                                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                                                            className: "textMargin",
+                                                            children: "Oh."
+                                                        }, void 0, false, void 0, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                            children: [
+                                                                "It looks like there are no movies matching your search within your filtered movie list.",
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
+                                                                "Try searching for your movie without applying filters, as you'll search in a wider list of movies."
+                                                            ]
+                                                        }, void 0, true, void 0, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                            variant: "danger",
+                                                            onClick: handleClearSearch,
+                                                            children: "Clear filters/search"
+                                                        }, void 0, false, void 0, void 0),
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                            children: "Back to filtered movies"
+                                                        }, void 0, false, void 0, void 0)
+                                                    ]
+                                                }, void 0, true, void 0, void 0)
+                                            }, void 0, false, void 0, void 0)
+                                        }, void 0, false, void 0, void 0),
                                         searchResults.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                                 xs: 12,
                                                 md: 6,
@@ -27617,28 +27653,28 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 336,
+                            lineNumber: 340,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 270,
+                    lineNumber: 274,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 268,
+                lineNumber: 272,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 251,
+        lineNumber: 255,
         columnNumber: 9
     }, undefined));
 };
-_s(MainView, "EAiaZ+3ueImF2vSFCT8YkK9Vod4=");
+_s(MainView, "dCU4dPdcYWP1ImeRWzdmH6RqDRQ=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
