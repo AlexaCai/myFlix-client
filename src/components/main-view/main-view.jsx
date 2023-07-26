@@ -147,6 +147,13 @@ export const MainView = () => {
         setSearchResults([]);
     };
 
+    //***Function to bring back the user to his list of filtered movie after the user maked a search that filtered list (used for the ''back to filtered movies'' button).
+    const goBack = () => {
+        setSelectedTitle("");
+        setSearchResults([]);
+        console.log('Original movies', originalMovies);
+    };
+
 
     //***Logic for the updating favorite movies.
 
@@ -351,7 +358,7 @@ export const MainView = () => {
                                             <div className="center-container">
                                                 <Row>
                                                     <Col>
-                                                        <h1 className="textMargin">Oh no.</h1>
+                                                        <h1 className="textMargin">Oh.</h1>
                                                         <br />
                                                         <p>It seems like no movies match your search.</p>
                                                         <Button variant="danger" onClick={handleClearSearch}>
@@ -372,12 +379,18 @@ export const MainView = () => {
                                                             <br />
                                                             Try searching for your movie without applying filters, as you'll search in a wider list of movies.</p>
                                                         <br />
-                                                        <Button variant="danger" onClick={handleClearSearch}>
-                                                            Clear filters/search
-                                                        </Button>
-                                                        <Button>
-                                                            Back to filtered movies
-                                                        </Button>
+                                                        <div className="buttonStylingContainerGroup1">
+                                                            <Row>
+                                                                <Button variant="danger" className="buttonStylingGroup1" onClick={handleClearSearch}>
+                                                                    Clear filters/search
+                                                                </Button>
+                                                            </Row>
+                                                            <Row>
+                                                                <Button variant="success" onClick={goBack} className="buttonStylingGroup1">
+                                                                    Back to filtered movies
+                                                                </Button>
+                                                            </Row>
+                                                        </div>
                                                     </Col>
                                                 </Row>
                                             </div>
@@ -385,10 +398,17 @@ export const MainView = () => {
                                         {/* Show the matched movie card when searchResults is not empty (meaning a movie matching with the title researched in the search bar has been found). */}
                                         {searchResults.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
-                                                <div className="clearSearchButton">
-                                                    <Button variant="danger" onClick={handleClearSearch}>
-                                                        Clear search
-                                                    </Button>
+                                                <div className="buttonStylingGroup2">
+                                                    <Row>
+                                                        <Button variant="danger" className="buttonStylingGroup2" onClick={handleClearSearch}>
+                                                            Clear filters/search
+                                                        </Button>
+                                                    </Row>
+                                                    <Row>
+                                                        <Button variant="success" onClick={goBack} className="buttonStylingGroup2">
+                                                            Back to filtered movies
+                                                        </Button>
+                                                    </Row>
                                                 </div>
                                                 <MovieCard movie={movie} />
                                             </Col>
@@ -414,7 +434,7 @@ export const MainView = () => {
                                         {!selectedTitle && (selectedGenres.length > 0 || selectedDirectors.length > 0) ? (
                                             <div className="clear-filters-button-container">
                                                 <Button variant="danger" onClick={resetFilters} className="clear-filters-button">
-                                                    Clear Filters
+                                                    Clear filter(s)
                                                 </Button>
                                             </div>
                                         ) : null}

@@ -27321,6 +27321,12 @@ const MainView = ()=>{
         setSelectedTitle("");
         setSearchResults([]);
     };
+    //***Function to bring back the user to his list of filtered movie after the user maked a search that filtered list (used for the ''back to filtered movies'' button).
+    const goBack = ()=>{
+        setSelectedTitle("");
+        setSearchResults([]);
+        console.log("Original movies", originalMovies);
+    };
     //***Logic for the updating favorite movies.
     //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
     const updateFavoriteMovies = (movieId, isFavorite)=>{
@@ -27426,7 +27432,7 @@ const MainView = ()=>{
                 resetFilters: resetFilters
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 256,
+                lineNumber: 263,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27451,7 +27457,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 276,
+                            lineNumber: 283,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27477,7 +27483,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 292,
+                            lineNumber: 299,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27499,7 +27505,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 310,
+                            lineNumber: 317,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27519,7 +27525,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 326,
+                            lineNumber: 333,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27537,7 +27543,7 @@ const MainView = ()=>{
                                                     children: [
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
                                                             className: "textMargin",
-                                                            children: "Oh no."
+                                                            children: "Oh."
                                                         }, void 0, false, void 0, void 0),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
@@ -27571,14 +27577,27 @@ const MainView = ()=>{
                                                             ]
                                                         }, void 0, true, void 0, void 0),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                                            variant: "danger",
-                                                            onClick: handleClearSearch,
-                                                            children: "Clear filters/search"
-                                                        }, void 0, false, void 0, void 0),
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                                            children: "Back to filtered movies"
-                                                        }, void 0, false, void 0, void 0)
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                            className: "buttonStylingContainerGroup1",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                                        variant: "danger",
+                                                                        className: "buttonStylingGroup1",
+                                                                        onClick: handleClearSearch,
+                                                                        children: "Clear filters/search"
+                                                                    }, void 0, false, void 0, void 0)
+                                                                }, void 0, false, void 0, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                                        variant: "success",
+                                                                        onClick: goBack,
+                                                                        className: "buttonStylingGroup1",
+                                                                        children: "Back to filtered movies"
+                                                                    }, void 0, false, void 0, void 0)
+                                                                }, void 0, false, void 0, void 0)
+                                                            ]
+                                                        }, void 0, true, void 0, void 0)
                                                     ]
                                                 }, void 0, true, void 0, void 0)
                                             }, void 0, false, void 0, void 0)
@@ -27589,13 +27608,26 @@ const MainView = ()=>{
                                                 lg: "3",
                                                 children: [
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                                        className: "clearSearchButton",
-                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                                            variant: "danger",
-                                                            onClick: handleClearSearch,
-                                                            children: "Clear search"
-                                                        }, void 0, false, void 0, void 0)
-                                                    }, void 0, false, void 0, void 0),
+                                                        className: "buttonStylingGroup2",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                                    variant: "danger",
+                                                                    className: "buttonStylingGroup2",
+                                                                    onClick: handleClearSearch,
+                                                                    children: "Clear filters/search"
+                                                                }, void 0, false, void 0, void 0)
+                                                            }, void 0, false, void 0, void 0),
+                                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
+                                                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                                    variant: "success",
+                                                                    onClick: goBack,
+                                                                    className: "buttonStylingGroup2",
+                                                                    children: "Back to filtered movies"
+                                                                }, void 0, false, void 0, void 0)
+                                                            }, void 0, false, void 0, void 0)
+                                                        ]
+                                                    }, void 0, true, void 0, void 0),
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                         movie: movie
                                                     }, void 0, false, void 0, void 0)
@@ -27629,7 +27661,7 @@ const MainView = ()=>{
                                                 variant: "danger",
                                                 onClick: resetFilters,
                                                 className: "clear-filters-button",
-                                                children: "Clear Filters"
+                                                children: "Clear filter(s)"
                                             }, void 0, false, void 0, void 0)
                                         }, void 0, false, void 0, void 0) : null,
                                         !selectedTitle && filteredMovies.length > 0 && filteredMovies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -27653,24 +27685,24 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 340,
+                            lineNumber: 347,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 274,
+                    lineNumber: 281,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 272,
+                lineNumber: 279,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 255,
+        lineNumber: 262,
         columnNumber: 9
     }, undefined));
 };
