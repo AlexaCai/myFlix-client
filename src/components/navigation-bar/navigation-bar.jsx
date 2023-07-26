@@ -34,6 +34,24 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
+
+
+
+  const [inputValue, setInputValue] = useState('');
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSearchSubmitNav = (e) => {
+    e.preventDefault();
+    setSelectedTitle(inputValue);
+    handleSearchSubmit(e)
+  };
+
+
+
+
   //***''return'' includes all the elements that will be returned as the output on the UI when as user is logged in or not. 
   //***These elements are designed using React Bootstrap.
   return (
@@ -84,19 +102,19 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 </Button>
 
                 <Form
-                inline
-                className="d-flex align-items-center"
-                onSubmit={handleSearchSubmit} // Handle the form submission
-              >
-                <Form.Control
-                  type="text"
-                  placeholder="Search"
-                  className="mr-sm-2"
-                  value={selectedTitle} // Bind the value to the selectedTitle state
-                  onChange={(e) => setSelectedTitle(e.target.value)} // Update the selectedTitle state when the user types in the input
-                />
-                <Button type="submit" variant="success">Submit</Button>
-              </Form>
+                  inline
+                  className="d-flex align-items-center"
+                  onSubmit={handleSearchSubmitNav} // Handle the form submission
+                >
+                  <Form.Control
+                    type="text"
+                    placeholder="Search"
+                    className="mr-sm-2"
+                    value={inputValue} // Bind the value to the inputValue state
+                    onChange={handleInputChange} // Update the inputValue state when the user types in the input
+                  />
+                  <Button type="submit" variant="success">Submit</Button>
+                </Form>
               </div>
             )}
 
