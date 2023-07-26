@@ -61,7 +61,7 @@ export const MainView = () => {
 
 
     //***Logic to filter movies based on search bar.
-    const [selectedTitle, setSelectedTitle] = useState([]);
+    const [selectedTitle, setSelectedTitle] = useState('');
     console.log(selectedTitle)
     const [searchResults, setSearchResults] = useState([]);
     console.log(JSON.stringify(searchResults, null, 2))
@@ -81,6 +81,9 @@ export const MainView = () => {
     };
 
     const handleClearSearch = () => {
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([])
         setSelectedTitle(""); // Reset the selectedTitle state to an empty string
         setSearchResults([]);
     };
@@ -95,7 +98,9 @@ export const MainView = () => {
     const resetFilters = () => {
         setSelectedGenres([]);
         setSelectedDirectors([]);
-        setFilteredMovies([]); // Set filteredMovies to an empty array to show the whole list of movies
+        setFilteredMovies([]);
+        setSelectedTitle(""); // Reset the selectedTitle state to an empty string
+        setSearchResults([]); // Set filteredMovies to an empty array to show the whole list of movies
         console.log('Original movies', originalMovies);
     };
 
@@ -318,7 +323,7 @@ export const MainView = () => {
                                                         <h1 className="textMargin">Oh no.</h1>
                                                         <br />
                                                         <p>It seems like no movies match your search.</p>
-                                                        <Button onClick={handleClearSearch}>
+                                                        <Button variant="danger" onClick={handleClearSearch}>
                                                             Clear search
                                                         </Button>
                                                     </Col>
@@ -326,11 +331,13 @@ export const MainView = () => {
                                             </div>
                                         ) : (
                                             // Show the matched movie card when searchResults is not empty
-                                            searchResults.map((movie) => (
+                                            searchResults.map((movie) => (  
                                                 <Col xs={12} md={6} lg="3" key={movie.id}>
-                                                    <Button onClick={handleClearSearch}>
+                                                    <div className="clearSearchButton">
+                                                    <Button variant="danger" onClick={handleClearSearch}>
                                                         Clear search
                                                     </Button>
+                                                    </div>
                                                     <MovieCard movie={movie} />
                                                 </Col>
                                             ))

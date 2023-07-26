@@ -171,7 +171,6 @@
 }
 
 .clear-filters-button {
-  width: 30%;
   margin-top: 30px;
 }
 
@@ -185,6 +184,12 @@
 
 .textMargin {
   margin-top: 30px;
+}
+
+.clearSearchButton {
+  justify-content: center;
+  margin-top: 30px;
+  display: flex;
 }
 
 :root, [data-bs-theme="light"] {

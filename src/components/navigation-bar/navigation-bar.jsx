@@ -95,7 +95,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                   value={selectedTitle} // Bind the value to the selectedTitle state
                   onChange={(e) => setSelectedTitle(e.target.value)} // Update the selectedTitle state when the user types in the input
                 />
-                <Button type="submit">Submit</Button>
+                <Button type="submit" variant="success">Submit</Button>
               </Form>
               </div>
             )}

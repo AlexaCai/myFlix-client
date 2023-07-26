@@ -27247,7 +27247,7 @@ const MainView = ()=>{
             ]);
     };
     //***Logic to filter movies based on search bar.
-    const [selectedTitle, setSelectedTitle] = (0, _react.useState)([]);
+    const [selectedTitle, setSelectedTitle] = (0, _react.useState)("");
     console.log(selectedTitle);
     const [searchResults, setSearchResults] = (0, _react.useState)([]);
     console.log(JSON.stringify(searchResults, null, 2));
@@ -27264,6 +27264,9 @@ const MainView = ()=>{
         setSearchResults([]);
     };
     const handleClearSearch = ()=>{
+        setSelectedGenres([]);
+        setSelectedDirectors([]);
+        setFilteredMovies([]);
         setSelectedTitle(""); // Reset the selectedTitle state to an empty string
         setSearchResults([]);
     };
@@ -27275,7 +27278,9 @@ const MainView = ()=>{
     const resetFilters = ()=>{
         setSelectedGenres([]);
         setSelectedDirectors([]);
-        setFilteredMovies([]); // Set filteredMovies to an empty array to show the whole list of movies
+        setFilteredMovies([]);
+        setSelectedTitle(""); // Reset the selectedTitle state to an empty string
+        setSearchResults([]); // Set filteredMovies to an empty array to show the whole list of movies
         console.log("Original movies", originalMovies);
     };
     (0, _react.useEffect)(()=>{
@@ -27400,7 +27405,7 @@ const MainView = ()=>{
                 resetFilters: resetFilters
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 220,
+                lineNumber: 225,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27425,7 +27430,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 240,
+                            lineNumber: 245,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27451,7 +27456,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 256,
+                            lineNumber: 261,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27473,7 +27478,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 274,
+                            lineNumber: 279,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27493,7 +27498,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 290,
+                            lineNumber: 295,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27518,6 +27523,7 @@ const MainView = ()=>{
                                                             children: "It seems like no movies match your search."
                                                         }, void 0, false, void 0, void 0),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                            variant: "danger",
                                                             onClick: handleClearSearch,
                                                             children: "Clear search"
                                                         }, void 0, false, void 0, void 0)
@@ -27530,9 +27536,13 @@ const MainView = ()=>{
                                                 md: 6,
                                                 lg: "3",
                                                 children: [
-                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
-                                                        onClick: handleClearSearch,
-                                                        children: "Clear search"
+                                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                                        className: "clearSearchButton",
+                                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
+                                                            variant: "danger",
+                                                            onClick: handleClearSearch,
+                                                            children: "Clear search"
+                                                        }, void 0, false, void 0, void 0)
                                                     }, void 0, false, void 0, void 0),
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                                                         movie: movie
@@ -27591,28 +27601,28 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 304,
+                            lineNumber: 309,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 238,
+                    lineNumber: 243,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 236,
+                lineNumber: 241,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 219,
+        lineNumber: 224,
         columnNumber: 9
     }, undefined));
 };
-_s(MainView, "f3OjlLVLJXw1YtEs4yeEi5CK2jU=");
+_s(MainView, "uG8TvKGNK8PXtLIcKZAogLsX5xY=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -48300,6 +48310,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                                     type: "submit",
+                                                    variant: "success",
                                                     children: "Submit"
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
