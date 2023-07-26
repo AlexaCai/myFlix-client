@@ -100,26 +100,27 @@ export const MainView = () => {
     };
 
     useEffect(() => {
-        // Filter movies based on selectedGenres and selectedDirectors
+        //***Filter movies based on selectedGenres and selectedDirectors.
         const filtered = movies.filter((movie) => {
-            // Check if the movie's genre is included in selectedGenres
+            //***Check if the movie's genre is included in selectedGenres.
             const genreMatch = selectedGenres.length === 0 || selectedGenres.includes(movie.genre);
 
-            // Check if the movie's director is included in selectedDirectors
+            //***Check if the movie's director is included in selectedDirectors.
             const directorMatch = selectedDirectors.length === 0 || selectedDirectors.includes(movie.director);
 
-            // Check match for search title
-            const titleMatch = selectedTitle.length === 0 || selectedTitle.includes(movie.title);
-
-            // Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria
-            return genreMatch && directorMatch && titleMatch;
+            //***Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria.
+            return genreMatch && directorMatch;
         });
-
-        // Update the filteredMovies state with the filtered movies
-        setFilteredMovies(filtered);
-        console.log('film dans la liste' + filtered)
-    }, [selectedGenres, selectedDirectors, selectedTitle, movies]);
-
+        if (selectedGenres.length === 0 && selectedDirectors.length === 0) {
+            //***If no filters are applied, show the whole list of movies.
+            setFilteredMovies([]);
+          } else {
+            //***If filters are applied, set the filtered movies or an empty array if no movies match.
+            setFilteredMovies(filtered.length > 0 ? filtered : []);
+          }
+        
+          console.log('film dans la liste filtrée', filtered);
+        }, [selectedGenres, selectedDirectors, movies]);
 
     //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
     const updateFavoriteMovies = (movieId, isFavorite) => {

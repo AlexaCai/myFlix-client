@@ -27279,24 +27279,23 @@ const MainView = ()=>{
         console.log("Original movies", originalMovies);
     };
     (0, _react.useEffect)(()=>{
-        // Filter movies based on selectedGenres and selectedDirectors
+        //***Filter movies based on selectedGenres and selectedDirectors.
         const filtered = movies.filter((movie)=>{
-            // Check if the movie's genre is included in selectedGenres
+            //***Check if the movie's genre is included in selectedGenres.
             const genreMatch = selectedGenres.length === 0 || selectedGenres.includes(movie.genre);
-            // Check if the movie's director is included in selectedDirectors
+            //***Check if the movie's director is included in selectedDirectors.
             const directorMatch = selectedDirectors.length === 0 || selectedDirectors.includes(movie.director);
-            // Check match for search title
-            const titleMatch = selectedTitle.length === 0 || selectedTitle.includes(movie.title);
-            // Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria
-            return genreMatch && directorMatch && titleMatch;
+            //***Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria.
+            return genreMatch && directorMatch;
         });
-        // Update the filteredMovies state with the filtered movies
-        setFilteredMovies(filtered);
-        console.log("film dans la liste" + filtered);
+        if (selectedGenres.length === 0 && selectedDirectors.length === 0) //***If no filters are applied, show the whole list of movies.
+        setFilteredMovies([]);
+        else //***If filters are applied, set the filtered movies or an empty array if no movies match.
+        setFilteredMovies(filtered.length > 0 ? filtered : []);
+        console.log("film dans la liste filtr\xe9e", filtered);
     }, [
         selectedGenres,
         selectedDirectors,
-        selectedTitle,
         movies
     ]);
     //***This function is used to update the list of favorite movies for the currently logged-in user. It takes two parameters: movieId (the ID of the movie to add or remove from favorites) and isFavorite (a boolean logic indicating whether the movie is being added or removed from favorites). Depending on the ''isFavorite'', the function adds or removes the movieId to/from the user's list of favorite movies using the setUser function, which updates the user state containning an array of the favorite movies.
@@ -27401,7 +27400,7 @@ const MainView = ()=>{
                 resetFilters: resetFilters
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 219,
+                lineNumber: 220,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27426,7 +27425,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 239,
+                            lineNumber: 240,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27452,7 +27451,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 255,
+                            lineNumber: 256,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27474,7 +27473,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 273,
+                            lineNumber: 274,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27494,7 +27493,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 289,
+                            lineNumber: 290,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27592,24 +27591,24 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 303,
+                            lineNumber: 304,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 237,
+                    lineNumber: 238,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 235,
+                lineNumber: 236,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 218,
+        lineNumber: 219,
         columnNumber: 9
     }, undefined));
 };
