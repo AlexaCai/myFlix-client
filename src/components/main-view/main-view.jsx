@@ -60,10 +60,6 @@ export const MainView = () => {
     };
 
 
-
-
-
-
     //***Logic to filter movies based on search bar.
     const [selectedTitle, setSelectedTitle] = useState([]);
     console.log(selectedTitle)
@@ -84,8 +80,10 @@ export const MainView = () => {
         }
     };
 
-
-
+    const handleClearSearch = () => {
+        setSelectedTitle(""); // Reset the selectedTitle state to an empty string
+        setSearchResults([]);
+    };
 
     //***Used to display each filtered movie on the UI (when filter parameter(s) is/are activated).
     const [filteredMovies, setFilteredMovies] = useState([]);
@@ -305,20 +303,22 @@ export const MainView = () => {
                         path="/"
                         element={
                             <>
-                                {/* Redirect to login page if user is not logged in */}
+                                {/* Redirect to login page if the user is not logged in */}
                                 {!user ? (
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <>
-                                        {/* Show the "Oh no." message when searchResults is empty */}
-                                        {searchResults.length === 0 ? (
+                                        {/* Show the "Oh no." message when searchResults is empty and a title is selected */}
+                                        {selectedTitle && searchResults.length === 0 ? (
                                             <div className="center-container">
                                                 <Row>
                                                     <Col>
                                                         <h1 className="textMargin">Oh no.</h1>
                                                         <br />
                                                         <p>It seems like no movies match your search.</p>
-                                                        {/* You can add more descriptive text here if needed */}
+                                                        <Button onClick={handleClearSearch}>
+                                                            Clear search
+                                                        </Button>
                                                     </Col>
                                                 </Row>
                                             </div>
@@ -326,12 +326,16 @@ export const MainView = () => {
                                             // Show the matched movie card when searchResults is not empty
                                             searchResults.map((movie) => (
                                                 <Col xs={12} md={6} lg="3" key={movie.id}>
+                                                    <Button onClick={handleClearSearch}>
+                                                        Clear search
+                                                    </Button>
                                                     <MovieCard movie={movie} />
                                                 </Col>
                                             ))
                                         )}
+
                                         {/* Show the "Clear Filters" button and message when no films match the filters */}
-                                        {filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && (
+                                        {!selectedTitle && filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && (
                                             <>
                                                 <div className="center-container">
                                                     <Row>
@@ -347,7 +351,7 @@ export const MainView = () => {
                                         )}
 
                                         {/* Show the "Clear Filters" button only when filteredMovies is not empty */}
-                                        {selectedGenres.length > 0 || selectedDirectors.length > 0 ? (
+                                        {!selectedTitle && (selectedGenres.length > 0 || selectedDirectors.length > 0) ? (
                                             <div className="clear-filters-button-container">
                                                 <Button variant="danger" onClick={resetFilters} className="clear-filters-button">
                                                     Clear Filters
@@ -355,27 +359,29 @@ export const MainView = () => {
                                             </div>
                                         ) : null}
 
-                                        {selectedGenres.length > 0 || selectedDirectors.length > 0 ? (
-                                            filteredMovies.map((movie) => (
-                                                <Col xs={12} md={6} lg="3" key={movie.id}>
-                                                    <MovieCard movie={movie} />
-                                                </Col>
-                                            ))
-                                        ) : (
-                                            // Show the original list of movies when there are no filters applied
-                                            originalMovies.map((movie) => (
-                                                <Col xs={12} md={6} lg="3" key={movie.id}>
-                                                    <MovieCard movie={movie} />
-                                                </Col>
-                                            ))
-                                        )}
+                                        {/* Show the matched movie card when filteredMovies is not empty and no search term */}
+                                        {!selectedTitle && filteredMovies.length > 0 && filteredMovies.map((movie) => (
+                                            <Col xs={12} md={6} lg="3" key={movie.id}>
+                                                <MovieCard movie={movie} />
+                                            </Col>
+                                        ))}
+
+                                        {/* Show the original list of movies when there are no filters applied and no search term */}
+                                        {!selectedTitle && selectedGenres.length === 0 && selectedDirectors.length === 0 && originalMovies.map((movie) => (
+                                            <Col xs={12} md={6} lg="3" key={movie.id}>
+                                                <MovieCard movie={movie} />
+                                            </Col>
+                                        ))}
                                     </>
                                 )}
                             </>
                         }
                     />
+
                 </Routes>
             </Row>
         </BrowserRouter>
     );
 };
+
+
