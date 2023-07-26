@@ -20,36 +20,35 @@ import './navigation-bar.scss';
 //***''const NavigationBar'' is functional component, ''NavigationBar'' being it's name. It is defined as an arrow function without two parameters, indicating it receives { user, onLoggedOut } props.
 export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, selectedDirectors, setSelectedDirectors, selectedTitle, setSelectedTitle, handleSearchSubmit, resetFilters }) => {
 
+  //***BOOTSTRAP filter modal popping up after clicking on the ''search movies'' button in the navigation bar.
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+  //***This code sets up a state variable currentPage to keep track of the current page value. This is used in this code to make sure the ''filter movies'' button and the search bar only appear when on the main-view (otherwise, its not shown).
   const [currentPage, setCurrentPage] = useState("");
   const handleNavigation = (page) => {
     setCurrentPage(page);
   };
 
+  //***This code ensures that the currentPage state is kept in sync with the current URL path by using the useLocation hook to get the current location information and the useEffect hook to update the state whenever the pathname changes. Also used in this code to make sure the ''filter movies'' button and the search bar only appear when on the main-view (otherwise, its not shown).
   const location = useLocation();
   useEffect(() => {
     setCurrentPage(location.pathname);
   }, [location.pathname]);
 
-  //***Filter modal popping up after clicking on the ''search movies'' button in the navigation bar.
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-
-
-
-
+  //***This const [inputValue, setInputValue] holds the value written by the user in the search bar. At first its empty, and then when the user type a movie title, the inputValue state is getting updated.
   const [inputValue, setInputValue] = useState('');
-
+  //***This code is used to receive the text entered in the search bar by the user, and updated the inputValue accordingly. 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
+  //***This code is activated when the user click on the submit button from the search bar. It passes the necessary information to main-view.jsx to perform the research in the movie lists in the main view UI.
   const handleSearchSubmitNav = (e) => {
     e.preventDefault();
     setSelectedTitle(inputValue);
     handleSearchSubmit(e)
   };
-
-
 
 
   //***''return'' includes all the elements that will be returned as the output on the UI when as user is logged in or not. 
@@ -92,10 +91,9 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 </>
               )}
             </Nav>
-
-            {/* Search movie button is separated from the navigation bar to put it on the very right of it */}
+            {/* Condition to make sure ''filter movies'' button and the search bar only show up in the navigation bar when the user is on home page ''/'' */}
             {user && currentPage === "/" && (
-              <div className="ms-auto d-flex align-items-center"> {/* Use ms-auto class to push the div to the right */}
+              <div className="ms-auto d-flex align-items-center">
 
                 <Button variant="success" onClick={() => setShow(true)}>
                   Filter movies
@@ -104,14 +102,17 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 <Form
                   inline
                   className="d-flex align-items-center"
-                  onSubmit={handleSearchSubmitNav} // Handle the form submission
+                  //***Handle the form submission
+                  onSubmit={handleSearchSubmitNav}
                 >
                   <Form.Control
                     type="text"
                     placeholder="Search"
                     className="mr-sm-2"
-                    value={inputValue} // Bind the value to the inputValue state
-                    onChange={handleInputChange} // Update the inputValue state when the user types in the input
+                    //***Bind the value to the inputValue state.
+                    value={inputValue}
+                    //***Update the inputValue state when the user types in the input
+                    onChange={handleInputChange}
                   />
                   <Button type="submit" variant="success">Submit</Button>
                 </Form>
@@ -122,6 +123,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
         </Container>
       </Navbar>
 
+      {/* Modal popping up when user click on ''filter movies'' and containing the filtering options */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Filter movies</Modal.Title>
@@ -147,8 +149,9 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                   </div>
                 ))}
               </Col>
+
+              {/* Render checkboxes for directors */}
               <Col xs={12} sm={7} md={7} lg={7} xl={7} xxl={8} >
-                {/* Render checkboxes for directors */}
                 <h5 className="filterTitle">Directors</h5>
                 {['Brad Bird', 'Bryan Buckley', 'Edward Zwick', 'Francis Ford Coppola', 'Hayao Miyazaki', 'Jonathan Demme', 'Ridley Scott', 'Steven Spielberg', 'Thomas Carter'].map((director) => (
                   <div key={director} className="mb-3">
@@ -168,12 +171,17 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
           </Form>
         </Modal.Body>
         <Modal.Footer>
+
+          {/* Button at the bottom of the modal */}
           <Button variant="outline-danger" onClick={resetFilters}>
             Clear Filters
           </Button>
+
+          {/* Button at the bottom of the modal */}
           <Button variant="success" onClick={handleClose}>
             Close
           </Button>
+
         </Modal.Footer>
       </Modal>
     </>

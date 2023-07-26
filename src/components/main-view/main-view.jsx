@@ -110,6 +110,7 @@ export const MainView = () => {
     const [searchResults, setSearchResults] = useState([]);
     console.log(JSON.stringify(searchResults, null, 2))
 
+    //***Logic called when user click on the submit button beside the search bar in the navigation bar.
     const handleSearchSubmit = (event) => {
         event.preventDefault();
 
@@ -147,7 +148,7 @@ export const MainView = () => {
         setSearchResults([]);
     };
 
-    //***Function to bring back the user to his list of filtered movie after the user maked a search that filtered list (used for the ''back to filtered movies'' button).
+    //***Function to allow user to set back the previous view when ''back'' button is clicked.
     const goBack = () => {
         setSelectedTitle("");
         setSearchResults([]);
@@ -180,7 +181,7 @@ export const MainView = () => {
     };
 
 
-    //***Logic to fetch necessary data (user and movies).
+    //***Logic to fetch necessary data (users and movies).
 
 
     //***This useEffect is responsible for fetching movie data from the server when there is a valid token available (when the user is authenticated and logged in). After fetching the movie data, it transforms the API response into a format that the application can use and updates the movies state accordingly. The effect is triggered whenever the token state changes.
@@ -353,7 +354,7 @@ export const MainView = () => {
                                     <Navigate to="/login" replace />
                                 ) : (
                                     <>
-                                        {/* Show the "Seems like no movies" message when searchResults is empty and a title is selected */}
+                                        {/* Logic to display revelant UI when a user make a search request without applying any filters on movies previoulsy */}
                                         {selectedGenres.length === 0 && selectedDirectors.length === 0 && selectedTitle && searchResults.length === 0 && (
                                             <div className="center-container">
                                                 <Row>
@@ -371,6 +372,8 @@ export const MainView = () => {
                                                 </Row>
                                             </div>
                                         )}
+
+                                        {/* Logic to display revelant UI when a user make a search request while having applied filters on movies previoulsy - and the searched movie is not found in the filtered list of movies */}
                                         {(selectedGenres.length > 0 || selectedDirectors.length > 0) && selectedTitle && searchResults.length === 0 && (
                                             <div className="center-container">
                                                 <Row>
@@ -387,7 +390,7 @@ export const MainView = () => {
                                                         <div className="buttonStylingContainerGroup1">
                                                             <Row>
                                                                 <Button variant="danger" className="buttonStylingGroup1" onClick={handleClearSearch}>
-                                                                    Clear filters/search
+                                                                    Clear filter(s)
                                                                 </Button>
                                                             </Row>
                                                             <Row>
@@ -400,17 +403,18 @@ export const MainView = () => {
                                                 </Row>
                                             </div>
                                         )}
-                                        {/* Show the matched movie card when searchResults is not empty (meaning a movie matching with the title researched in the search bar has been found). */}
+                                        
+                                        {/* Logic to display revelant UI when a user make a search request (while having applied filters on movies previoulsy or not) - and the searched movie is found */}
                                         {searchResults.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
                                                 <div className="buttonStylingContainerGroup2">
                                                     <Row>
                                                         <Button variant="danger" className="buttonStylingGroup2" onClick={handleClearSearch}>
-                                                            Clear filters/search
+                                                            Clear search
                                                         </Button>
                                                     </Row>
                                                     <Row>
-                                                        <Button variant="success" onClick={goBack} className="buttonStylingGroup2">
+                                                        <Button variant="success" onClick={goBack}>
                                                             Back
                                                         </Button>
                                                     </Row>
@@ -419,7 +423,7 @@ export const MainView = () => {
                                             </Col>
                                         ))}
 
-                                        {/* Show the message when no films match the filters */}
+                                        {/* Logic to display revelant UI when a user apply filters that doesnt match with any movies */}
                                         {!selectedTitle && filteredMovies.length === 0 && selectedGenres.length > 0 && selectedDirectors.length > 0 && (
                                             <>
                                                 <div className="center-container">
@@ -435,7 +439,7 @@ export const MainView = () => {
                                             </>
                                         )}
 
-                                        {/* Show the "Clear Filters" button only when there's no value written in the search bar, and when there's at least one filter applied */}
+                                        {/* Show the "Clear Filters" button only when there's no value written in the search bar, and when there's at least one filter applied - Button used for different views */}
                                         {!selectedTitle && (selectedGenres.length > 0 || selectedDirectors.length > 0) ? (
                                             <div className="clear-filters-button-container">
                                                 <Button variant="danger" onClick={resetFilters} className="clear-filters-button">
@@ -444,14 +448,14 @@ export const MainView = () => {
                                             </div>
                                         ) : null}
 
-                                        {/* Show the matched movie card when filteredMovies is not empty (meaning a movie(s) corresponding to the filter(s) exist) and there is no search element in the search bar */}
+                                        {/* Logic to display revelant UI when a user apply filters that doest match with some movies (matching movies are then shown) */}
                                         {!selectedTitle && filteredMovies.length > 0 && filteredMovies.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
                                                 <MovieCard movie={movie} />
                                             </Col>
                                         ))}
 
-                                        {/* Show the original list of movies when there are no filters applied and no search element in the search bar */}
+                                        {/* Logic to show the original list of movies when there are no filters applied and no search element request from the search bar */}
                                         {!selectedTitle && selectedGenres.length === 0 && selectedDirectors.length === 0 && originalMovies.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
                                                 <MovieCard movie={movie} />
