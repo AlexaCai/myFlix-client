@@ -27541,14 +27541,19 @@ const MainView = ()=>{
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                                     children: [
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                                             className: "textMargin",
-                                                            children: "Oh."
-                                                        }, void 0, false, void 0, void 0),
+                                                            children: [
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                                                                    children: "Oh."
+                                                                }, void 0, false, void 0, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                                    children: "It seems like no movies match your search."
+                                                                }, void 0, false, void 0, void 0)
+                                                            ]
+                                                        }, void 0, true, void 0, void 0),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                            children: "It seems like no movies match your search."
-                                                        }, void 0, false, void 0, void 0),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
                                                             variant: "danger",
                                                             onClick: handleClearSearch,
@@ -27563,17 +27568,21 @@ const MainView = ()=>{
                                             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
                                                     children: [
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                                             className: "textMargin",
-                                                            children: "Oh."
-                                                        }, void 0, false, void 0, void 0),
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
-                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                                             children: [
-                                                                "It looks like there are no movies matching your search within your filtered movie list.",
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                                                                    children: "Oh."
+                                                                }, void 0, false, void 0, void 0),
                                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
-                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
-                                                                "Try searching for your movie without applying filters, as you'll search in a wider list of movies."
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                                    children: [
+                                                                        "It looks like there are no movies matching your search within your filtered movie list.",
+                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
+                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
+                                                                        "Try searching for your movie without applying filters, as you'll search in a wider list of movies."
+                                                                    ]
+                                                                }, void 0, true, void 0, void 0)
                                                             ]
                                                         }, void 0, true, void 0, void 0),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
@@ -27593,7 +27602,7 @@ const MainView = ()=>{
                                                                         variant: "success",
                                                                         onClick: goBack,
                                                                         className: "buttonStylingGroup1",
-                                                                        children: "Back to filtered movies"
+                                                                        children: "Back"
                                                                     }, void 0, false, void 0, void 0)
                                                                 }, void 0, false, void 0, void 0)
                                                             ]
@@ -27608,7 +27617,7 @@ const MainView = ()=>{
                                                 lg: "3",
                                                 children: [
                                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                                        className: "buttonStylingGroup2",
+                                                        className: "buttonStylingContainerGroup2",
                                                         children: [
                                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
                                                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -27623,7 +27632,7 @@ const MainView = ()=>{
                                                                     variant: "success",
                                                                     onClick: goBack,
                                                                     className: "buttonStylingGroup2",
-                                                                    children: "Back to filtered movies"
+                                                                    children: "Back"
                                                                 }, void 0, false, void 0, void 0)
                                                             }, void 0, false, void 0, void 0)
                                                         ]

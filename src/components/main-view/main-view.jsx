@@ -358,9 +358,12 @@ export const MainView = () => {
                                             <div className="center-container">
                                                 <Row>
                                                     <Col>
-                                                        <h1 className="textMargin">Oh.</h1>
+                                                        <div className="textMargin">
+                                                            <h1>Oh.</h1>
+                                                            <br />
+                                                            <p>It seems like no movies match your search.</p>
+                                                        </div>
                                                         <br />
-                                                        <p>It seems like no movies match your search.</p>
                                                         <Button variant="danger" onClick={handleClearSearch}>
                                                             Clear search
                                                         </Button>
@@ -372,12 +375,14 @@ export const MainView = () => {
                                             <div className="center-container">
                                                 <Row>
                                                     <Col>
-                                                        <h1 className="textMargin">Oh.</h1>
-                                                        <br />
-                                                        <p>It looks like there are no movies matching your search within your filtered movie list.
+                                                        <div className="textMargin">
+                                                            <h1>Oh.</h1>
                                                             <br />
-                                                            <br />
-                                                            Try searching for your movie without applying filters, as you'll search in a wider list of movies.</p>
+                                                            <p>It looks like there are no movies matching your search within your filtered movie list.
+                                                                <br />
+                                                                <br />
+                                                                Try searching for your movie without applying filters, as you'll search in a wider list of movies.</p>
+                                                        </div>
                                                         <br />
                                                         <div className="buttonStylingContainerGroup1">
                                                             <Row>
@@ -387,7 +392,7 @@ export const MainView = () => {
                                                             </Row>
                                                             <Row>
                                                                 <Button variant="success" onClick={goBack} className="buttonStylingGroup1">
-                                                                    Back to filtered movies
+                                                                    Back
                                                                 </Button>
                                                             </Row>
                                                         </div>
@@ -398,7 +403,7 @@ export const MainView = () => {
                                         {/* Show the matched movie card when searchResults is not empty (meaning a movie matching with the title researched in the search bar has been found). */}
                                         {searchResults.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
-                                                <div className="buttonStylingGroup2">
+                                                <div className="buttonStylingContainerGroup2">
                                                     <Row>
                                                         <Button variant="danger" className="buttonStylingGroup2" onClick={handleClearSearch}>
                                                             Clear filters/search
@@ -406,7 +411,7 @@ export const MainView = () => {
                                                     </Row>
                                                     <Row>
                                                         <Button variant="success" onClick={goBack} className="buttonStylingGroup2">
-                                                            Back to filtered movies
+                                                            Back
                                                         </Button>
                                                     </Row>
                                                 </div>
