@@ -85,6 +85,7 @@ export const MainView = () => {
         setSearchResults([]);
     };
 
+
     //***Used to display each filtered movie on the UI (when filter parameter(s) is/are activated).
     const [filteredMovies, setFilteredMovies] = useState([]);
     //***Used to save the first list of all movie fetched, so it can be re-used when user clear filter to show back again the whole list of movie (instead of fetching again the data from the API after).
