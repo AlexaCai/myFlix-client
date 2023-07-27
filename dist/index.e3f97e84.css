@@ -106,6 +106,17 @@
   text-decoration: underline;
 }
 
+.NavBarButtonAndSearch {
+  margin-left: 10px;
+}
+
+@media (width <= 991.98px) {
+  .NavBarButtonAndSearch {
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+}
+
 .styling-position {
   text-align: center;
   margin-bottom: 20px;

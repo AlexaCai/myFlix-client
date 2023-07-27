@@ -96,14 +96,9 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
             {/* Condition to make sure ''filter movies'' button and the search bar only show up in the navigation bar when the user is on home page ''/'' */}
             {user && currentPage === "/" && (
               <div className="ms-auto d-flex align-items-center">
-
-                <Button variant="success" onClick={() => setShow(true)}>
-                  Filter movies
-                </Button>
-
                 <Form
                   inline
-                  className="d-flex align-items-center"
+                  className="NavBarButtonAndSearch"
                   //***Handle the form submission
                   onSubmit={handleSearchSubmitNav}
                 >
@@ -116,10 +111,19 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                     //***Update the inputValue state when the user types in the input
                     onChange={handleInputChange}
                   />
-                  <Button type="submit" variant="success">Submit</Button>
                 </Form>
               </div>
             )}
+            <div>
+              <Button type="submit" variant="success" className="NavBarButtonAndSearch">
+                Search
+              </Button>
+            </div>
+            <div>
+              <Button variant="success" className="NavBarButtonAndSearch" onClick={() => setShow(true)}>
+                Filter movies
+              </Button>
+            </div>
 
           </Navbar.Collapse>
         </Container>
