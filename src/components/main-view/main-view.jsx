@@ -113,32 +113,34 @@ export const MainView = () => {
     //***Logic called when user click on the submit button beside the search bar in the navigation bar.
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-
-        //***Determine which array to search in based on whether filters are applied or not (if no filters, search inside the whole list of movie, if filters, search inside the list of filtered movie).
+        //***Convert the selectedTitle to lowercase for case-insensitive search.
+        const lowerCaseSelectedTitle = selectedTitle.toLowerCase();
+        // Determine which array to search in based on whether filters are applied or not
         const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
-
-        //***Perform the search logic based on the selectedTitle in the search bar.
-        const searchResult = searchArray.find((movie) => movie.title === selectedTitle);
-
+        // Perform the search logic based on the selectedTitle in the search bar (using lowercase comparison)
+        const searchResult = searchArray.find((movie) => movie.title.toLowerCase() === lowerCaseSelectedTitle);
         if (searchResult) {
             setSearchResults([searchResult]);
         } else {
             setSearchResults([]);
         }
     };
-
+    
     //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
     useEffect(() => {
+        //***Convert the selectedTitle to lowercase for case-insensitive search.
+        const lowerCaseSelectedTitle = selectedTitle.toLowerCase();
+        //***Determine which array to search is to be based on whether filters are applied or not.
         const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
-        const searchResult = searchArray.find((movie) => movie.title === selectedTitle);
-
+        //***Perform the search logic based on the selectedTitle in the search bar (using lowercase for none sensitive comparaison).
+        const searchResult = searchArray.find((movie) => movie.title.toLowerCase() === lowerCaseSelectedTitle);
         if (searchResult) {
             setSearchResults([searchResult]);
         } else {
             setSearchResults([]);
         }
-    }, [selectedTitle, selectedGenres, selectedDirectors, movies, filteredMovies]);
-
+    }, [selectedTitle]);
+    
     //***Function the set everything back as their initial value (used for the ''clear search'' button).
     const handleClearSearch = () => {
         setSelectedGenres([]);
