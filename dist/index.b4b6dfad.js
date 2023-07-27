@@ -48371,7 +48371,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                 }, undefined),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Nav).Link, {
                                                     onClick: ()=>{
-                                                        onLoggedOut(); // Call the first function
+                                                        onLoggedOut();
                                                         resetFilters();
                                                     },
                                                     children: "Log out"
@@ -48407,7 +48407,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                             onChange: handleInputChange
                                                         }, void 0, false, {
                                                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                            lineNumber: 102,
+                                                            lineNumber: 103,
                                                             columnNumber: 23
                                                         }, undefined),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -48417,18 +48417,18 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                             children: "Search"
                                                         }, void 0, false, {
                                                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                            lineNumber: 109,
+                                                            lineNumber: 110,
                                                             columnNumber: 23
                                                         }, undefined)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 101,
+                                                    lineNumber: 102,
                                                     columnNumber: 21
                                                 }, undefined)
                                             }, void 0, false, {
                                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 100,
+                                                lineNumber: 101,
                                                 columnNumber: 19
                                             }, undefined),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -48440,23 +48440,23 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                     children: "Filter movies"
                                                 }, void 0, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 115,
+                                                    lineNumber: 116,
                                                     columnNumber: 21
                                                 }, undefined)
                                             }, void 0, false, {
                                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 114,
+                                                lineNumber: 115,
                                                 columnNumber: 19
                                             }, undefined)
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 99,
+                                        lineNumber: 100,
                                         columnNumber: 17
                                     }, undefined)
                                 }, void 0, false, {
                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                    lineNumber: 98,
+                                    lineNumber: 99,
                                     columnNumber: 15
                                 }, undefined)
                             ]
@@ -48486,12 +48486,12 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                             children: "Filter movies"
                         }, void 0, false, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 129,
+                            lineNumber: 131,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 128,
+                        lineNumber: 130,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Body, {
@@ -48512,7 +48512,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                 children: "Genres"
                                             }, void 0, false, {
                                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 137,
+                                                lineNumber: 139,
                                                 columnNumber: 17
                                             }, undefined),
                                             [
@@ -48535,18 +48535,18 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                         checked: selectedGenres.includes(genre)
                                                     }, void 0, false, {
                                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                        lineNumber: 140,
+                                                        lineNumber: 142,
                                                         columnNumber: 21
                                                     }, undefined)
                                                 }, genre, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 139,
+                                                    lineNumber: 141,
                                                     columnNumber: 19
                                                 }, undefined))
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 136,
+                                        lineNumber: 138,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Col), {
@@ -48562,7 +48562,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                 children: "Directors"
                                             }, void 0, false, {
                                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                lineNumber: 155,
+                                                lineNumber: 157,
                                                 columnNumber: 17
                                             }, undefined),
                                             [
@@ -48587,34 +48587,34 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                                         checked: selectedDirectors.includes(director)
                                                     }, void 0, false, {
                                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                        lineNumber: 158,
+                                                        lineNumber: 160,
                                                         columnNumber: 21
                                                     }, undefined)
                                                 }, director, false, {
                                                     fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                                    lineNumber: 157,
+                                                    lineNumber: 159,
                                                     columnNumber: 19
                                                 }, undefined))
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                        lineNumber: 154,
+                                        lineNumber: 156,
                                         columnNumber: 15
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                lineNumber: 135,
+                                lineNumber: 137,
                                 columnNumber: 13
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                            lineNumber: 133,
+                            lineNumber: 135,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 131,
+                        lineNumber: 133,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Modal).Footer, {
@@ -48625,7 +48625,7 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                 children: "Clear Filters"
                             }, void 0, false, {
                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                lineNumber: 176,
+                                lineNumber: 178,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Button), {
@@ -48634,19 +48634,19 @@ const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGenres, s
                                 children: "Close"
                             }, void 0, false, {
                                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                                lineNumber: 181,
+                                lineNumber: 183,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                        lineNumber: 173,
+                        lineNumber: 175,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/navigation-bar/navigation-bar.jsx",
-                lineNumber: 127,
+                lineNumber: 129,
                 columnNumber: 7
             }, undefined)
         ]

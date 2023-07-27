@@ -85,7 +85,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                     Profile
                   </Nav.Link>
                   <Nav.Link onClick={() => {
-                    onLoggedOut(); // Call the first function
+                    onLoggedOut();
                     resetFilters();
                   }}>
                     Log out
@@ -93,6 +93,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 </>
               )}
             </Nav>
+
             {/* Condition to make sure ''filter movies'' button and the search bar only show up in the navigation bar when the user is on home page ''/'' */}
             {user && currentPage === "/" && (
               <div>
@@ -119,6 +120,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 </div>
               </div>
             )}
+            
           </Navbar.Collapse>
         </Container>
       </Navbar>

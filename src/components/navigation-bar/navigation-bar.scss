@@ -23,13 +23,13 @@
 
 @media (min-width: 992px) {
     .NavBarButtonAndSearch {
-        display: flex; // Use Flexbox to arrange children horizontally
-        align-items: center; // Center items vertically within the container if needed
+        display: flex; 
+        align-items: center; 
     }
 
     .NavBarInput {
-        flex: 1; // The search input will take up all available space in the flex container
-        margin-right: 10px; // Adjust the margin as needed
+        flex: 1; 
+        margin-right: 10px; 
     }
 
     .SearchBarAndFilterWrapper {
