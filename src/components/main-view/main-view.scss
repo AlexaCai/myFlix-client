@@ -1,0 +1,50 @@
+.clear-filters-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.clear-filters-button {
+    margin-top: 20px;
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 65px;
+}
+
+.textMargin {
+    margin-top: 30px;
+}
+
+.clearSearchButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.buttonStylingContainerGroup1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonStylingGroup1 {
+    margin-bottom: 20px;
+}
+
+.buttonStylingContainerGroup2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.buttonStylingGroup2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

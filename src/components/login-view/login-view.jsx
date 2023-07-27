@@ -47,8 +47,6 @@ export const LoginView = ({ onLoggedIn }) => {
             .then((response) => response.json())
             //***.then () is a promise that is chained to the previous .then(). It takes the received parsed JSON data as an argument (data) and performs the actions below on it.
             .then((data) => {
-                //***Logs the ''Login response'' message along with the data received from the server request.
-                console.log("Login response: ", data);
                 //***''if (data.user)'' checks if the data object received from the API response (now in JSON format) has a truthy user property or not, and then performed actions accordingly.
                 if (data.user) {
                     //***If data.user exists, it means the user object exists, so it is stored in the browser's localStorage. The localStorage is a web API that allows data to be stored in the browser's local storage area. There, the user object is transformed to a JSON string using JSON.stringify() and then stored with the key ''user'' in the localStorage.

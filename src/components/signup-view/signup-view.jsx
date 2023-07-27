@@ -59,23 +59,23 @@ export const SignupView = () => {
         //***Logic depending on the result of the request : successful, username or email already exsit, or error. When the answer is successful or when the username or the email is already used, a modal pops up to inform the user. If any error, a default alert pops up letting the user know there was a problem with his Sign up.
             .then((response) => {
                 if (response.ok) {
-                    setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page");
+                    setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page.");
                     setIsSignupSuccessful(true);
                 } else if (response.status === 409) {
                     response.text().then((text) => {
                         setResponseMessage(text);
                     }).catch((error) => {
                         console.error("Error reading response data:", error);
-                        setResponseMessage("Signup failed");
+                        setResponseMessage("Signup failed.");
                     });
                 } else {
-                    setResponseMessage("Signup failed");
+                    setResponseMessage("Signup failed. Please make sure your information meets the requirements for each field. Refer to the instructions under each input field.");
                 }
                 setShowModal(true);
             })
             .catch((error) => {
                 console.error("Error signing up user:", error);
-                setResponseMessage("Signup failed");
+                setResponseMessage("Signup failed.");
                 setShowModal(true);
             });
     };

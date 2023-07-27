@@ -18,6 +18,10 @@ import './profile-view.scss';
 //***''const ProfileView'' is functional component, ''ProfileView'' being it's name. It is defined as an arrow function with four parameters, indicating it receives four props.
 export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
 
+
+    //***Variables and secondary function for the UPDATE user command.
+
+
     //***For the USER UPDATE form - use to initiate all the fields of the form to empty at first.
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -40,10 +44,18 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
         setResponseMessage("");
     };
 
+
+    //***Variable and functions for the DELETE user command.
+
+
     //***BOOTSTRAP elements for DELETE user modal (after a user click the delete button).
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const handleDeleteCloseModal = () => setShowDeleteModal(false);
     const handleShowDeleteModal = () => setShowDeleteModal(true);
+
+
+    //***Variables and functions for the FAVORITE LIST command.
+
 
     //***Elements for favorite movies list.
     //***user.FavoriteMovies is an array that contains the IDs of the movies that the user has marked as favorites. Each element in this array represents a movie ID. The .map() method is used to iterate over each element (movie ID) in the user.FavoriteMovies array and create a new array.
@@ -56,6 +68,9 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
     const handleCloseRemoveFavoriteModal = () => setShowRemoveFavoriteModal(false);
     const handleShowRemoveFavoriteModal = () => setShowRemoveFavoriteModal(true);
     const [selectedMovieId, setSelectedMovieId] = useState(null);
+
+
+    //***Main logics for UPDATE user, DELETE user and FAVORITE MOVIE.
 
 
     //***Logic to allow the user to update his information.

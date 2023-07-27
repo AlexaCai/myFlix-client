@@ -13,6 +13,7 @@ import './movie-card.scss'; // Import the SCSS file
 //***''const MoveCard'' is functional component, ''MovieCard'' being it's name. It is defined as an arrow function with one parameter, indicating it receives { movie } props.
 export const MovieCard = ({ movie }) => {
 
+  
   //***''return'' includes all the elements that will be returned as the output on the UI of the main view page (MainView component). 
   //***These elements are designed using React Bootstrap.
   return (
@@ -21,9 +22,9 @@ export const MovieCard = ({ movie }) => {
       <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
         <Card.Img variant="top" src={movie.image} />
       </Link>
-      <Card.Body className="card-body-wrapper"> {/* Use the CSS class */}
-        <Card.Title>{movie.title}</Card.Title> {/* Use the CSS class */}
-        <Card.Text>{movie.genre}</Card.Text> {/* Use the CSS class */}
+      <Card.Body className="card-body-wrapper"> 
+        <Card.Title>{movie.title}</Card.Title> 
+        <Card.Text>{movie.genre}</Card.Text> 
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
           <Button variant="link">See details</Button>
         </Link>

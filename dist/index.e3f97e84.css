@@ -96,6 +96,76 @@
   font-size: 20px;
 }
 
+.center-content {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.filterTitle {
+  text-decoration: underline;
+}
+
+@media (width >= 992px) {
+  .NavBarButtonAndSearch {
+    align-items: center;
+    display: flex;
+  }
+
+  .SearchBarAndFilterWrapper {
+    align-items: center;
+    display: flex;
+  }
+
+  .NavBarInput {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .FilterMoviesButton {
+    margin-left: 10px;
+  }
+}
+
+@media (width <= 991.99px) {
+  .NavBarButtonAndSearch {
+    width: 35%;
+    margin-bottom: 10px;
+  }
+
+  .searchButton {
+    margin-top: 10px;
+  }
+
+  .FilterMoviesButton {
+    width: 20%;
+  }
+}
+
+@media (width <= 767px) {
+  .FilterMoviesButton {
+    width: 30%;
+  }
+}
+
+@media (width <= 432px) {
+  .FilterMoviesButton {
+    width: 35%;
+  }
+}
+
+@media (width <= 376px) {
+  .FilterMoviesButton {
+    width: 45%;
+  }
+}
+
+@media (width <= 303px) {
+  .FilterMoviesButton {
+    width: 50%;
+  }
+}
+
 .styling-position {
   text-align: center;
   margin-bottom: 20px;
@@ -153,6 +223,57 @@
     border-bottom: 1px solid #000;
     border-left: none;
   }
+}
+
+.clear-filters-button-container {
+  justify-content: center;
+  display: flex;
+}
+
+.clear-filters-button {
+  margin-top: 20px;
+}
+
+.center-container {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 65px;
+  display: flex;
+}
+
+.textMargin {
+  margin-top: 30px;
+}
+
+.clearSearchButton {
+  justify-content: center;
+  margin-top: 30px;
+  display: flex;
+}
+
+.buttonStylingContainerGroup1 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.buttonStylingGroup1 {
+  margin-bottom: 20px;
+}
+
+.buttonStylingContainerGroup2 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  display: flex;
+}
+
+.buttonStylingGroup2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 :root, [data-bs-theme="light"] {
