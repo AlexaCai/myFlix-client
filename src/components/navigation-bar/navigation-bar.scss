@@ -15,22 +15,74 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-  }
+}
 
-  .filterTitle {
+.filterTitle {
     text-decoration: underline;
 }
 
-.NavBarButtonAndSearch {
-    margin-left: 10px;
-  }
-
-@media (max-width: 991.98px) {
+@media (min-width: 992px) {
     .NavBarButtonAndSearch {
-      margin-bottom: 10px;
-      margin-left: 0px;
+        display: flex; // Use Flexbox to arrange children horizontally
+        align-items: center; // Center items vertically within the container if needed
     }
-  }
 
+    .NavBarInput {
+        flex: 1; // The search input will take up all available space in the flex container
+        margin-right: 10px; // Adjust the margin as needed
+    }
 
-  
+    .SearchBarAndFilterWrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .NavBarInput {
+        flex: 1;
+        margin-right: 10px;
+    }
+
+    .FilterMoviesButton {
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 991.99px) {
+    .NavBarButtonAndSearch {
+        margin-bottom: 10px;
+        width: 35%;
+    }
+
+    .searchButton {
+        margin-top: 10px;
+    }
+
+    .FilterMoviesButton {
+        width: 20%;
+    }
+}
+
+@media (max-width: 767px) {
+    .FilterMoviesButton {
+        width: 30%;
+    }
+}
+
+@media (max-width: 432px) {
+    .FilterMoviesButton {
+        width: 35%;
+    }
+}
+
+@media (max-width: 376px) {
+    .FilterMoviesButton {
+        width: 45%;
+    }
+}
+
+@media (max-width: 303px) {
+    .FilterMoviesButton {
+        width: 50%;
+    }
+}
+

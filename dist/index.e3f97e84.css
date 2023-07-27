@@ -106,14 +106,63 @@
   text-decoration: underline;
 }
 
-.NavBarButtonAndSearch {
-  margin-left: 10px;
+@media (width >= 992px) {
+  .NavBarButtonAndSearch {
+    align-items: center;
+    display: flex;
+  }
+
+  .SearchBarAndFilterWrapper {
+    align-items: center;
+    display: flex;
+  }
+
+  .NavBarInput {
+    flex: 1;
+    margin-right: 10px;
+  }
+
+  .FilterMoviesButton {
+    margin-left: 10px;
+  }
 }
 
-@media (width <= 991.98px) {
+@media (width <= 991.99px) {
   .NavBarButtonAndSearch {
+    width: 35%;
     margin-bottom: 10px;
-    margin-left: 0;
+  }
+
+  .searchButton {
+    margin-top: 10px;
+  }
+
+  .FilterMoviesButton {
+    width: 20%;
+  }
+}
+
+@media (width <= 767px) {
+  .FilterMoviesButton {
+    width: 30%;
+  }
+}
+
+@media (width <= 432px) {
+  .FilterMoviesButton {
+    width: 35%;
+  }
+}
+
+@media (width <= 376px) {
+  .FilterMoviesButton {
+    width: 45%;
+  }
+}
+
+@media (width <= 303px) {
+  .FilterMoviesButton {
+    width: 50%;
   }
 }
 

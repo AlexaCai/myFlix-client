@@ -95,36 +95,30 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
             </Nav>
             {/* Condition to make sure ''filter movies'' button and the search bar only show up in the navigation bar when the user is on home page ''/'' */}
             {user && currentPage === "/" && (
-              <div className="ms-auto d-flex align-items-center">
-                <Form
-                  inline
-                  className="NavBarButtonAndSearch"
-                  //***Handle the form submission
-                  onSubmit={handleSearchSubmitNav}
-                >
-                  <Form.Control
-                    type="text"
-                    placeholder="Search"
-                    className="mr-sm-2"
-                    //***Bind the value to the inputValue state.
-                    value={inputValue}
-                    //***Update the inputValue state when the user types in the input
-                    onChange={handleInputChange}
-                  />
-                </Form>
+              <div>
+                <div className="SearchBarAndFilterWrapper">
+                  <div className="SearchBarWrapper">
+                    <Form inline onSubmit={handleSearchSubmitNav} className="NavBarButtonAndSearch">
+                      <Form.Control
+                        type="text"
+                        placeholder="Search movie"
+                        className="mr-sm-2 NavBarInput"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                      />
+                      <Button type="submit" variant="success" className="searchButton">
+                        Search
+                      </Button>
+                    </Form>
+                  </div>
+                  <div className="FilterButtonWrapper">
+                    <Button variant="success" className="NavBarButtonAndSearch FilterMoviesButton" onClick={() => setShow(true)}>
+                      Filter movies
+                    </Button>
+                  </div>
+                </div>
               </div>
             )}
-            <div>
-              <Button type="submit" variant="success" className="NavBarButtonAndSearch">
-                Search
-              </Button>
-            </div>
-            <div>
-              <Button variant="success" className="NavBarButtonAndSearch" onClick={() => setShow(true)}>
-                Filter movies
-              </Button>
-            </div>
-
           </Navbar.Collapse>
         </Container>
       </Navbar>
