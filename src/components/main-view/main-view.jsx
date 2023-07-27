@@ -42,7 +42,6 @@ export const MainView = () => {
 
     //***Logic to filter movies based on genre.
     const [selectedGenres, setSelectedGenres] = useState([]);
-    console.log(selectedGenres)
     const handleGenreChange = (genre) => {
         setSelectedGenres((prevGenres) =>
             prevGenres.includes(genre)
@@ -53,7 +52,6 @@ export const MainView = () => {
 
     //***Logic to filter movies based on directors.
     const [selectedDirectors, setSelectedDirectors] = useState([]);
-    console.log(selectedDirectors)
     const handleDirectorChange = (director) => {
         setSelectedDirectors((prevDirectors) =>
             prevDirectors.includes(director)
@@ -73,10 +71,8 @@ export const MainView = () => {
         const filtered = movies.filter((movie) => {
             //***Check if a movie's genre is included in selectedGenres.
             const genreMatch = selectedGenres.length === 0 || selectedGenres.includes(movie.genre);
-
             //***Check if a movie's director is included in selectedDirectors.
             const directorMatch = selectedDirectors.length === 0 || selectedDirectors.includes(movie.director);
-
             //***Return true if both genreMatch and directorMatch are true, meaning the movie matches the selected criteria.
             return genreMatch && directorMatch;
         });
@@ -96,7 +92,6 @@ export const MainView = () => {
         setFilteredMovies([]);
         setSelectedTitle("");
         setSearchResults([]);
-        console.log('Original movies', originalMovies);
     };
 
 
@@ -105,19 +100,17 @@ export const MainView = () => {
 
     //***const [selectedTitle, setSelectedTitle] holds the text (title) written by the user in the search bar.
     const [selectedTitle, setSelectedTitle] = useState('');
-    console.log(selectedTitle)
     //***const [searchResults, setSearchResults] holds the movie matched with the title researched by the user if the search bar. If the user type an existing movie title, searchResult variable will take the value of this matching movie. If the user type an non-existing movie title, searchResult variable will stay as an empty array (no movie).
     const [searchResults, setSearchResults] = useState([]);
-    console.log(JSON.stringify(searchResults, null, 2))
 
     //***Logic called when user click on the submit button beside the search bar in the navigation bar.
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-        //***Convert the selectedTitle to lowercase for case-insensitive search.
+        //***Convert the selectedTitle to lowercase for not sensitive case search.
         const lowerCaseSelectedTitle = selectedTitle.toLowerCase();
-        // Determine which array to search in based on whether filters are applied or not
+        //***Determine which array to search in based on whether filters are applied or not.
         const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
-        // Perform the search logic based on the selectedTitle in the search bar (using lowercase comparison)
+        //***Perform the search logic based on the selectedTitle in the search bar (using lowercase for none sensitive case comparaison).
         const searchResult = searchArray.find((movie) => movie.title.toLowerCase() === lowerCaseSelectedTitle);
         if (searchResult) {
             setSearchResults([searchResult]);
@@ -128,11 +121,11 @@ export const MainView = () => {
     
     //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
     useEffect(() => {
-        //***Convert the selectedTitle to lowercase for case-insensitive search.
+        //***Convert the selectedTitle to lowercase for not sensitive case search.
         const lowerCaseSelectedTitle = selectedTitle.toLowerCase();
         //***Determine which array to search is to be based on whether filters are applied or not.
         const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
-        //***Perform the search logic based on the selectedTitle in the search bar (using lowercase for none sensitive comparaison).
+        //***Perform the search logic based on the selectedTitle in the search bar (using lowercase for none sensitive case comparaison).
         const searchResult = searchArray.find((movie) => movie.title.toLowerCase() === lowerCaseSelectedTitle);
         if (searchResult) {
             setSearchResults([searchResult]);
@@ -154,7 +147,6 @@ export const MainView = () => {
     const goBack = () => {
         setSelectedTitle("");
         setSearchResults([]);
-        console.log('Original movies', originalMovies);
     };
 
 
@@ -202,7 +194,6 @@ export const MainView = () => {
                 .then((response) => response.json())
                 //***After parsing to JSON the response data, the data received from the API is processed.
                 .then((data) => {
-                    console.log(data);
                     setOriginalMovies(data); // Save the original movie data
                     //***This maps over the data received from the API and transforms each movie object into a new object with selected properties (id, image, title, description, genre, genreDescription, director, directorBio, directorBirth).
                     const moviesFromApi = data.map((movie) => {
@@ -218,7 +209,6 @@ export const MainView = () => {
                             directorBirth: movie.Director.Birth
                         };
                     });
-                    console.log(moviesFromApi);
                     //***Updates the movies state from ''const [movies, setMovies] = useState([]);'' with the transformed movie data obtained from the API.
                     setMovies(moviesFromApi);
                     setOriginalMovies(moviesFromApi); // Update 'originalMovies' state with fetched data

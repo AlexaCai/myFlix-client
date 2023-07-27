@@ -93,7 +93,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 </>
               )}
             </Nav>
-            {/* Condition to make sure ''filter movies'' button and the search bar only show up in the navigation bar when the user is on home page ''/'' */}
+            {/* Condition to make sure the ''filter movies'' button and the search bar only show up in the navigation bar when the user is on home page ''/'' */}
             {user && currentPage === "/" && (
               <div>
                 <div className="SearchBarAndFilterWrapper">
@@ -123,7 +123,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
         </Container>
       </Navbar>
 
-      {/* Modal popping up when user click on ''filter movies'' and containing the filtering options */}
+      {/* Modal popping up when user click on ''filter movies'' button - it contains the filtering options */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Filter movies</Modal.Title>
