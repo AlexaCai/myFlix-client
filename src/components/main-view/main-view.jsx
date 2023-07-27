@@ -407,6 +407,7 @@ export const MainView = () => {
                                         {/* Logic to display revelant UI when a user make a search request (while having applied filters on movies previoulsy or not) - and the searched movie is found */}
                                         {searchResults.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
+                                                 <MovieCard movie={movie} />
                                                 <div className="buttonStylingContainerGroup2">
                                                     <Row>
                                                         <Button variant="danger" className="buttonStylingGroup2" onClick={handleClearSearch}>
@@ -414,12 +415,11 @@ export const MainView = () => {
                                                         </Button>
                                                     </Row>
                                                     <Row>
-                                                        <Button variant="success" onClick={goBack}>
+                                                        <Button variant="success" className="buttonStylingGroup2" onClick={goBack}>
                                                             Back
                                                         </Button>
                                                     </Row>
                                                 </div>
-                                                <MovieCard movie={movie} />
                                             </Col>
                                         ))}
 

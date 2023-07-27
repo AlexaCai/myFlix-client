@@ -93,7 +93,6 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 </>
               )}
             </Nav>
-
             {/* Condition to make sure ''filter movies'' button and the search bar only show up in the navigation bar when the user is on home page ''/'' */}
             {user && currentPage === "/" && (
               <div>
@@ -120,7 +119,6 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                 </div>
               </div>
             )}
-            
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -175,8 +173,8 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
         <Modal.Footer>
 
           {/* Button at the bottom of the modal */}
-          <Button variant="outline-danger" onClick={resetFilters}>
-            Clear Filters
+          <Button variant="danger" onClick={resetFilters}>
+            Clear filter(s)
           </Button>
 
           {/* Button at the bottom of the modal */}
