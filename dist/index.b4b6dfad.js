@@ -27290,10 +27290,12 @@ const MainView = ()=>{
     //***Logic called when user click on the submit button beside the search bar in the navigation bar.
     const handleSearchSubmit = (event)=>{
         event.preventDefault();
-        //***Determine which array to search in based on whether filters are applied or not (if no filters, search inside the whole list of movie, if filters, search inside the list of filtered movie).
+        //***Convert the selectedTitle to lowercase for case-insensitive search.
+        const lowerCaseSelectedTitle = selectedTitle.toLowerCase();
+        // Determine which array to search in based on whether filters are applied or not
         const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
-        //***Perform the search logic based on the selectedTitle in the search bar.
-        const searchResult = searchArray.find((movie)=>movie.title === selectedTitle);
+        // Perform the search logic based on the selectedTitle in the search bar (using lowercase comparison)
+        const searchResult = searchArray.find((movie)=>movie.title.toLowerCase() === lowerCaseSelectedTitle);
         if (searchResult) setSearchResults([
             searchResult
         ]);
@@ -27301,18 +27303,18 @@ const MainView = ()=>{
     };
     //***This useEffect is responsible for triggering the search logic whenever the user enters a new search query (updates selectedTitle). By doing this, it ensures that the search results are always up-to-date and displayed correctly in the UI, without requiring the user to click the "submit" button in the search bar twice.
     (0, _react.useEffect)(()=>{
+        //***Convert the selectedTitle to lowercase for case-insensitive search.
+        const lowerCaseSelectedTitle = selectedTitle.toLowerCase();
+        //***Determine which array to search is to be based on whether filters are applied or not.
         const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
-        const searchResult = searchArray.find((movie)=>movie.title === selectedTitle);
+        //***Perform the search logic based on the selectedTitle in the search bar (using lowercase for none sensitive comparaison).
+        const searchResult = searchArray.find((movie)=>movie.title.toLowerCase() === lowerCaseSelectedTitle);
         if (searchResult) setSearchResults([
             searchResult
         ]);
         else setSearchResults([]);
     }, [
-        selectedTitle,
-        selectedGenres,
-        selectedDirectors,
-        movies,
-        filteredMovies
+        selectedTitle
     ]);
     //***Function the set everything back as their initial value (used for the ''clear search'' button).
     const handleClearSearch = ()=>{
@@ -27433,7 +27435,7 @@ const MainView = ()=>{
                 resetFilters: resetFilters
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 264,
+                lineNumber: 266,
                 columnNumber: 13
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Row), {
@@ -27458,7 +27460,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 284,
+                            lineNumber: 286,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27484,7 +27486,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 300,
+                            lineNumber: 302,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27506,7 +27508,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 318,
+                            lineNumber: 320,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27526,7 +27528,7 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 334,
+                            lineNumber: 336,
                             columnNumber: 21
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
@@ -27695,24 +27697,24 @@ const MainView = ()=>{
                             }, void 0, false)
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 348,
+                            lineNumber: 350,
                             columnNumber: 21
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 282,
+                    lineNumber: 284,
                     columnNumber: 17
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 280,
+                lineNumber: 282,
                 columnNumber: 13
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 263,
+        lineNumber: 265,
         columnNumber: 9
     }, undefined));
 };
@@ -47949,19 +47951,19 @@ const SignupView = ()=>{
         })//***Logic depending on the result of the request : successful, username or email already exsit, or error. When the answer is successful or when the username or the email is already used, a modal pops up to inform the user. If any error, a default alert pops up letting the user know there was a problem with his Sign up.
         .then((response)=>{
             if (response.ok) {
-                setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page");
+                setResponseMessage("You're on board! Your registration was successful, you will be redirected to the log in page.");
                 setIsSignupSuccessful(true);
             } else if (response.status === 409) response.text().then((text)=>{
                 setResponseMessage(text);
             }).catch((error)=>{
                 console.error("Error reading response data:", error);
-                setResponseMessage("Signup failed");
+                setResponseMessage("Signup failed.");
             });
-            else setResponseMessage("Signup failed");
+            else setResponseMessage("Signup failed. Please make sure your information meets the requirements for each field. Refer to the instructions under each input field.");
             setShowModal(true);
         }).catch((error)=>{
             console.error("Error signing up user:", error);
-            setResponseMessage("Signup failed");
+            setResponseMessage("Signup failed.");
             setShowModal(true);
         });
     };
