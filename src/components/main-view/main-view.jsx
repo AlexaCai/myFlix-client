@@ -403,7 +403,7 @@ export const MainView = () => {
                                                 </Row>
                                             </div>
                                         )}
-                                        
+
                                         {/* Logic to display revelant UI when a user make a search request (while having applied filters on movies previoulsy or not) - and the searched movie is found */}
                                         {searchResults.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
