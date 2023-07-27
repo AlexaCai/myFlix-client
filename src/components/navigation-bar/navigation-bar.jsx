@@ -48,6 +48,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
     e.preventDefault();
     setSelectedTitle(inputValue);
     handleSearchSubmit(e)
+    setInputValue("");
   };
 
 
@@ -85,6 +86,7 @@ export const NavigationBar = ({ user, onLoggedOut, selectedGenres, setSelectedGe
                   </Nav.Link>
                   <Nav.Link onClick={() => {
                     onLoggedOut(); // Call the first function
+                    resetFilters();
                   }}>
                     Log out
                   </Nav.Link>
