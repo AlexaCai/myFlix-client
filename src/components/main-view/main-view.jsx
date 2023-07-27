@@ -365,6 +365,7 @@ export const MainView = () => {
                                                             <h1>Oh.</h1>
                                                             <br />
                                                             <p>It seems like no movies match your search.</p>
+                                                            <p>Make sure you have written the title of the movie completely and without errors.</p>
                                                         </div>
                                                         <br />
                                                         <Button variant="danger" onClick={handleClearSearch}>
@@ -383,10 +384,9 @@ export const MainView = () => {
                                                         <div className="textMargin">
                                                             <h1>Oh.</h1>
                                                             <br />
-                                                            <p>It looks like there are no movies matching your search within your filtered movie list.
-                                                                <br />
-                                                                <br />
-                                                                Try searching for your movie without applying filters, as you'll search in a wider list of movies.</p>
+                                                            <p>It looks like there are no movies matching your search within your filtered movie list.</p>
+                                                            <p>Make sure you have written the title of the movie completely and without errors.</p>
+                                                            <p>If your movie still does not appear, try searching for your movie without applying filters as you'll search in a wider list of movies.</p>
                                                         </div>
                                                         <br />
                                                         <div className="buttonStylingContainerGroup1">

@@ -27553,6 +27553,9 @@ const MainView = ()=>{
                                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
                                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                                                     children: "It seems like no movies match your search."
+                                                                }, void 0, false, void 0, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                                    children: "Make sure you have written the title of the movie completely and without errors."
                                                                 }, void 0, false, void 0, void 0)
                                                             ]
                                                         }, void 0, true, void 0, void 0),
@@ -27579,13 +27582,14 @@ const MainView = ()=>{
                                                                 }, void 0, false, void 0, void 0),
                                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
                                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                                    children: [
-                                                                        "It looks like there are no movies matching your search within your filtered movie list.",
-                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
-                                                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
-                                                                        "Try searching for your movie without applying filters, as you'll search in a wider list of movies."
-                                                                    ]
-                                                                }, void 0, true, void 0, void 0)
+                                                                    children: "It looks like there are no movies matching your search within your filtered movie list."
+                                                                }, void 0, false, void 0, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                                    children: "Make sure you have written the title of the movie completely and without errors."
+                                                                }, void 0, false, void 0, void 0),
+                                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                                    children: "If your movie still does not appear, try searching for your movie without applying filters as you'll search in a wider list of movies."
+                                                                }, void 0, false, void 0, void 0)
                                                             ]
                                                         }, void 0, true, void 0, void 0),
                                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("br", {}, void 0, false, void 0, void 0),
