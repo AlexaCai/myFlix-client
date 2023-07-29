@@ -160,6 +160,7 @@ export const SignupView = () => {
                 <Form.Label>Birthday</Form.Label>
                 <Form.Control
                     type="date"
+                    max={new Date().toLocaleDateString('en-CA')}
                     value={birthday}
                     onChange={(e) => setBirthday(e.target.value)}
                 />

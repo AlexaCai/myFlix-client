@@ -212,6 +212,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                         <input className="inputField"
                             type='date'
                             name='birthday'
+                            max={new Date().toLocaleDateString('en-CA')}
                             defaultValue=''
                             onChange={(e) => setBirthday(e.target.value)} />
                         <div>
