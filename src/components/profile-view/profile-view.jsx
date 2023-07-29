@@ -206,7 +206,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             //***[a-zA-Z0-9.-]+ allows alphanumeric characters and dots after the @ symbol but before the domain extension. Pattern used to match the domain name part of the email address, which is the part after the @ symbol.
                             //***\. makes sure a dot is present for the email extension.
                             //***[a-zA-Z]{2,} allows two or more characters of uppercase or lowercase after the dot, representing the domain extension.
-                            pattern="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
                             title="Please enter a valid email address" />
                         <label className="label">Birthday </label>
                         <input className="inputField"
