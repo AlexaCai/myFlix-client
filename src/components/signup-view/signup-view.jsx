@@ -20,6 +20,9 @@ export const SignupView = () => {
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
 
+    //***Used to make sure the maximum date a user can use for his birthday his the current day the user is on the app, no more. This code gets the current date as a string in the format "YYYY-MM-DD".
+    const currentDate = new Date().toISOString().split("T")[0];
+
     //***Logic to allow the Sign up page to be redirected to Log in page after successful Sign up.
     const [isSignupSuccessful, setIsSignupSuccessful] = useState(false);
     const navigate = useNavigate();
@@ -134,6 +137,7 @@ export const SignupView = () => {
                 </Form.Text>
             </Form.Group>
 
+
             {/* Same logic as the username input field */}
             <Form.Group controlId="formEmail" className="formGroupWithMargin">
                 <Form.Label>Email</Form.Label>
@@ -161,6 +165,7 @@ export const SignupView = () => {
                 <Form.Control
                     type="date"
                     value={birthday}
+                    max={currentDate}
                     onChange={(e) => setBirthday(e.target.value)}
                 />
                 <Form.Text id="birthdayCreation" muted>
