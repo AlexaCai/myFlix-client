@@ -23,10 +23,10 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
 
 
     //***For the USER UPDATE form - use to initiate all the fields of the form to empty at first.
-    const [username, setUsername] = useState(user.Username);
-    const [password, setPassword] = useState(user.Password);
-    const [email, setEmail] = useState(user.Email);
-    const [birthday, setBirthday] = useState(user.Birthday);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [birthday, setBirthday] = useState("");
 
     //***Logic to log out a user after updating his information, and bring the user back to the log in page.
     const handleCloseConfirmationModal = () => {

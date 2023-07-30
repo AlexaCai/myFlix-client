@@ -48688,10 +48688,10 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
     _s();
     //***Variables and secondary function for the UPDATE user command.
     //***For the USER UPDATE form - use to initiate all the fields of the form to empty at first.
-    const [username, setUsername] = (0, _react.useState)(user.Username);
-    const [password, setPassword] = (0, _react.useState)(user.Password);
-    const [email, setEmail] = (0, _react.useState)(user.Email);
-    const [birthday, setBirthday] = (0, _react.useState)(user.Birthday);
+    const [username, setUsername] = (0, _react.useState)("");
+    const [password, setPassword] = (0, _react.useState)("");
+    const [email, setEmail] = (0, _react.useState)("");
+    const [birthday, setBirthday] = (0, _react.useState)("");
     //***Logic to log out a user after updating his information, and bring the user back to the log in page.
     const handleCloseConfirmationModal = ()=>{
         setShowConfirmationModal(false);
@@ -49363,7 +49363,7 @@ function ProfileView({ movies, user, token, updateFavoriteMovies }) {
         columnNumber: 9
     }, this);
 }
-_s(ProfileView, "pacrdfoZduNSU49yYazJKO3AEVQ=");
+_s(ProfileView, "5dWKGslkSqBBx2Wisk1KcUIHwus=");
 _c = ProfileView;
 var _c;
 $RefreshReg$(_c, "ProfileView");
