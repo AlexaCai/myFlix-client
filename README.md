@@ -41,7 +41,7 @@ All views have been coded to be responsive, using a combination of React Bootstr
 
 ## Technical aspects
 
-The application is powered by an API built with Express framework. This API is hosted on Heroku and allows different types of requests from *myFlix* app (get movies and users' data, allows users to update info, allows users to delete account, etc.). For more information on the API used, ([see the README in the following repository](https://github.com/AlexaCai/movie-api)).
+The application is powered by an API built with Express framework. This API is hosted on Heroku and allows different types of requests from *myFlix* app (get movies and users' data, allows users to update info, allows users to delete account, etc.). For more information on the API used, [see the README in the following repository](https://github.com/AlexaCai/movie-api).
 
 The frontend of *myFlix* app uses React. The different React components have been created following industry standards. Along with React, HTML, CSS, JavaScript and React Bootstrap have also been used.
 
