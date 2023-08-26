@@ -45,6 +45,17 @@ The application is powered by an API built with Express framework. This API is h
 
 The frontend of *myFlix* app uses React. The different React components have been created following industry standards. Along with React, HTML, CSS, JavaScript and React Bootstrap have also been used.
 
+More precisely, *myFlix*:
+
+-   Is a single-page application (SPA);
+-   Uses state routing to navigate between views;
+-   Gives users the option to filter movies using search and filter features;
+-   Uses Parcel as its build tool;
+-   Is written using the React library and in ES2015+;
+-   Uses Bootstrap as a UI library for styling and responsiveness;
+-   Contains function components;
+-   Is deployed on Netlify.
+
 ## App dependencies
 
 The following dependencies are required for the *myFlix* fronttend logic to work:
