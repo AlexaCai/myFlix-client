@@ -1,16 +1,33 @@
-# myFlix web app documentation
+# *myFlix* web app documentation (frontend)
 
 **Content**
 
 - Projet description
 - User interface
- - API and React
+ - Technical aspects
  - App dependencies
 
  
 ## Projet description
 
-*myFlix* app was created to serve as a reference in the domain of visual entertainment. Users can create an account and then log into *myFlix* app to have access to different information about different movies. They can search for movies based on different criteria and create a list of favorite movies.
+*myFlix* web app has been created to serve as a reference in the domain of visual entertainment. Users can create an account and then log into *myFlix* to have access to information about different movies. They can search for movies, filter results based on different criteria and create lists of favorites. *myFlix* has been built in two parts: the frontend (here) and the backend ([see this repository for the backend part of *myFlix*](https://github.com/AlexaCai/movie-api)).
+
+The objective of this part of the project (frontend) was to develop an easy-to-use and responsive web app using React for the best user-experience whenever they are accessing *myFlix* to read details about different movies or update their information.
+
+*myFlix* frontend development can be breakdown in the five following points:
+
+ - **Who** —  The users of *myFlix* web app, so movie enthusiasts who enjoy reading information about
+different movies.
+ - **What** — A single-page, responsive app with routing, rich interactions, several interface views,
+and a polished user experience. This client-side developed in this project support
+my previously built server-side by facilitating user requests and rendering the
+response from the server-side via a number of different interface views.
+ - **When** — *myFlix* users are able to use it whenever they want to read and save information
+about different movies.
+ - **Where** — *myFlix* frontend logic is hosted online (Netlify). *myFlix* itself is responsive and can therefore be used anywhere and on any device, giving all users the same experience.
+ - **Why** — Movie enthusiasts like to be able to access information about different movies,
+whenever they want to. Having the ability to save a list of their favorite movies ensure
+users always have access to the films they want to watch or recommend to their peers.
 
 ## User interface
 
@@ -22,29 +39,25 @@ In the profile view, the user can view and update his account information, as we
 
 All views have been coded to be responsive, using a combination of React Bootstrap and SCSS.
 
-## API and React
+## Technical aspects
 
-The application is powered by an API built with the Express framework. This API is hosted on the Heroku platform  and allows different types of requests from *myFlix* app (get movies and users data, allows user to update info, allows user to delete account, etc...). For more information on the API used, please consult the API document [documentation.html](https://github.com/AlexaCai/movie-api/tree/main/public).
+The application is powered by an API built with Express framework. This API is hosted on Heroku and allows different types of requests from *myFlix* app (get movies and users' data, allows users to update info, allows users to delete account, etc.). For more information on the API used, ([see the README in the following repository](https://github.com/AlexaCai/movie-api)).
 
-The frontend of *myFlix* app uses React. The different React components have been created following industry standards for project folders and files structure. All the app components are in the *src* > *components* folder.
+The frontend of *myFlix* app uses React. The different React components have been created following industry standards. Along with React, HTML, CSS, JavaScript and React Bootstrap have also been used.
 
 ## App dependencies
 
-The following dependencies are required for the *myFlix* app to work:
+The following dependencies are required for the *myFlix* fronttend logic to work:
 
 For codes
  - React
  - React-dom
  - React-router
  - React-router-dom
- - Prop-types
- 
- For styling
- 
+ - Prop-types 
  - Bootstrap
  - React-bootstrap
  
  For devDependencies
- 
  - Parcel
  - @parcel/transformer-sass
