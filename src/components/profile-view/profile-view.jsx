@@ -1,28 +1,21 @@
-//***Import different React built-in function.
 import { React } from "react";
 import { useState } from "react";
-
-//***Import another component of the app.
 import { MovieCard } from "../movie-card/movie-card";
-
-//***Import different React Bootstrap components.
 import { Form } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
-
-//***Import the profile-view.scss to allow modiication to the React Bootstrap UI design.
 import './profile-view.scss';
 
-//***''const ProfileView'' is functional component, ''ProfileView'' being it's name. It is defined as an arrow function with four parameters, indicating it receives four props.
+
 export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
 
 
-    //***Variables and secondary function for the UPDATE user command.
+    //***Variables and log out function for the UPDATE user command.
 
 
-    //***For the USER UPDATE form - use to initiate all the fields of the form to empty at first.
+    //***For the USER UPDATE form.
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -35,7 +28,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
         window.location.href = "/login";
     };
 
-    //***BOOTSTRAP elements for the UPDATE user modals (after a user click the ''update'' button).
+    //***BOOTSTRAP elements for the UPDATE user modals.
     const [responseMessage, setResponseMessage] = useState("");
     const [showConfirmationModal, setShowConfirmationModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -45,32 +38,33 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
     };
 
 
-    //***Variable and functions for the DELETE user command.
+    //***Variables for the DELETE user command.
 
 
-    //***BOOTSTRAP elements for DELETE user modal (after a user click the delete button).
+    //***BOOTSTRAP elements for DELETE user modal.
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const handleDeleteCloseModal = () => setShowDeleteModal(false);
     const handleShowDeleteModal = () => setShowDeleteModal(true);
 
 
-    //***Variables and functions for the FAVORITE LIST command.
+    //***Variables for the FAVORITE LIST command.
 
 
-    //***Elements for favorite movies list.
-    //***user.FavoriteMovies is an array that contains the IDs of the movies that the user has marked as favorites. Each element in this array represents a movie ID. The .map() method is used to iterate over each element (movie ID) in the user.FavoriteMovies array and create a new array.
     let favoriteMovies = user.FavoriteMovies.map((favoriteMovieId) =>
-        //***For each favoriteMovieId, the .find() method is used to search the movies array for a movie that has an id matching the favoriteMovieId. The .find() method returns the first element that match (in this case, a movie whose ID matches favoriteMovieId). The resulting favoriteMovies array contains the movie objects that the user has marked as favorites, which can be used to display their favorite movies in the UI.
         movies.find((movie) => movie.id === favoriteMovieId));
 
-    //***BOOTSTRAP elements for REMOVE movie from favorite modal (after a user click the update button).
+
+    //***Variables for the REMOVE FROM FAVORITE LIST command.
+
+
+    //***BOOTSTRAP elements for REMOVE movie from favorite modal.
     const [showRemoveFavoriteModal, setShowRemoveFavoriteModal] = useState(false);
     const handleCloseRemoveFavoriteModal = () => setShowRemoveFavoriteModal(false);
     const handleShowRemoveFavoriteModal = () => setShowRemoveFavoriteModal(true);
     const [selectedMovieId, setSelectedMovieId] = useState(null);
 
 
-    //***Main logics for UPDATE user, DELETE user and FAVORITE MOVIE.
+    //***Main logics for UPDATE user, DELETE user and remove MOVIE FROM FAVORITE LIST.
 
 
     //***Logic to allow the user to update his information.
@@ -157,8 +151,6 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
     };
 
 
-    //***''return'' includes all the elements that will be returned as the output on the UI of the profile view page (ProfileView component). 
-    //***These elements are designed using React Bootstrap.
     return (
         <Container>
 
@@ -174,6 +166,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                         <br />
                         If you only want to change some information, enter your current information you want to keep in the corresponding field (e.g. username) along with the information you want to change in the other field(s). <strong>Following successful update, you will be redirected to the log in page.</strong></p>
                 </Col>
+
 
                 {/* FORM to UPDATE user information */}
                 <Col md={12} lg={4} className="bordersUserUpdate">
@@ -216,13 +209,13 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                             defaultValue=''
                             onChange={(e) => setBirthday(e.target.value)} />
                         <div>
-                            {/* BUTTON to UPDATE user information */}
                             <Button variant="success" type="submit" className="update-button">
                                 Update
                             </Button>
                         </div>
                     </Form>
                 </Col>
+
 
                 {/* MODAL to CONFIRM user UPDATE sucess */}
                 <Modal show={showConfirmationModal} onHide={handleCloseConfirmationModal}>
@@ -236,6 +229,7 @@ export function ProfileView({ movies, user, token, updateFavoriteMovies }) {
                         </Button>
                     </Modal.Footer>
                 </Modal>
+                
 
                 {/* MODAL to display user UPDATE ERROR message */}
                 <Modal show={showErrorModal} onHide={handleCloseErrorModal}>
