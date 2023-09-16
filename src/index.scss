@@ -1,13 +1,14 @@
-//***While bootstrap/dist/css/bootstrap.min.css in index.jsx is used at first to provides the default Bootstrap styles and allows to use Bootstrap's predefined classes and components without any customization, this link is eventually removed and replaced by the link below (bootstrap/scss/bootstrap.scss into index.scss) to allow modification of Bootstrap's Sass variables to customize the styles (the link allows customization, since the one on index.jsx doesnt allow this).
+//***While bootstrap/dist/css/bootstrap.min.css in index.jsx is used at first to provides the default Bootstrap styles without any customization, this link is eventually removed and replaced by the link below (bootstrap/scss/bootstrap.scss into index.scss) to allow modification of Bootstrap's Sass variables to customize the styles (the link allows customization, since the one on index.jsx doesnt allow this).
 @import '~bootstrap/scss/bootstrap.scss';
+
 
 .styling {
     background-color: rgb(235, 235, 235);
-    /* Add any other styles here as needed */
   }
+  
 
   .styling {
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* This ensures that the container takes at least the full viewport height */
+    min-height: 100vh; 
   }
