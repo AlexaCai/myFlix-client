@@ -1,8 +1,5 @@
-//***Import different React built-in function.
 import { useParams } from "react-router";
 import { useState } from "react";
-
-//***Import different React Bootstrap components.
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -10,37 +7,35 @@ import { Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { Row, Col } from "react-bootstrap";
 import Container from 'react-bootstrap/Container';
-
-//***Import the movie-view.scss to allow modiication to the React Bootstrap UI design.
 import './movie-view.scss';
 
-//***''const MovieView'' is functional component, ''MovieView'' being it's name. It is defined as an arrow function with three parameters, indicating it receives three props.
+
 export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
 
-  //***This line uses the useParams hook from React Router. The useParams hook allows the component to access the parameters present in the URL. In this case, it is extracting the movieId parameter from the URL, which is a unique identifier for the specific movie being viewed.
+
   const { movieId } = useParams();
-  //***This line uses the find method on the movies array received as prop to search for a movie in the array with an id that matches the extracted movieId from useParams. The find method returns the first element in the array that satisfies movieId in the URL. 
   const movie = movies.find((m) => m.id === movieId);
-  //***This line retrieves the token from the browser's localStorage.
   const token = localStorage.getItem("token");
 
-  //***BOOTSTRAP elements for ADD MOVIE to favorite modal (after a user click the ''add to favorite'' button).
+
+  //***BOOTSTRAP elements for ADD MOVIE to favorite modal.
   const [showAddFavoriteModal, setShowAddFavoriteModal] = useState(false);
   const handleCloseAddFavoriteModal = () => setShowAddFavoriteModal(false);
 
-  //***BOOTSTRAP elements for REMOVE MOVIE from favorite modal (after a user click the ''remove from favorite'' button).
+
+  //***BOOTSTRAP elements for REMOVE MOVIE from favorite modal.
   const [showDeleteFavoriteModal, setShowDeleteFavoriteModal] = useState(false);
   const handleCloseDeleteFavoriteModal = () => setShowDeleteFavoriteModal(false);
   const handleShowDeleteFavoriteModal = () => setShowDeleteFavoriteModal(true);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
 
-  //***Used to check if the movie the user wants to add/remove to/from his favorite is already in his list of favorite or not (necessary to display the right ''add to favorite'' or ''remove from favorite'' button under the movie).
+
   const isMovieInFavorites = user.FavoriteMovies.includes(movieId);
 
-  //***Used to navigate back to the previous page (used in the profile view, so when a user click on one of his favorite movie to see detail and then click back, user is brought back to profile view, and not to home).
+
   const navigate = useNavigate();
 
-  //***Logic used to add a movie to the list of favorite movies.
+
   const addFavoriteMovie = (event, movieId) => {
     event.preventDefault();
     fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
@@ -60,7 +55,7 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
       });
   };
 
-  //***Logic used to remove a movie from the list of favorite movies.
+
   const deleteFavoriteMovie = (event, movieId) => {
     event.preventDefault();
     fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
@@ -80,9 +75,8 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
   };
 
 
-  //***''return'' includes all the elements that will be returned as the output on the UI of the movie view page (MovieView component). 
-  //***These elements are designed using React Bootstrap.
   return (
+
     <Container>
 
       {/* Block of code to display all movie info */}
@@ -137,8 +131,7 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
               <span>{movie.directorBirth}</span>
             </div>
           </div>
-
-          {/* Block of code for the ''add to favorite'', the ''remove from favorite'' and the ''back'' button. The ''add to favorite'' and ''remove from favorite'' buttons have a conditional logic (!isMovieInFavorites && and isMovieInFavorites &&) that allow the ''add to favorite'' button to be shown only when the movie is not in the favorite list, and the ''remove from favorite'' button to be shown only when the movie is in the favorite list.) */}
+          
           {!isMovieInFavorites && (
             <Button variant="success" className="addFavorite-button custom-button" onClick={(event) => addFavoriteMovie(event, movie.id)}>
               Add to favorite
@@ -157,7 +150,6 @@ export const MovieView = ({ movies, user, updateFavoriteMovies }) => {
               <Button variant="success" onClick={() => navigate(-1)}>Back</Button>
             </Link>
           </div>
-
         </Col>
       </Row>
 
