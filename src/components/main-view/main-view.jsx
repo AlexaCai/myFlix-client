@@ -177,22 +177,29 @@ export const MainView = () => {
     }, [token]);
 
 
-    useEffect(() => {
-        if (!token) {
-            return;
-        } else {
-            fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${storedUser.Username}`, {
-                headers: { Authorization: `Bearer ${token}` },
+useEffect(() => {
+    if (!token || !storedUser) {
+        return;
+    } else {
+        fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${storedUser.Username}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                return response.json();
             })
-                .then((response) => response.json())
-                .then((loggedInUser) => {
-                    setUser(loggedInUser);
-                })
-                .catch((error) => {
-                    console.error("Error fetching user:", error);
-                });
-        }
-    }, [token]);
+            .then((loggedInUser) => {
+                setUser(loggedInUser);
+            })
+            .catch((error) => {
+                console.error("Error fetching user:", error);
+                // Handle the error here, such as displaying an error message to the user.
+            });
+    }
+}, [token, storedUser]);
+
 
 
     //***Logic to return appropriate UI elements based on different conditions.
