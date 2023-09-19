@@ -13,7 +13,7 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import './main-view.scss'; 
+import './main-view.scss';
 
 
 export const MainView = () => {
@@ -95,7 +95,7 @@ export const MainView = () => {
         }
     };
 
-    
+
     useEffect(() => {
         const lowerCaseSelectedTitle = selectedTitle.toLowerCase();
         const searchArray = selectedGenres.length > 0 || selectedDirectors.length > 0 ? filteredMovies : movies;
@@ -107,7 +107,7 @@ export const MainView = () => {
         }
     }, [selectedTitle]);
 
-    
+
     const handleClearSearch = () => {
         setSelectedGenres([]);
         setSelectedDirectors([]);
@@ -153,7 +153,7 @@ export const MainView = () => {
             })
                 .then((response) => response.json())
                 .then((data) => {
-                    setOriginalMovies(data); 
+                    setOriginalMovies(data);
                     const moviesFromApi = data.map((movie) => {
                         return {
                             id: movie._id,
@@ -179,26 +179,27 @@ export const MainView = () => {
 
     useEffect(() => {
         if (!token) {
-          return;
+            return;
         } else {
-          fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${storedUser.Username}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              return response.json();
+            fetch(`https://my-weekend-movie-app-53a46e3377d7.herokuapp.com/users/${storedUser.Username}`, {
+                headers: { Authorization: `Bearer ${token}` },
             })
-            .then((loggedInUser) => {
-              setUser(loggedInUser);
-            })
-            .catch((error) => {
-              console.error("Error fetching user:", error);
-            });
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then((loggedInUser) => {
+                    console.log("User Data:", loggedInUser);
+                    setUser(loggedInUser);
+                })
+                .catch((error) => {
+                    console.error("Error fetching user:", error);
+                });
         }
-      }, [token, storedUser.Username]);
-      
+    }, [token, storedUser.Username]);
+
 
 
     //***Logic to return appropriate UI elements based on different conditions.
@@ -347,7 +348,7 @@ export const MainView = () => {
                                         {/* Logic to display revelant UI when a user make a search request (while having applied filters on movies previoulsy or not) - and the searched movie is found */}
                                         {searchResults.map((movie) => (
                                             <Col xs={12} md={6} lg="3" key={movie.id}>
-                                                 <MovieCard movie={movie} />
+                                                <MovieCard movie={movie} />
                                                 <div className="buttonStylingContainerGroup2">
                                                     <Row>
                                                         <Button variant="danger" className="buttonStylingGroup2" onClick={handleClearSearch}>
