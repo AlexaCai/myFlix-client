@@ -191,7 +191,6 @@ export const MainView = () => {
                     return response.json();
                 })
                 .then((loggedInUser) => {
-                    console.log("User Data:", loggedInUser);
                     setUser(loggedInUser);
                 })
                 .catch((error) => {
@@ -199,7 +198,6 @@ export const MainView = () => {
                 });
         }
     }, [token, storedUser.Username]);
-
 
 
     //***Logic to return appropriate UI elements based on different conditions.
