@@ -197,7 +197,7 @@ export const MainView = () => {
                     console.error("Error fetching user:", error);
                 });
         }
-    }, [token, storedUser.Username]);
+    }, [token]);
 
 
     //***Logic to return appropriate UI elements based on different conditions.
