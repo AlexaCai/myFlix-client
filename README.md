@@ -1,4 +1,4 @@
-# *myFlix* web app documentation (frontend)
+# *myFlix* web app documentation (frontend - React)
 
 **Content**
 
@@ -20,8 +20,8 @@ The objective of this part of the project (frontend) was to develop an easy-to-u
 different movies.
  - **What** — A single-page, responsive app with routing, rich interactions, several interface views,
 and a polished user experience. This client-side developed in this project support
-my previously built server-side by facilitating user requests and rendering the
-response from the server-side via a number of different interface views.
+my previously built server-side API by facilitating user requests and rendering the
+response from the backend via a number of different interface views.
  - **When** — *myFlix* users are able to use it whenever they want to read and save information
 about different movies.
  - **Where** — *myFlix* frontend logic is hosted online (Netlify). *myFlix* itself is responsive and can therefore be used anywhere and on any device, giving all users the same experience.
@@ -31,11 +31,11 @@ users always have access to the films they want to watch or recommend to their p
 
 ## User interface
 
-More concretely, when a user is not logged in, he has access to two views: log in or sign up. Once connected in the app, the user has access to two main views: home and profile.
+More concretely, when a user is not logged in, he has access to two views: log in or sign up. Once logged in in the app, the user has access to two main views: home and profile.
 
-In the home view, the user can see all the movies within the app. He can click on any movie to have a more detailed view with more complete information, and add the movie to his list of favorite if desired (he can also remove it from his list of favorite if the movie is already present in his favorites). Still from the home view, the user can also filter movies according to different criteria or perform a search for a specific movie
+In the home view, the user can see all the movies within the app. He can click on any movie to have a more detailed view with more complete information, and add the movie to his list of favorite if desired (he can also remove it from his list of favorite if the movie is already present in his favorite). Still from the home view, the user can also filter movies according to different criteria or perform a search for a specific movie.
 
-In the profile view, the user can view and update his account information, as well as delete his account. He can also see all the movies he has added to his favorites lists, and remove movies from his list if desired.
+In the profile view, the user can view and update his account information, as well as delete his account. He can also see all the movies he has added to his list of favorite, and remove movies from his list if desired.
 
 All views have been coded to be responsive, using a combination of React Bootstrap and SCSS.
 
@@ -43,7 +43,7 @@ All views have been coded to be responsive, using a combination of React Bootstr
 
 The application is powered by an API built with Express framework. This API is hosted on Heroku and allows different types of requests from *myFlix* app (get movies and users' data, allows users to update info, allows users to delete account, etc.). For more information on the API used, [see the README in the following repository](https://github.com/AlexaCai/movie-api).
 
-The frontend of *myFlix* app uses React. The different React components have been created following industry standards. Along with React, HTML, CSS, JavaScript and React Bootstrap have also been used.
+The frontend of *myFlix* app uses React. The different React components have been created following industry standards. Along with React - HTML, SCSS, JavaScript and React Bootstrap have also been used.
 
 More precisely, *myFlix*:
 
@@ -60,7 +60,7 @@ More precisely, *myFlix*:
 
 The following dependencies are required for the *myFlix* fronttend logic to work:
 
-For codes
+dependencies
  - React
  - React-dom
  - React-router
@@ -69,6 +69,6 @@ For codes
  - Bootstrap
  - React-bootstrap
  
- For devDependencies
+ devDependencies
  - Parcel
  - @parcel/transformer-sass
